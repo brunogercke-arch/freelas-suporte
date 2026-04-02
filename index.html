@@ -3,81 +3,319 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suporte – Freelas Now</title>
+  <title>Freelas Now — Trabalhe do seu jeito</title>
+  <meta name="description" content="Conecte sua empresa a freelancers qualificados em minutos. Garçons, cozinheiros, promotores e mais.">
   <style>
+    :root {
+      --blue: #007aff;
+      --dark: #1d1d1f;
+      --grey: #6e6e73;
+      --light: #f5f5f7;
+      --yellow: #f5a623;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
-    header { background: #fff; border-bottom: 1px solid #e5e5e5; padding: 20px 24px; display: flex; align-items: center; gap: 12px; }
-    header h1 { font-size: 20px; font-weight: 700; }
-    header span { font-size: 13px; color: #6e6e73; }
-    .badge { background: #f5a623; color: #fff; border-radius: 8px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
-    main { max-width: 720px; margin: 40px auto; padding: 0 24px 60px; }
-    h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
-    .faq { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 32px; }
-    details { border-bottom: 1px solid #e5e5e5; }
-    details:last-child { border-bottom: none; }
-    summary { padding: 16px 20px; font-weight: 600; font-size: 15px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: '+'; font-size: 20px; color: #6e6e73; }
-    details[open] summary::after { content: '−'; }
-    .answer { padding: 0 20px 16px; font-size: 14px; line-height: 1.7; color: #444; }
-    .contact { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-    .contact p { font-size: 14px; line-height: 1.7; color: #444; margin-bottom: 12px; }
-    .contact a { color: #007aff; text-decoration: none; }
-    footer { text-align: center; padding: 24px; font-size: 12px; color: #aaa; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--dark); background: #fff; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e5e5e5;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 56px;
+    }
+    .nav-logo { font-size: 18px; font-weight: 700; color: var(--dark); text-decoration: none; }
+    .nav-logo span { color: var(--blue); }
+    .lang-toggle { display: flex; gap: 4px; }
+    .lang-btn {
+      border: 1px solid #ddd; background: #fff; cursor: pointer;
+      padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      transition: all .2s;
+    }
+    .lang-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .hero {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #fff; text-align: center;
+      padding: 100px 24px 80px;
+    }
+    .hero-badge {
+      display: inline-block; background: var(--yellow); color: #000;
+      font-size: 12px; font-weight: 700; letter-spacing: .5px;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+    .hero h1 em { font-style: normal; color: var(--yellow); }
+    .hero p { font-size: 18px; color: rgba(255,255,255,.7); max-width: 560px; margin: 0 auto 40px; line-height: 1.6; }
+    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue); color: #fff; text-decoration: none;
+      padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 16px;
+      transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .85; }
+    .btn-secondary {
+      background: rgba(255,255,255,.1); color: #fff; text-decoration: none;
+      padding: 14px 28px; border-radius: 12px; font-weight: 600; font-size: 16px;
+      border: 1px solid rgba(255,255,255,.2); transition: background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.2); }
+
+    .stats {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      background: var(--light); border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;
+    }
+    .stat { text-align: center; padding: 32px 48px; border-right: 1px solid #e5e5e5; }
+    .stat:last-child { border-right: none; }
+    .stat-value { font-size: 36px; font-weight: 800; color: var(--blue); }
+    .stat-label { font-size: 13px; color: var(--grey); margin-top: 4px; }
+
+    section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 12px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 16px; }
+    .section-sub { font-size: 17px; color: var(--grey); max-width: 540px; line-height: 1.6; }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 48px; }
+    .step { text-align: center; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      font-size: 22px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--grey); line-height: 1.6; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+    .feature-card {
+      background: var(--light); border-radius: 16px; padding: 28px;
+      border: 1px solid #e5e5e5; transition: transform .2s, box-shadow .2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+    .feature-icon { font-size: 32px; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--grey); line-height: 1.6; }
+
+    .audience-wrap { background: var(--light); padding: 80px 24px; }
+    .audience-inner { max-width: 1100px; margin: 0 auto; }
+    .audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+    .audience-card {
+      background: #fff; border-radius: 16px; padding: 32px;
+      border: 1px solid #e5e5e5;
+    }
+    .audience-card.blue { border-top: 4px solid var(--blue); }
+    .audience-card.yellow { border-top: 4px solid var(--yellow); }
+    .audience-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 16px; }
+    .audience-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .audience-card li { font-size: 15px; color: var(--grey); padding-left: 20px; position: relative; }
+    .audience-card li::before { content: '✓'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+    .audience-card.yellow li::before { color: var(--yellow); }
+
+    .download { background: linear-gradient(135deg, #007aff, #0055d4); color: #fff; padding: 80px 24px; text-align: center; }
+    .download h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 16px; }
+    .download p { font-size: 17px; opacity: .85; margin-bottom: 36px; }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; color: #000; text-decoration: none;
+      padding: 14px 24px; border-radius: 12px; font-weight: 700; font-size: 15px;
+      transition: opacity .2s;
+    }
+    .store-btn:hover { opacity: .9; }
+
+    .support-bar {
+      background: var(--light); border-top: 1px solid #e5e5e5;
+      text-align: center; padding: 32px 24px;
+      font-size: 14px; color: var(--grey);
+    }
+    .support-bar a { color: var(--blue); text-decoration: none; }
+
+    footer {
+      border-top: 1px solid #e5e5e5; padding: 24px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      font-size: 13px; color: var(--grey);
+    }
+    footer a { color: var(--grey); text-decoration: none; }
+    footer a:hover { color: var(--blue); }
+
+    @media(max-width: 640px) {
+      .stat { padding: 24px 28px; border-right: none; border-bottom: 1px solid #e5e5e5; }
+      .stat:last-child { border-bottom: none; }
+      nav { padding: 0 16px; }
+      footer { justify-content: center; text-align: center; }
+      .audience-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div>
-      <h1>Freelas Now <span class="badge">Suporte</span></h1>
-      <span>Central de ajuda para empresas e freelancers</span>
-    </div>
-  </header>
-  <main>
-    <h2>Perguntas Frequentes</h2>
-    <div class="faq">
-      <details>
-        <summary>Como funciona o pagamento?</summary>
-        <div class="answer">A empresa paga a diária diretamente pelo app após confirmação do serviço. O valor fica bloqueado por 24h como segurança e depois é liberado para o freelancer sacar.</div>
-      </details>
-      <details>
-        <summary>Qual é a comissão do app?</summary>
-        <div class="answer">Empresas padrão pagam 10% de comissão. Empresas Premium pagam apenas 8%. A comissão é deduzida automaticamente do valor da diária.</div>
-      </details>
-      <details>
-        <summary>Como funciona a vaga aberta?</summary>
-        <div class="answer">A empresa publica uma vaga e todos os freelancers disponíveis na região são notificados simultaneamente. O primeiro a aceitar em até 2 minutos é contratado.</div>
-      </details>
-      <details>
-        <summary>Como faço o check-in?</summary>
-        <div class="answer">Após aceitar uma proposta, você recebe um código de 4 dígitos. Apresente o código ao responsável no local para confirmar sua presença.</div>
-      </details>
-      <details>
-        <summary>O que é o sistema de bônus?</summary>
-        <div class="answer">Freelancers com avaliação média acima de 4.1 recebem bônus na diária: 4.1→+1%, 4.5→+5%, 5.0→+10%. O bônus estimula a qualidade do serviço.</div>
-      </details>
-      <details>
-        <summary>Como cancelo minha assinatura Premium?</summary>
-        <div class="answer">Acesse o menu Premium no dashboard e toque em "Cancelar assinatura". O acesso Premium fica ativo até o fim do período pago.</div>
-      </details>
-      <details>
-        <summary>Meu pagamento não foi processado. O que fazer?</summary>
-        <div class="answer">Verifique se o serviço foi confirmado com o botão "Confirmar Conclusão e Pagar". Se o problema persistir, entre em contato pelo e-mail abaixo.</div>
-      </details>
-      <details>
-        <summary>O que é o aviso de vínculo trabalhista?</summary>
-        <div class="answer">Por segurança jurídica, o app avisa quando a mesma empresa contratar o mesmo freelancer 3 ou mais vezes na semana. Contratações recorrentes podem caracterizar vínculo empregatício.</div>
-      </details>
-    </div>
 
-    <h2>Fale Conosco</h2>
-    <div class="contact">
-      <p>Não encontrou o que procurava? Entre em contato com nossa equipe:</p>
-      <p>📧 <a href="mailto:suporte@frealasnow.com.br">suporte@frealasnow.com.br</a></p>
-      <p>Atendimento de segunda a sexta, das 9h às 18h. Resposta em até 24h.</p>
+<nav>
+  <a class="nav-logo" href="/"><span>Freelas</span> Now</a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge" data-pt="Disponível no iOS" data-en="Available on iOS">Disponível no iOS</div>
+  <h1 data-pt="Trabalhe<br>do seu <em>jeito.</em>" data-en="Work<br>on your <em>terms.</em>">Trabalhe<br>do seu <em>jeito.</em></h1>
+  <p data-pt="Conecte sua empresa a freelancers qualificados em minutos. Garçons, cozinheiros, promotores e muito mais — contrate sob demanda, pague com segurança." data-en="Connect your business with qualified freelancers in minutes. Waitstaff, cooks, promoters and more — hire on demand, pay securely.">
+    Conecte sua empresa a freelancers qualificados em minutos. Garçons, cozinheiros, promotores e muito mais — contrate sob demanda, pague com segurança.
+  </p>
+  <div class="hero-cta">
+    <a href="#download" class="btn-primary" data-pt="Baixar agora" data-en="Download now">Baixar agora</a>
+    <a href="#como-funciona" class="btn-secondary" data-pt="Como funciona" data-en="How it works">Como funciona</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">&lt; 2min</div>
+    <div class="stat-label" data-pt="Para contratar" data-en="To hire">Para contratar</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">24h</div>
+    <div class="stat-label" data-pt="Pagamento liberado" data-en="Payment released">Pagamento liberado</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">8%</div>
+    <div class="stat-label" data-pt="Comissão Premium" data-en="Premium fee">Comissão Premium</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">+10%</div>
+    <div class="stat-label" data-pt="Bônus nota 5.0" data-en="Bonus for 5.0 rating">Bônus nota 5.0</div>
+  </div>
+</div>
+
+<section id="como-funciona">
+  <div class="section-tag" data-pt="Como funciona" data-en="How it works">Como funciona</div>
+  <h2 class="section-title" data-pt="Simples, rápido e seguro." data-en="Simple, fast and secure.">Simples, rápido e seguro.</h2>
+  <p class="section-sub" data-pt="Em três passos, sua empresa encontra o profissional certo — ou você recebe uma proposta de trabalho." data-en="In three steps, your business finds the right professional — or you receive a job offer.">
+    Em três passos, sua empresa encontra o profissional certo — ou você recebe uma proposta de trabalho.
+  </p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3 data-pt="Vaga Aberta" data-en="Open Position">Vaga Aberta</h3>
+      <p data-pt="A empresa publica a vaga e todos os freelancers disponíveis na região são notificados ao mesmo tempo." data-en="The business posts the position and all available nearby freelancers are notified simultaneously.">A empresa publica a vaga e todos os freelancers disponíveis na região são notificados ao mesmo tempo.</p>
     </div>
-  </main>
-  <footer>© 2025 Freelas Now. Todos os direitos reservados.</footer>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3 data-pt="Corrida de 2 min" data-en="2-min Race">Corrida de 2 min</h3>
+      <p data-pt="O primeiro freelancer a aceitar vence. Resposta em até 2 minutos — sem espera, sem entrevistas." data-en="The first freelancer to accept wins. Response in under 2 minutes — no waiting, no interviews.">O primeiro freelancer a aceitar vence. Resposta em até 2 minutos — sem espera, sem entrevistas.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3 data-pt="Check-in & Pagamento" data-en="Check-in & Payment">Check-in & Pagamento</h3>
+      <p data-pt="Freelancer faz check-in com código de 4 dígitos. Pagamento processado pelo app e liberado em 24h." data-en="Freelancer checks in with a 4-digit code. Payment processed in-app and released within 24h.">Freelancer faz check-in com código de 4 dígitos. Pagamento processado pelo app e liberado em 24h.</p>
+    </div>
+  </div>
+</section>
+
+<div style="background: var(--light); padding: 1px 0;">
+<section>
+  <div class="section-tag" data-pt="Recursos" data-en="Features">Recursos</div>
+  <h2 class="section-title" data-pt="Tudo que você precisa." data-en="Everything you need.">Tudo que você precisa.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <h3 data-pt="Vagas no Mapa" data-en="Jobs on the Map">Vagas no Mapa</h3>
+      <p data-pt="Freelancers veem vagas próximas em tempo real. Empresas veem candidatos disponíveis na região." data-en="Freelancers see nearby jobs in real time. Businesses see available candidates in the area.">Freelancers veem vagas próximas em tempo real. Empresas veem candidatos disponíveis na região.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💳</div>
+      <h3 data-pt="Pagamento Seguro" data-en="Secure Payment">Pagamento Seguro</h3>
+      <p data-pt="Carteira integrada com depósito via PIX. Valor bloqueado por 24h após o serviço antes de ser liberado." data-en="Integrated wallet with PIX deposit. Amount held for 24h after the service before being released.">Carteira integrada com depósito via PIX. Valor bloqueado por 24h após o serviço antes de ser liberado.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⭐</div>
+      <h3 data-pt="Sistema de Bônus" data-en="Bonus System">Sistema de Bônus</h3>
+      <p data-pt="Avaliação acima de 4.1 garante bônus na diária: até +10% para nota 5.0. Qualidade recompensada." data-en="Rating above 4.1 earns a daily bonus: up to +10% for a 5.0 score. Quality rewarded.">Avaliação acima de 4.1 garante bônus na diária: até +10% para nota 5.0. Qualidade recompensada.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3 data-pt="Disputas com IA" data-en="AI Dispute Resolution">Disputas com IA</h3>
+      <p data-pt="Em caso de divergências, nossa IA analisa ambas as versões e decide de forma imparcial." data-en="In case of disputes, our AI analyzes both sides and decides impartially.">Em caso de divergências, nossa IA analisa ambas as versões e decide de forma imparcial.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔁</div>
+      <h3 data-pt="Contratação Recorrente" data-en="Recurring Hire">Contratação Recorrente</h3>
+      <p data-pt="Configure vagas que reabrem automaticamente toda semana. Seu time de sempre, sem retrabalho." data-en="Set up positions that reopen automatically every week. Your regular team, no hassle.">Configure vagas que reabrem automaticamente toda semana. Seu time de sempre, sem retrabalho.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👑</div>
+      <h3 data-pt="Plano Premium" data-en="Premium Plan">Plano Premium</h3>
+      <p data-pt="Empresas Premium pagam 8% de comissão (vs 10%), têm prioridade no envio de vagas e estatísticas avançadas." data-en="Premium businesses pay 8% commission (vs 10%), get priority posting and advanced analytics.">Empresas Premium pagam 8% de comissão (vs 10%), têm prioridade no envio de vagas e estatísticas avançadas.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="audience-wrap">
+  <div class="audience-inner">
+    <div class="section-tag" data-pt="Para quem é" data-en="Who it's for">Para quem é</div>
+    <h2 class="section-title" data-pt="Feito para empresas e freelancers." data-en="Built for businesses and freelancers.">Feito para empresas e freelancers.</h2>
+    <div class="audience-grid">
+      <div class="audience-card blue">
+        <h3 data-pt="🏢 Para Empresas" data-en="🏢 For Businesses">🏢 Para Empresas</h3>
+        <ul>
+          <li data-pt="Contrate em menos de 2 minutos" data-en="Hire in under 2 minutes">Contrate em menos de 2 minutos</li>
+          <li data-pt="Pagamento integrado via PIX" data-en="Integrated payment via PIX">Pagamento integrado via PIX</li>
+          <li data-pt="Favoritos e histórico de contratações" data-en="Favorites and hiring history">Favoritos e histórico de contratações</li>
+          <li data-pt="Avalie e seja avaliado" data-en="Rate and be rated">Avalie e seja avaliado</li>
+          <li data-pt="Plano Premium com comissão reduzida" data-en="Premium plan with reduced fee">Plano Premium com comissão reduzida</li>
+          <li data-pt="Proteção jurídica contra vínculo empregatício" data-en="Legal protection against employment bond">Proteção jurídica contra vínculo empregatício</li>
+        </ul>
+      </div>
+      <div class="audience-card yellow">
+        <h3 data-pt="🧑‍💼 Para Freelancers" data-en="🧑‍💼 For Freelancers">🧑‍💼 Para Freelancers</h3>
+        <ul>
+          <li data-pt="Receba propostas próximas a você" data-en="Receive offers near you">Receba propostas próximas a você</li>
+          <li data-pt="Escolha quando e onde trabalhar" data-en="Choose when and where to work">Escolha quando e onde trabalhar</li>
+          <li data-pt="Pagamento garantido em 24h" data-en="Payment guaranteed in 24h">Pagamento garantido em 24h</li>
+          <li data-pt="Bônus por boa avaliação" data-en="Bonus for good ratings">Bônus por boa avaliação</li>
+          <li data-pt="Histórico e métricas de desempenho" data-en="Performance history and metrics">Histórico e métricas de desempenho</li>
+          <li data-pt="Caixinha: receba gorjetas pelo app" data-en="Tips: receive gratuities via the app">Caixinha: receba gorjetas pelo app</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="download" id="download">
+  <h2 data-pt="Pronto para começar?" data-en="Ready to get started?">Pronto para começar?</h2>
+  <p data-pt="Baixe o Freelas Now e contrate ou trabalhe em minutos." data-en="Download Freelas Now and hire or work in minutes.">Baixe o Freelas Now e contrate ou trabalhe em minutos.</p>
+  <a href="#" class="store-btn">
+    <svg width="20" height="24" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.8 134.4-317.9 266.5-317.9 99.8 0 162.3 53.3 221.8 53.3 56.8 0 128.3-56.9 240.3-56.9 38.7 0 108.2 3.8 168.1 67.4zm-176.9-173.9c36.5-43.1 61.4-103.3 61.4-163.5 0-8.3-.6-16.6-2-24.3-57.8 2.2-126.1 38.7-168.8 84.7-32.5 36.5-63.5 96.2-63.5 157.2 0 9 1.3 17.9 2 21.1 3.8.6 9.7 1.3 15.5 1.3 52.1 0 114.3-34.8 155.4-76.5z"/></svg>
+    <span data-pt="Baixar na App Store" data-en="Download on the App Store">Baixar na App Store</span>
+  </a>
+</div>
+
+<div class="support-bar">
+  <span data-pt="Dúvidas? Acesse nossa " data-en="Questions? Visit our ">Dúvidas? Acesse nossa </span><a href="/suporte" data-pt="central de suporte" data-en="support center">central de suporte</a><span data-pt=" ou escreva para " data-en=" or email us at "> ou escreva para </span><a href="mailto:suporte@freelasnow.app">suporte@freelasnow.app</a>
+</div>
+
+<footer>
+  <span>© 2025 Freelas Now. <span data-pt="Todos os direitos reservados." data-en="All rights reserved.">Todos os direitos reservados.</span></span>
+  <div style="display:flex;gap:20px;">
+    <a href="/suporte" data-pt="Suporte" data-en="Support">Suporte</a>
+    <a href="/privacidade" data-pt="Privacidade" data-en="Privacy">Privacidade</a>
+    <a href="/termos" data-pt="Termos" data-en="Terms">Termos</a>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if (text) el.innerHTML = text;
+    });
+  }
+</script>
 </body>
 </html>
