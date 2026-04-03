@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pack de Conteúdo — Freelas Now</title>
+  <style>
+    :root { --blue: #007aff; --dark: #1d1d1f; --grey: #6e6e73; --light: #f5f5f7; --yellow: #f5a623; --green: #34c759; --red: #ff3b30; --pink: #ff2d55; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--light); color: var(--dark); }
+    nav { background: #fff; border-bottom: 1px solid #e5e5e5; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+    nav h1 { font-size: 18px; font-weight: 700; }
+    nav span { font-size: 13px; color: var(--grey); }
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e5e5; background: #fff; padding: 0 32px; }
+    .tab { padding: 14px 24px; cursor: pointer; font-weight: 600; font-size: 14px; color: var(--grey); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; }
+    .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+    .content { display: none; padding: 32px; max-width: 900px; margin: 0 auto; }
+    .content.active { display: block; }
+    .section-title { font-size: 22px; font-weight: 800; margin-bottom: 24px; }
+    .week { margin-bottom: 40px; }
+    .week-header { font-size: 13px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; padding: 8px 12px; background: #e8f0ff; border-radius: 8px; }
+    .post-card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 16px; border: 1px solid #e5e5e5; }
+    .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .platform-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+    .tiktok { background: #000; color: #fff; }
+    .instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; }
+    .post-type { font-size: 12px; color: var(--grey); font-weight: 600; }
+    .post-date { font-size: 12px; color: var(--grey); margin-left: auto; }
+    .hook { background: #fff8e1; border-left: 4px solid var(--yellow); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; font-weight: 700; font-size: 15px; }
+    .script { background: var(--light); border-radius: 8px; padding: 16px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+    .caption { font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+    .hashtags { font-size: 13px; color: var(--blue); line-height: 1.8; }
+    .label { font-size: 11px; font-weight: 700; color: var(--grey); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; margin-top: 12px; }
+    .tip { background: #e8f5e9; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #2e7d32; margin-top: 8px; }
+    .visual { background: #f3e5f5; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #6a1b9a; margin-top: 8px; }
+    .cta-box { background: var(--blue); color: #fff; border-radius: 12px; padding: 20px; margin-top: 16px; font-size: 14px; }
+    .cta-box strong { font-size: 16px; display: block; margin-bottom: 6px; }
+    hr { border: none; border-top: 1px solid #e5e5e5; margin: 32px 0; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h1>📱 Pack de Conteúdo — Freelas Now</h1>
+  <span>Lançamento: 2ª quinzena de maio/2026 · São Paulo</span>
+</nav>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('calendario')">📅 Calendário</div>
+  <div class="tab" onclick="show('tiktok')">TikTok (Freelancers)</div>
+  <div class="tab" onclick="show('instagram')">Instagram (Bares & Restaurantes)</div>
+  <div class="tab" onclick="show('bio')">Bios & Perfil</div>
+</div>
+
+<!-- CALENDÁRIO -->
+<div id="calendario" class="content active">
+  <div class="section-title">Calendário Editorial — Maio/Junho 2026</div>
+
+  <div class="week">
+    <div class="week-header">📢 Semana 1 (4–10 Mai) — Teaser / Mistério</div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge tiktok">TikTok</span>
+        <span class="post-type">Vídeo teaser</span>
+        <span class="post-date">5 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">"Você já perdeu uma diária porque chegou tarde demais?"</div>
+      <div class="tip">💡 Sem mostrar o app ainda. Só a dor do freelancer.</div>
+    </div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge instagram">Instagram</span>
+        <span class="post-type">Carrossel teaser</span>
+        <span class="post-date">7 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">"Você já ficou sem garçom no sábado à noite?" — 3 slides com situação de caos + solução em breve.</div>
+      <div class="visual">🎨 Fundo escuro, texto branco, ponto de interrogação no último slide com "Em breve..."</div>
+    </div>
+  </div>
+
+  <div class="week">
+    <div class="week-header">🔔 Semana 2 (11–17 Mai) — Revelação</div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge tiktok">TikTok</span>
+        <span class="post-type">Reveal + Demo</span>
+        <span class="post-date">12 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">Reveal do app: "Chegou o Freelas Now — você aceita em 2 minutos ou perde a vaga."</div>
+      <div class="tip">💡 Mostrar a tela do app pela primeira vez. Alto impacto.</div>
+    </div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge instagram">Instagram</span>
+        <span class="post-type">Reel demonstração</span>
+        <span class="post-date">14 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">Dono de bar postando vaga → freelancer aceita → check-in com código. Tudo em 30 segundos.</div>
+    </div>
+  </div>
+
+  <div class="week">
+    <div class="week-header">🚀 Semana 3 (18–24 Mai) — LANÇAMENTO</div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge tiktok">TikTok</span>
+        <span class="post-type">Lançamento</span>
+        <span class="post-date">19 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">"BAIXOU! Link na bio. Primeira diária hoje mesmo."</div>
+      <div class="tip">💡 Postar às 18h — pico de engajamento para conteúdo de trabalho/renda.</div>
+    </div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge instagram">Instagram</span>
+        <span class="post-type">Stories sequência</span>
+        <span class="post-date">19 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">5 stories: Problema → Solução → Como funciona → Preço → Link na bio</div>
+    </div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge tiktok">TikTok</span>
+        <span class="post-type">Prova social</span>
+        <span class="post-date">22 Mai</span>
+      </div>
+      <div class="label">Tema</div>
+      <div class="caption">"Fiz R$X em diárias na primeira semana usando o Freelas Now" (depoimento real ou encenado)</div>
+    </div>
+  </div>
+
+  <div class="week">
+    <div class="week-header">📈 Semana 4+ (25 Mai em diante) — Conteúdo Recorrente</div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge tiktok">TikTok</span>
+        <span class="post-type">Série semanal</span>
+      </div>
+      <div class="label">Formatos recorrentes</div>
+      <div class="caption">• "POV: você aceita uma vaga às 7h e fatura R$150 até o meio-dia"<br>• "Quanto dá pra ganhar por semana com Freelas Now em SP?"<br>• "5 tipos de freela que mais ganham no app"<br>• Resposta a comentários/dúvidas</div>
+    </div>
+    <div class="post-card">
+      <div class="post-header">
+        <span class="platform-badge instagram">Instagram</span>
+        <span class="post-type">Feed recorrente</span>
+      </div>
+      <div class="label">Formatos recorrentes</div>
+      <div class="caption">• Terça: dica para donos de bar/restaurante<br>• Quinta: carrossel com recurso do app<br>• Sábado: repost de story de cliente</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIKTOK -->
+<div id="tiktok" class="content">
+  <div class="section-title">Roteiros TikTok — Foco: Freelancers SP</div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge tiktok">TikTok #1</span>
+      <span class="post-type">Semana 1 — Teaser / Dor</span>
+    </div>
+    <div class="label">Hook (primeiros 3 seg)</div>
+    <div class="hook">❌ Você perdeu a diária porque chegou atrasado?</div>
+    <div class="label">Roteiro</div>
+    <div class="script">[CENA: câmera na cara, expressão séria]
+"Olha, se você trabalha como freela em SP — garçom, bartender, cozinheiro — 
+você sabe como é. Você fica esperando alguém te chamar no WhatsApp,
+às vezes espera o dia todo, e no final nada.
+
+Ou pior: você aceita uma diária, chega lá e o cara cancelou.
+
+Isso vai mudar. Em breve."
+
+[TEXTO NA TELA: Em breve — @freelasnow]</div>
+    <div class="label">Legenda</div>
+    <div class="caption">Cansado de esperar vaga no zap? Algo vem aí 👀 #freelancer #trabalhosp #garçom #bartender #rendaextra</div>
+    <div class="hashtags">#freelancer #trabalhosp #garçomsp #bartendersp #rendaextra #dicasdetrabalho #trabalhoinformal</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge tiktok">TikTok #2</span>
+      <span class="post-type">Semana 2 — Reveal</span>
+    </div>
+    <div class="label">Hook</div>
+    <div class="hook">Achei um app que me manda diária de R$150 em 2 minutos</div>
+    <div class="label">Roteiro</div>
+    <div class="script">[CENA: tela do celular em close]
+"Gente, deixa eu te mostrar esse app aqui.
+
+Chama Freelas Now. Você abre, aparece as vagas no mapa — 
+restaurante aqui do lado precisando de garçom HOJE.
+
+Você toca pra aceitar. Tem 2 minutos. Primeiro a aceitar vai.
+
+Chega lá, dá o código de 4 dígitos pro responsável. 
+Fez o serviço, recebe em 24h na carteira.
+
+Sem intermediário, sem grupo de zap, sem ficar mendigando vaga.
+Link na bio pra baixar."
+
+[TEXTO NA TELA: Freelas Now — Disponível agora]</div>
+    <div class="label">Legenda</div>
+    <div class="caption">Finalmente um app sério pra quem trabalha como freela em SP 🙌 baixa pelo link na bio #freelasnow</div>
+    <div class="hashtags">#freelasnow #freelancer #rendaextra #garçom #bartender #cozinheiro #trabalhosp #diaria</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge tiktok">TikTok #3</span>
+      <span class="post-type">Semana 3 — Lançamento</span>
+    </div>
+    <div class="label">Hook</div>
+    <div class="hook">POV: você fatura R$400 num fim de semana sendo freela</div>
+    <div class="label">Roteiro</div>
+    <div class="script">[CENA: montagem acelerada de notificações chegando]
+"Sexta 18h: vaga de garçom no Itaim. R$150. Você aceita.
+Sábado 9h: vaga de bartender na Vila Madalena. R$180. Você aceita.
+Domingo 11h: vaga de auxiliar de cozinha em Pinheiros. R$130. Você aceita.
+
+Total no fim de semana: R$460.
+
+Isso é real. Isso é Freelas Now.
+Baixa agora, link na bio."</div>
+    <div class="hashtags">#freelasnow #rendaextra #freelancer #garçomsp #fimdesemana #dinheiro #trabalho</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge tiktok">TikTok #4</span>
+      <span class="post-type">Recorrente — Educativo</span>
+    </div>
+    <div class="label">Hook</div>
+    <div class="hook">5 funções que mais pagam no Freelas Now em SP</div>
+    <div class="label">Roteiro</div>
+    <div class="script">[CENA: lista aparecendo na tela]
+"5. Auxiliar de cozinha — R$100 a R$130/dia
+4. Garçom — R$120 a R$160/dia  
+3. Bartender — R$150 a $200/dia
+2. Sommelier — R$200+/dia
+1. Chefe de partida — R$250+/dia
+
+Quanto você já ganha? Comenta aqui embaixo 👇"</div>
+    <div class="tip">💡 Esse formato gera muito comentário — ótimo para o algoritmo</div>
+    <div class="hashtags">#freelasnow #salário #garçom #bartender #cozinheiro #trabalhosp</div>
+  </div>
+</div>
+
+<!-- INSTAGRAM -->
+<div id="instagram" class="content">
+  <div class="section-title">Posts Instagram — Foco: Bares & Restaurantes SP</div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge instagram">Instagram #1</span>
+      <span class="post-type">Carrossel — Semana 1 Teaser</span>
+    </div>
+    <div class="label">Visual</div>
+    <div class="visual">🎨 Slide 1: Fundo preto, texto branco grande "Já ficou na mão no sábado à noite?" | Slide 2: "Garçom sumiu. Cliente esperando. Você sozinho no salão." | Slide 3: logo Freelas Now + "Em breve" | Slide 4: "Salva esse perfil 🔔"</div>
+    <div class="label">Legenda</div>
+    <div class="caption">Sábado lotado, garçom sumiu. Isso nunca mais vai acontecer com você. 👀
+
+Algo vem aí. Segue o perfil pra ser o primeiro a saber.
+
+📍 São Paulo</div>
+    <div class="hashtags">#restaurantesp #barsaopaulo #gastronomiasaopaulo #donoderestaurante #gestaorestaurante #hospitalidade</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge instagram">Instagram #2</span>
+      <span class="post-type">Reel — Semana 2 Reveal</span>
+    </div>
+    <div class="label">Roteiro (30 segundos)</div>
+    <div class="script">0–3s: "Precisa de garçom HOJE pra noite?"
+3–10s: Mão no celular abrindo o Freelas Now
+10–20s: Postando vaga, mapa aparecendo com freelancers disponíveis
+20–28s: Freelancer aceitando, código de check-in aparecendo
+28–30s: "Em 2 minutos. Freelas Now."</div>
+    <div class="label">Legenda</div>
+    <div class="caption">Precisou de um garçom pra hoje à noite? Em 2 minutos você tem um confirmado.
+
+Freelas Now conecta seu restaurante a freelancers qualificados em São Paulo — na hora que você precisar.
+
+✅ Sem intermediário
+✅ Pagamento pelo app  
+✅ Avaliação após cada serviço
+
+Link na bio para cadastrar seu estabelecimento 👇
+
+📍 São Paulo · Bares · Restaurantes · Eventos</div>
+    <div class="hashtags">#freelasnow #restaurantesp #barsp #gestaorestaurante #gastronomia #saopaulo #staffing #rh</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge instagram">Instagram #3</span>
+      <span class="post-type">Carrossel educativo — Recorrente</span>
+    </div>
+    <div class="label">Tema: "Como funciona para o seu bar/restaurante"</div>
+    <div class="visual">🎨 Slide 1: "Como contratar um freela em 2 minutos" | Slide 2: "1. Publique a vaga no app" | Slide 3: "2. Freelancers disponíveis são notificados" | Slide 4: "3. Primeiro a aceitar é confirmado" | Slide 5: "4. Check-in com código no local" | Slide 6: "5. Pague pelo app após o serviço" | Slide 7: CTA "Cadastre seu estabelecimento — link na bio"</div>
+    <div class="label">Legenda</div>
+    <div class="caption">Chega de stress com escala. Com o Freelas Now você contrata sob demanda — só quando precisa, só quanto precisa.
+
+👨‍🍳 Garçons, bartenders, cozinheiros e mais
+💳 Pagamento seguro pelo app
+⭐ Avaliação após cada serviço
+
+Clique no link da bio e cadastre seu estabelecimento gratuitamente.</div>
+    <div class="hashtags">#freelasnow #restaurantesp #barsaopaulo #escaladetrabalo #gestao #gastronomia</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge instagram">Instagram #4</span>
+      <span class="post-type">Stories sequência — Lançamento</span>
+    </div>
+    <div class="label">5 Stories</div>
+    <div class="script">Story 1: "Você conhece o maior problema dos bares e restaurantes em SP?" [enquete: Falta de staff / Custo alto]
+
+Story 2: "Exato. Falta de staff no momento certo." + gif de caos
+
+Story 3: "Criamos uma solução." + logo Freelas Now
+
+Story 4: "Contrate freelas qualificados em menos de 2 minutos pelo app." + screen recording
+
+Story 5: "Baixe grátis. Link aqui 👇" [sticker de link]</div>
+  </div>
+</div>
+
+<!-- BIOS -->
+<div id="bio" class="content">
+  <div class="section-title">Bios & Configuração de Perfil</div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge tiktok">TikTok</span>
+      <span class="post-type">Bio (@freelasnow)</span>
+    </div>
+    <div class="script">Freelas Now 📱
+Vagas de garçom, bartender e + em SP
+Aceite em 2 min · Receba em 24h
+👇 Baixe grátis</div>
+    <div class="label">Link na bio</div>
+    <div class="caption">freelasnow.app</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge instagram">Instagram</span>
+      <span class="post-type">Bio (@freelasnow)</span>
+    </div>
+    <div class="script">Freelas Now 🍽️
+Contrate freelas em 2 minutos
+Garçons · Bartenders · Cozinheiros · SP
+📲 Baixe grátis ↓</div>
+    <div class="label">Link na bio</div>
+    <div class="caption">freelasnow.app</div>
+    <div class="label">Categoria sugerida</div>
+    <div class="caption">App · Serviços de negócios</div>
+  </div>
+
+  <div class="post-card">
+    <div class="post-header">
+      <span class="platform-badge" style="background:#0077b5;color:#fff">LinkedIn</span>
+      <span class="post-type">Página da empresa</span>
+    </div>
+    <div class="script">Freelas Now conecta bares e restaurantes em São Paulo a freelancers qualificados em menos de 2 minutos.
+
+Sem intermediários. Pagamento seguro pelo app. Avaliação após cada serviço.
+
+Disponível para iOS e Android.</div>
+  </div>
+
+  <hr>
+
+  <div class="cta-box">
+    <strong>📌 Dica de lançamento</strong>
+    Nas primeiras 48h após o lançamento, peça para amigos, parceiros e primeiros usuários compartilharem o app nas stories. O algoritmo do TikTok e Instagram prioriza conteúdo com alto engajamento nas primeiras horas — quanto mais compartilhamentos no dia 1, maior o alcance orgânico.
+  </div>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>
