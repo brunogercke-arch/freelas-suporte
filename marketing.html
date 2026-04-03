@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Marketing 12 Meses — Freelas Now</title>
+  <style>
+    :root {
+      --blue: #007aff; --dark: #1d1d1f; --grey: #6e6e73;
+      --light: #f5f5f7; --green: #34c759; --orange: #ff9500;
+      --red: #ff3b30; --purple: #af52de; --yellow: #f5a623;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--dark); background: #fff; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.92); backdrop-filter: blur(12px); border-bottom: 1px solid #e5e5e5; padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 17px; font-weight: 700; text-decoration: none; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { width: 34px; height: 34px; border-radius: 8px; }
+    .nav-tag { background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 60%, #16213e 100%); color: #fff; padding: 80px 32px 60px; text-align: center; }
+    .hero-badge { display: inline-block; background: var(--yellow); color: #000; font-size: 11px; font-weight: 700; letter-spacing: .5px; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; text-transform: uppercase; }
+    .hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; color: var(--yellow); }
+    .hero p { font-size: 17px; color: rgba(255,255,255,.7); max-width: 640px; margin: 0 auto 32px; line-height: 1.6; }
+    .hero-meta { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .hero-meta span { font-size: 13px; color: rgba(255,255,255,.5); }
+    .hero-meta strong { color: #fff; display: block; font-size: 22px; font-weight: 800; }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 64px 0; }
+    section + section { border-top: 1px solid #e5e5e5; }
+
+    h2 { font-size: 30px; font-weight: 800; margin-bottom: 8px; }
+    h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+    .section-tag { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .section-sub { font-size: 16px; color: var(--grey); line-height: 1.6; margin-bottom: 40px; max-width: 680px; }
+    p { font-size: 15px; line-height: 1.7; color: #444; margin-bottom: 10px; }
+
+    /* CARDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .card { background: var(--light); border-radius: 14px; padding: 24px; border: 1px solid #e5e5e5; }
+    .card.blue { border-top: 3px solid var(--blue); }
+    .card.green { border-top: 3px solid var(--green); }
+    .card.orange { border-top: 3px solid var(--orange); }
+    .card.purple { border-top: 3px solid var(--purple); }
+    .card.red { border-top: 3px solid var(--red); }
+    .card.yellow { border-top: 3px solid var(--yellow); }
+    .card h3 { font-size: 17px; }
+    .card p { font-size: 14px; color: var(--grey); }
+    .card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+    .card li { font-size: 14px; color: #444; padding-left: 18px; position: relative; }
+    .card li::before { content: '→'; position: absolute; left: 0; color: var(--blue); font-weight: 700; font-size: 12px; top: 2px; }
+    .icon { font-size: 28px; margin-bottom: 12px; }
+
+    /* CASES */
+    .case-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 14px; padding: 24px; }
+    .case-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .case-logo { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .case-card h3 { font-size: 16px; margin-bottom: 2px; }
+    .case-card .lição { background: #f0f7ff; border-left: 3px solid var(--blue); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-top: 12px; font-size: 13px; color: #0055a5; }
+    .case-card .lição strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--blue); margin-bottom: 3px; }
+
+    /* TIMELINE */
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: #e5e5e5; }
+    .tl-item { display: flex; gap: 24px; margin-bottom: 32px; position: relative; }
+    .tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; }
+    .tl-dot.green { background: var(--green); }
+    .tl-dot.orange { background: var(--orange); }
+    .tl-dot.purple { background: var(--purple); }
+    .tl-content { flex: 1; background: var(--light); border-radius: 14px; padding: 20px 24px; border: 1px solid #e5e5e5; }
+    .tl-content h3 { font-size: 17px; margin-bottom: 4px; }
+    .tl-content .phase-tag { font-size: 11px; font-weight: 700; color: var(--grey); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+    .tl-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tl-tag { background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--dark); }
+
+    /* BUDGET TABLE */
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th { background: var(--dark); color: #fff; padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600; }
+    th:first-child { border-radius: 8px 0 0 0; }
+    th:last-child { border-radius: 0 8px 0 0; }
+    td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid #e5e5e5; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--light); }
+    .total-row td { font-weight: 700; background: #f0f7ff; font-size: 15px; }
+    .badge-cost { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+    .badge-cost.low { background: #d4edda; color: #155724; }
+    .badge-cost.med { background: #fff3cd; color: #856404; }
+    .badge-cost.high { background: #f8d7da; color: #721c24; }
+
+    /* KPI */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 24px; }
+    .kpi { background: var(--light); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e5e5e5; }
+    .kpi .val { font-size: 28px; font-weight: 800; color: var(--blue); }
+    .kpi .label { font-size: 12px; color: var(--grey); margin-top: 4px; }
+    .kpi .period { font-size: 11px; color: #aaa; }
+
+    /* FUNNEL */
+    .funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 32px; }
+    .funnel-step { border-radius: 8px; display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; color: #fff; font-weight: 700; }
+    .funnel-step .fs-label { font-size: 15px; }
+    .funnel-step .fs-num { font-size: 13px; opacity: .85; }
+
+    /* INFLUENCER */
+    .inf-tier { background: var(--light); border-radius: 12px; padding: 20px; border: 1px solid #e5e5e5; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 16px; }
+    .inf-badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .inf-badge.nano { background: #d4edda; color: #155724; }
+    .inf-badge.micro { background: #cce5ff; color: #004085; }
+    .inf-badge.mid { background: #fff3cd; color: #856404; }
+    .inf-badge.macro { background: #f8d7da; color: #721c24; }
+
+    /* HIGHLIGHT BOX */
+    .highlight { background: linear-gradient(135deg, #007aff15, #007aff05); border: 1px solid #007aff30; border-radius: 14px; padding: 24px; margin: 24px 0; }
+    .highlight h4 { font-size: 16px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+
+    footer { background: var(--dark); color: rgba(255,255,255,.5); text-align: center; padding: 32px; font-size: 13px; }
+    footer strong { color: #fff; }
+
+    @media(max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      nav { padding: 0 16px; }
+      .hero { padding: 60px 20px 40px; }
+      .timeline::before { left: 20px; }
+    }
+    @media print {
+      nav { position: static; }
+      .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt="Freelas Now"> Freelas Now</a>
+  <span class="nav-tag">Plano de Marketing · 12 meses</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Confidencial · Abril 2025</div>
+  <h1>Plano de Marketing<br><em>12 Meses</em></h1>
+  <p>Estratégia completa de lançamento e crescimento baseada em cases de Uber, iFood, Rappi, Airbnb, TaskRabbit e outros unicórnios de marketplace two-sided.</p>
+  <div class="hero-meta">
+    <div><strong>R$ 312k</strong><span>Investimento total ano 1</span></div>
+    <div><strong>10.000+</strong><span>Freelancers meta (mês 12)</span></div>
+    <div><strong>1.500+</strong><span>Empresas ativas meta</span></div>
+    <div><strong>3 cidades</strong><span>Expansão ao longo do ano</span></div>
+  </div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<section>
+  <div class="container">
+    <div class="section-tag">Diagnóstico</div>
+    <h2>O problema que resolvemos</h2>
+    <p class="section-sub">Bares, restaurantes e eventos precisam de mão de obra temporária qualificada com poucos dias ou horas de antecedência. O processo atual é caótico: grupos de WhatsApp, indicações informais e agências lentas.</p>
+    <div class="grid-3">
+      <div class="card blue">
+        <div class="icon">📉</div>
+        <h3>Problema das Empresas</h3>
+        <p>Demora média de 2–3 dias para encontrar um substituto. Alta taxa de "no-show" sem penalidade. Pagamentos informais geram risco fiscal.</p>
+      </div>
+      <div class="card orange">
+        <div class="icon">😤</div>
+        <h3>Problema dos Freelancers</h3>
+        <p>Receitas imprevisíveis, pagamentos atrasados, sem histórico profissional e sem proteção em disputas com empregadores.</p>
+      </div>
+      <div class="card green">
+        <div class="icon">🎯</div>
+        <h3>Nossa Solução</h3>
+        <p>Match em menos de 2 minutos, pagamento garantido em 24h, sistema de avaliação mútua e resolução de disputas por IA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASOS DE SUCESSO -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Benchmarks</div>
+    <h2>O que aprendemos com os gigantes</h2>
+    <p class="section-sub">Cases de crescimento de marketplaces two-sided que validam nossa estratégia de lançamento cidade por cidade com foco no lado da oferta primeiro.</p>
+    <div class="grid-2">
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo" style="background:#000;">🚗</div>
+          <div><h3>Uber</h3><span style="font-size:13px;color:var(--grey)">San Francisco → Mundial</span></div>
+        </div>
+        <p style="font-size:14px;color:#444;">Lançou em <strong>uma cidade só</strong>. Pagou motoristas por hora para ter carros disponíveis mesmo sem demanda. Criou o "líquido" antes de abrir para usuários. Foco em eventos de alta demanda (festas, shows) para primeiros reviews virais.</p>
+        <div class="lição"><strong>Lição para Freelas Now</strong>Recrutar e qualificar freelancers antes de abrir para empresas. Subsidiar as primeiras diárias para garantir disponibilidade e avaliações positivas.</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo" style="background:#ea1d2c;">🍔</div>
+          <div><h3>iFood</h3><span style="font-size:13px;color:var(--grey)">São Paulo → Brasil</span></div>
+        </div>
+        <p style="font-size:14px;color:#444;">Começou com <strong>vendedores porta a porta</strong> em restaurantes de SP. Ofereceu os primeiros 3 meses <strong>sem comissão</strong> para atrair oferta. Investiu pesado em cashback e cupons para criar hábito no consumidor. Cresceu cidade a cidade com times locais dedicados.</p>
+        <div class="lição"><strong>Lição para Freelas Now</strong>Oferecer 0% de comissão para os primeiros 50 parceiros empresariais em cada cidade. Time de vendas presencial nos bairros com maior concentração de bares e restaurantes.</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo" style="background:#ff441b;">🛵</div>
+          <div><h3>Rappi</h3><span style="font-size:13px;color:var(--grey)">Bogotá → LATAM</span></div>
+        </div>
+        <p style="font-size:14px;color:#444;">Crescimento agressivo via <strong>"growth hacking"</strong>: referral com bônus em dinheiro real, não créditos. Presença física nos bairros universitários para recrutar entregadores. Parcerias com influencers locais autênticos (não celebridades) para reviews genuínas.</p>
+        <div class="lição"><strong>Lição para Freelas Now</strong>Programa de indicação com R$ 30 em dinheiro para cada freelancer que indicar outro que complete 3 serviços. Presença em escolas de gastronomia (SENAC, Anhembi).</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo" style="background:#ff5a5f;">🏠</div>
+          <div><h3>Airbnb</h3><span style="font-size:13px;color:var(--grey)">São Francisco → Mundial</span></div>
+        </div>
+        <p style="font-size:14px;color:#444;">Fotografou <strong>pessoalmente</strong> os primeiros imóveis em NY para melhorar qualidade. Integrou ilegalmente com Craigslist para importar oferta existente. Transformou hosts em embaixadores da marca com kit de boas-vindas e suporte premium.</p>
+        <div class="lição"><strong>Lição para Freelas Now</strong>Visitar pessoalmente as primeiras empresas parceiras para fazer o onboarding. Transformar os primeiros freelancers em "Freelas Destaque" com badge no perfil e suporte prioritário.</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo" style="background:#7b68ee;">🔨</div>
+          <div><h3>TaskRabbit</h3><span style="font-size:13px;color:var(--grey)">Boston → EUA/Europa</span></div>
+        </div>
+        <p style="font-size:14px;color:#444;">Focou em <strong>confiança e segurança</strong> como diferencial. Verificação de antecedentes dos prestadores como marketing — não como custo. Programa de <strong>"Taskers Elite"</strong> com badge e prioridade nas buscas incentivou qualidade de serviço.</p>
+        <div class="lição"><strong>Lição para Freelas Now</strong>Criar badge "Freelas Verificado" com verificação de documento. Usar isso como marketing de confiança para empresas. Divulgar % de freelancers verificados nas campanhas.</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo" style="background:#00b14f;">🛒</div>
+          <div><h3>GetNinjas / Workana</h3><span style="font-size:13px;color:var(--grey)">Brasil</span></div>
+        </div>
+        <p style="font-size:14px;color:#444;">GetNinjas cresceu via <strong>SEO agressivo</strong> em buscas como "garçom freelancer SP". Workana dominou freelancers digitais com comunidade ativa e fóruns. Ambas falharam no <strong>match em tempo real</strong> — nossa maior vantagem competitiva.</p>
+        <div class="lição"><strong>Lição para Freelas Now</strong>Investir em SEO local para termos como "garçom temporário São Paulo", "bartender freelancer" desde o mês 1. Essa é a brecha que os concorrentes deixaram aberta.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ESTRATÉGIA MESTRE -->
+<section>
+  <div class="container">
+    <div class="section-tag">Estratégia</div>
+    <h2>O princípio central: Oferta antes de Demanda</h2>
+    <p class="section-sub">Todo marketplace two-sided quebra por falta de liquidez. A estratégia é ter freelancers disponíveis <em>antes</em> de vender para empresas — igual ao Uber com motoristas e ao iFood com restaurantes.</p>
+
+    <div class="highlight">
+      <h4>🎯 Regra de ouro do marketplace (Andreessen Horowitz)</h4>
+      <p style="margin:0;font-size:14px;">Um marketplace com 100 fornecedores e 10 compradores é saudável. Com 10 fornecedores e 100 compradores, ele morre. <strong>Recrute freelancers primeiro, abra para empresas depois.</strong> Meta: 500 freelancers ativos em SP antes do soft launch para empresas.</p>
+    </div>
+
+    <div class="funnel">
+      <div class="funnel-step" style="background:#007aff;width:100%;"><span class="fs-label">Awareness — Pessoas conhecem o Freelas Now</span><span class="fs-num">500.000 impressões/mês</span></div>
+      <div class="funnel-step" style="background:#0062cc;width:80%;"><span class="fs-label">Interest — Download ou visita ao site</span><span class="fs-num">25.000 visitas/mês</span></div>
+      <div class="funnel-step" style="background:#004999;width:60%;"><span class="fs-label">Cadastro — Cria conta no app</span><span class="fs-num">5.000 cadastros/mês</span></div>
+      <div class="funnel-step" style="background:#003066;width:40%;"><span class="fs-label">Ativação — Completa primeiro serviço</span><span class="fs-num">1.500 ativações/mês</span></div>
+      <div class="funnel-step" style="background:#001a33;width:25%;"><span class="fs-label">Retenção — Usa toda semana</span><span class="fs-num">600 usuários ativos/semana</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA 12 MESES -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Cronograma</div>
+    <h2>12 meses — fase a fase</h2>
+    <p class="section-sub">Dividido em 4 fases inspiradas no playbook de expansão do Uber e iFood: validação, lançamento, crescimento e escala.</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot">M1–M2</div>
+        <div class="tl-content">
+          <div class="phase-tag">Fase 1 · Pré-lançamento</div>
+          <h3>🔧 Construir a base — São Paulo (Pinheiros, Vila Madalena, Jardins)</h3>
+          <p style="font-size:14px;margin:8px 0;">Recrutamento intensivo de freelancers via redes sociais, SENAC e grupos de garçons. Nenhuma campanha paga para empresas ainda. Meta: <strong>500 freelancers cadastrados e verificados</strong>.</p>
+          <div class="tl-actions">
+            <span class="tl-tag">Recrutamento freelancers</span>
+            <span class="tl-tag">Parcerias SENAC/Anhembi</span>
+            <span class="tl-tag">Programa de indicação</span>
+            <span class="tl-tag">Conteúdo TikTok orgânico</span>
+            <span class="tl-tag">SEO local SP</span>
+            <span class="tl-tag">10 empresas beta (0% comissão)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">M3–M4</div>
+        <div class="tl-content">
+          <div class="phase-tag">Fase 2 · Soft Launch</div>
+          <h3>🚀 Lançamento controlado — São Paulo</h3>
+          <p style="font-size:14px;margin:8px 0;">Abertura para empresas com operação concentrada nos bairros validados. Primeiras campanhas pagas (Meta Ads). Micro-influencers do setor de gastronomia. Meta: <strong>150 empresas ativas, 1.000 diárias concluídas</strong>.</p>
+          <div class="tl-actions">
+            <span class="tl-tag">Meta Ads (R$ 8k/mês)</span>
+            <span class="tl-tag">5 micro-influencers gastronomia</span>
+            <span class="tl-tag">PR — Mídia tech SP</span>
+            <span class="tl-tag">Google Ads (termos locais)</span>
+            <span class="tl-tag">Stories diários Instagram</span>
+            <span class="tl-tag">Email marketing empresas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot green">M5–M7</div>
+        <div class="tl-content">
+          <div class="phase-tag">Fase 3 · Crescimento</div>
+          <h3>📈 Escalar São Paulo + preparar Rio</h3>
+          <p style="font-size:14px;margin:8px 0;">Dobrar investimento em canais que provaram ROI. Lançar programa Premium para empresas. Produzir casos de sucesso em vídeo. Meta: <strong>600 empresas ativas, 5.000 freelancers, expansão para RJ no mês 7</strong>.</p>
+          <div class="tl-actions">
+            <span class="tl-tag">TikTok Ads</span>
+            <span class="tl-tag">Campanha Premium empresas</span>
+            <span class="tl-tag">Vídeos de casos de sucesso</span>
+            <span class="tl-tag">Programa de afiliados</span>
+            <span class="tl-tag">Evento de lançamento SP</span>
+            <span class="tl-tag">Time de vendas RJ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot orange">M8–M10</div>
+        <div class="tl-content">
+          <div class="phase-tag">Fase 4 · Expansão</div>
+          <h3>🗺️ Rio de Janeiro + Belo Horizonte</h3>
+          <p style="font-size:14px;margin:8px 0;">Replicar o playbook validado em SP nas novas cidades. Contratar gerentes de cidade locais. Parcerias com associações de bares e restaurantes (ABRASEL). Meta: <strong>1.200 empresas ativas em 3 cidades</strong>.</p>
+          <div class="tl-actions">
+            <span class="tl-tag">ABRASEL parceria</span>
+            <span class="tl-tag">Meta Ads geolocalizado RJ/BH</span>
+            <span class="tl-tag">Influencers locais RJ/BH</span>
+            <span class="tl-tag">Press release expansão</span>
+            <span class="tl-tag">Campanha "Garçom sob demanda"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot purple">M11–M12</div>
+        <div class="tl-content">
+          <div class="phase-tag">Fase 5 · Consolidação</div>
+          <h3>💎 Marca + Retenção + Preparação Série A</h3>
+          <p style="font-size:14px;margin:8px 0;">Foco em brand building, retenção de usuários e documentar métricas para captação. Campanha de fim de ano (alta demanda por freelancers em festas e eventos). Meta: <strong>10.000 freelancers, 1.500 empresas, R$ 2M GMV/mês</strong>.</p>
+          <div class="tl-actions">
+            <span class="tl-tag">Campanha verão/festas</span>
+            <span class="tl-tag">Brand film institucional</span>
+            <span class="tl-tag">Push notification reativação</span>
+            <span class="tl-tag">Relatório de impacto social</span>
+            <span class="tl-tag">Deck para investidores</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CANAIS DE AQUISIÇÃO -->
+<section>
+  <div class="container">
+    <div class="section-tag">Canais</div>
+    <h2>Mix de canais por público</h2>
+    <p class="section-sub">Estratégia separada para freelancers (oferta) e empresas (demanda), com canais específicos para cada lado do marketplace.</p>
+
+    <div class="grid-2" style="margin-bottom:32px;">
+      <div>
+        <h3 style="color:var(--blue);margin-bottom:16px;">👷 Para Freelancers (Oferta)</h3>
+        <div class="card" style="margin-bottom:12px;">
+          <h3>TikTok Orgânico + Ads</h3>
+          <p>Canal principal. Vídeos mostrando freelancers reais ganhando R$ 250+ por diária. Formato "dia de trabalho" tem alto engajamento. Custo por cadastro estimado: R$ 4–8.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h3>Grupos de WhatsApp e Facebook</h3>
+          <p>Grupos de garçons, bartenders, cozinheiros. Postagens autênticas de freelancers reais. Custo: R$ 0 (orgânico com moderadores pagos R$ 500/mês).</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h3>Parcerias com Escolas</h3>
+          <p>SENAC, Anhembi Morumbi, Hotéis-escola. Palestras gratuitas, banners, distribuição de materiais. Acesso a 50.000+ alunos de gastronomia e hotelaria.</p>
+        </div>
+        <div class="card">
+          <h3>Programa de Indicação (Referral)</h3>
+          <p>R$ 30 para quem indicar um freelancer que completa 3 serviços. Baseado no referral do Rappi que cresceu 40% das aquisições via word-of-mouth.</p>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--orange);margin-bottom:16px;">🏢 Para Empresas (Demanda)</h3>
+        <div class="card" style="margin-bottom:12px;">
+          <h3>Vendas Porta a Porta</h3>
+          <p>SDR visitando bares e restaurantes nos bairros-alvo. Oferta de onboarding gratuito + 0% comissão por 30 dias. Taxa de conversão estimada: 30%. Custo por empresa: R$ 120.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h3>Meta Ads (Instagram/Facebook)</h3>
+          <p>Segmentação por cargo: "dono de restaurante", "gerente de bar", "eventos SP". Criativo: vídeo de 15s mostrando problema (funcionário faltou) → solução (Freelas Now, 2 min). CPL meta: R$ 35.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <h3>Google Ads (Search)</h3>
+          <p>Palavras-chave: "garçom freelancer SP", "contratar bartender temporário", "funcionário temporário restaurante". Intenção de compra alta. CPC estimado: R$ 2,50–5,00.</p>
+        </div>
+        <div class="card">
+          <h3>ABRASEL + Sindicatos</h3>
+          <p>Parceria com Associação Brasileira de Bares e Restaurantes. Newsletter para 180.000 estabelecimentos. Desconto exclusivo para associados (comissão 7% vs 10%).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFLUENCERS -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Influencer Marketing</div>
+    <h2>Estratégia de influenciadores</h2>
+    <p class="section-sub">Baseada no playbook do Nubank (micro + autenticidade) e do Airbnb (hosts como embaixadores). Foco em autenticidade, não em alcance.</p>
+
+    <div class="highlight">
+      <h4>📊 Benchmark: Nubank e influencer marketing</h4>
+      <p style="margin:0;font-size:14px;">O Nubank cresceu de 0 para 1M de usuários quase sem publicidade tradicional. O segredo: <strong>1.000 micro-influencers</strong> com 10k–100k seguidores falando de forma autêntica. Taxa de conversão de micro-influencers é 6,7x maior que macro-influencers (Fonte: Markerly).</p>
+    </div>
+
+    <div class="inf-tier">
+      <div>
+        <span class="inf-badge nano">Nano · 1k–10k</span>
+      </div>
+      <div style="flex:1;">
+        <h3 style="font-size:16px;margin-bottom:6px;">Freelancers reais do app — Os mais poderosos</h3>
+        <p style="font-size:14px;color:#444;margin:0;">Freelancers com bom engajamento que já usam o app. Recebem R$ 200 em créditos para postar autenticamente sobre sua experiência. 50 criadores/mês. Custo total: R$ 10.000/mês em créditos + R$ 0 em cash.</p>
+      </div>
+    </div>
+
+    <div class="inf-tier">
+      <div>
+        <span class="inf-badge micro">Micro · 10k–100k</span>
+      </div>
+      <div style="flex:1;">
+        <h3 style="font-size:16px;margin-bottom:6px;">Criadores de conteúdo de gastronomia, bar e vida noturna</h3>
+        <p style="font-size:14px;color:#444;margin:0;">@chefemcasa, @barmanprofissional, @vidadegarcom — perfis de nicho com alta autoridade. Contrato de 3 vídeos/mês. Investimento: R$ 800–2.500 por criador. Meta: 8 criadores ativos = R$ 12.000/mês.</p>
+      </div>
+    </div>
+
+    <div class="inf-tier">
+      <div>
+        <span class="inf-badge mid">Mid · 100k–500k</span>
+      </div>
+      <div style="flex:1;">
+        <h3 style="font-size:16px;margin-bottom:6px;">Influencers de empreendedorismo e carreira</h3>
+        <p style="font-size:14px;color:#444;margin:0;">Perfis voltados a empreendedores de bares e restaurantes e a quem quer renda extra. 1 campanha bimestral. Investimento: R$ 5.000–15.000 por ação. 2 ações/trimestre.</p>
+      </div>
+    </div>
+
+    <div class="inf-tier">
+      <div>
+        <span class="inf-badge macro">Macro · 500k+</span>
+      </div>
+      <div style="flex:1;">
+        <h3 style="font-size:16px;margin-bottom:6px;">1 ação de lançamento — Brand awareness</h3>
+        <p style="font-size:14px;color:#444;margin:0;">Uma ação única no lançamento com influencer de gastronomia ou empreendedorismo de grande alcance. Budget máximo: R$ 25.000 para geração de buzz inicial. Não recorrente.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <h3 style="margin-bottom:16px;">Tipos de conteúdo que convertem</h3>
+      <div class="grid-3">
+        <div class="card blue">
+          <div class="icon">📱</div>
+          <h3>Day in my life</h3>
+          <p>Freelancer mostra como foi o dia: acordou, pegou uma vaga no app, fez o serviço, recebeu. Autêntico e aspiracional.</p>
+        </div>
+        <div class="card orange">
+          <div class="icon">😬</div>
+          <h3>Problema → Solução</h3>
+          <p>Dono de bar conta que funcionário faltou, usou Freelas Now, resolveu em 2 minutos. Narrativa de antes/depois.</p>
+        </div>
+        <div class="card green">
+          <div class="icon">💰</div>
+          <h3>Quanto ganhei esse mês</h3>
+          <p>Freelancer mostra o extrato do app. Transparência total. Alto engajamento e taxa de conversão acima da média.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADS PLAYBOOK -->
+<section>
+  <div class="container">
+    <div class="section-tag">Paid Media</div>
+    <h2>Playbook de anúncios pagos</h2>
+    <p class="section-sub">Estrutura de campanhas baseada no framework de testes do iFood e Rappi: testar criativos rapidamente, escalar os vencedores, pausar imediatamente o que não converte.</p>
+
+    <div class="grid-2">
+      <div class="card blue">
+        <div class="icon">📘</div>
+        <h3>Meta Ads (Instagram + Facebook)</h3>
+        <ul>
+          <li><strong>Freelancers:</strong> Renda extra, trabalho flexível, sem chefe</li>
+          <li><strong>Empresas:</strong> Segmentação por cargo (gestores F&B)</li>
+          <li>Formato: Reels 15s + carrossel antes/depois</li>
+          <li>Objetivo campanha freelancers: App Installs</li>
+          <li>Objetivo campanha empresas: Lead Generation</li>
+          <li>Budget inicial: R$ 8.000/mês | Escalar se CPA &lt; R$ 30</li>
+          <li>Retargeting: visitantes do site que não instalaram</li>
+        </ul>
+      </div>
+      <div class="card red">
+        <div class="icon">🎵</div>
+        <h3>TikTok Ads</h3>
+        <ul>
+          <li>Canal principal para freelancers (público 18–35)</li>
+          <li>Formato TopFeed + In-Feed nativo</li>
+          <li>Conteúdo: UGC (User Generated Content) incentivado</li>
+          <li>Spark Ads: impulsionar vídeos orgânicos de usuários reais</li>
+          <li>Budget: R$ 5.000/mês a partir do mês 4</li>
+          <li>Meta: CPI (custo por install) &lt; R$ 6</li>
+          <li>Hashtag challenge no lançamento: #FreelasNow</li>
+        </ul>
+      </div>
+      <div class="card green">
+        <div class="icon">🔍</div>
+        <h3>Google Ads (Search + App Campaigns)</h3>
+        <ul>
+          <li>Palavras-chave: "garçom temporário", "freelancer gastronomia"</li>
+          <li>App Campaigns para downloads diretos</li>
+          <li>Local targeting: raio de 10km dos bairros-alvo</li>
+          <li>Budget: R$ 4.000/mês</li>
+          <li>Meta CPC médio: R$ 3,00</li>
+          <li>Extensões de chamada para o time de vendas</li>
+          <li>Remarketing para visitantes do site</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <div class="icon">💼</div>
+        <h3>LinkedIn Ads (Empresas)</h3>
+        <ul>
+          <li>Segmentação: gerentes de F&B, proprietários de restaurantes</li>
+          <li>Formato: Sponsored Content + Message Ads</li>
+          <li>Budget: R$ 2.000/mês (apenas empresas)</li>
+          <li>Mensagem: ROI calculado de usar Freelas Now vs agência</li>
+          <li>Whitepaper: "Guia de Gestão de Mão de Obra Temporária"</li>
+          <li>Começar no mês 3 (após validar produto)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight" style="margin-top:32px;">
+      <h4>⚡ Regra dos 70/20/10 (Google Ventures)</h4>
+      <p style="font-size:14px;margin:0;"><strong>70%</strong> do budget em canais provados (Meta + Google) · <strong>20%</strong> em canais com potencial (TikTok) · <strong>10%</strong> em experimentos (LinkedIn, Reddit, comunidades). Revise mensalmente e redistribua para onde o ROAS for maior.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEO + CONTEÚDO -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Orgânico</div>
+    <h2>SEO e Marketing de Conteúdo</h2>
+    <p class="section-sub">Canal de menor custo e maior retorno no longo prazo. Baseado na estratégia do GetNinjas que domina buscas de serviços no Brasil.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon">🔎</div>
+        <h3>SEO Local (Mês 1–3)</h3>
+        <ul>
+          <li>Páginas de cidade: "Garçom freelancer em São Paulo"</li>
+          <li>Blog: "Como contratar garçom temporário"</li>
+          <li>Google My Business otimizado</li>
+          <li>Link building com mídia de gastronomia</li>
+          <li>Schema markup para app (Rich Results)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon">✍️</div>
+        <h3>Blog e Conteúdo (Mês 2+)</h3>
+        <ul>
+          <li>"Quanto ganha um garçom freelancer em SP"</li>
+          <li>"Como não gerar vínculo empregatício"</li>
+          <li>"Checklist para contratar freelancer"</li>
+          <li>"Guia do bartender autônomo 2025"</li>
+          <li>4 artigos/mês otimizados para SEO</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon">📧</div>
+        <h3>Email Marketing</h3>
+        <ul>
+          <li>Newsletter semanal para empresas com vagas em destaque</li>
+          <li>Sequência de onboarding (7 emails) para novos freelancers</li>
+          <li>Reativação de usuários inativos (30/60/90 dias)</li>
+          <li>Meta: open rate &gt; 28%, CTR &gt; 4%</li>
+          <li>Ferramenta: Brevo (gratuito até 20k emails/mês)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCERIAS -->
+<section>
+  <div class="container">
+    <div class="section-tag">Parcerias Estratégicas</div>
+    <h2>Parcerias que aceleram crescimento</h2>
+    <p class="section-sub">Inspirado na expansão do iFood via ABRASEL e do Nubank via universidades. Parcerias multiplicam alcance sem custo proporcional.</p>
+
+    <div class="grid-2">
+      <div class="card green">
+        <h3>🏫 SENAC Nacional</h3>
+        <p>170 unidades no Brasil. 600.000+ alunos em cursos de gastronomia, hotelaria e eventos. Proposta: Freelas Now como plataforma oficial de estágios e primeiros empregos.</p>
+        <ul>
+          <li>Palestras gratuitas nas unidades de SP</li>
+          <li>Banner no portal de empregabilidade do SENAC</li>
+          <li>Co-branded: "Vagas Freelas Now para alunos SENAC"</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <h3>🍽️ ABRASEL</h3>
+        <p>Associação Brasileira de Bares e Restaurantes. 180.000 estabelecimentos associados. Newsletter quinzenal para gerentes e proprietários.</p>
+        <ul>
+          <li>Artigo patrocinado na newsletter da ABRASEL</li>
+          <li>Desconto exclusivo: 7% comissão para associados</li>
+          <li>Presença nos eventos regionais (feiras, congressos)</li>
+        </ul>
+      </div>
+      <div class="card purple">
+        <h3>🏦 Nubank / MercadoPago</h3>
+        <p>Parceria com o processador de pagamentos para campanhas co-branded. MercadoPago tem 50M+ usuários no Brasil — audiência que coincide com nosso público.</p>
+        <ul>
+          <li>Cashback especial em diárias pagas via MercadoPago</li>
+          <li>Presença no app do MercadoPago como "serviço parceiro"</li>
+          <li>Co-marketing em datas especiais (Semana do Trabalhador)</li>
+        </ul>
+      </div>
+      <div class="card blue">
+        <h3>📱 Sindicatos de Trabalhadores</h3>
+        <p>Sindicato dos Empregados em Turismo e Hospitalidade. Acesso direto a profissionais do setor que já trabalham informalmente.</p>
+        <ul>
+          <li>Parceria de formalização: Freelas como alternativa à informalidade</li>
+          <li>Divulgação nas sedes do sindicato em SP, RJ, BH</li>
+          <li>Material informativo sobre CLT vs autônomo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORÇAMENTO -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Orçamento</div>
+    <h2>Investimento detalhado — 12 meses</h2>
+    <p class="section-sub">Total de R$ 312.000 para o ano 1. Distribuição ajustada trimestralmente com base em ROI de cada canal.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Canal / Iniciativa</th>
+          <th>M1–M3</th>
+          <th>M4–M6</th>
+          <th>M7–M9</th>
+          <th>M10–M12</th>
+          <th>Total Ano</th>
+          <th>Prioridade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Meta Ads (Instagram/Facebook)</strong></td>
+          <td>R$ 6.000</td>
+          <td>R$ 12.000</td>
+          <td>R$ 18.000</td>
+          <td>R$ 24.000</td>
+          <td><strong>R$ 60.000</strong></td>
+          <td><span class="badge-cost high">Alta</span></td>
+        </tr>
+        <tr>
+          <td><strong>Google Ads (Search + App)</strong></td>
+          <td>R$ 3.000</td>
+          <td>R$ 6.000</td>
+          <td>R$ 9.000</td>
+          <td>R$ 12.000</td>
+          <td><strong>R$ 30.000</strong></td>
+          <td><span class="badge-cost high">Alta</span></td>
+        </tr>
+        <tr>
+          <td><strong>TikTok Ads</strong></td>
+          <td>R$ 0</td>
+          <td>R$ 5.000</td>
+          <td>R$ 10.000</td>
+          <td>R$ 15.000</td>
+          <td><strong>R$ 30.000</strong></td>
+          <td><span class="badge-cost med">Média</span></td>
+        </tr>
+        <tr>
+          <td><strong>LinkedIn Ads</strong></td>
+          <td>R$ 0</td>
+          <td>R$ 2.000</td>
+          <td>R$ 4.000</td>
+          <td>R$ 6.000</td>
+          <td><strong>R$ 12.000</strong></td>
+          <td><span class="badge-cost med">Média</span></td>
+        </tr>
+        <tr>
+          <td><strong>Micro-influencers gastronomia</strong></td>
+          <td>R$ 4.000</td>
+          <td>R$ 8.000</td>
+          <td>R$ 12.000</td>
+          <td>R$ 12.000</td>
+          <td><strong>R$ 36.000</strong></td>
+          <td><span class="badge-cost high">Alta</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ação macro-influencer (lançamento)</strong></td>
+          <td>R$ 25.000</td>
+          <td>R$ 0</td>
+          <td>R$ 0</td>
+          <td>R$ 0</td>
+          <td><strong>R$ 25.000</strong></td>
+          <td><span class="badge-cost med">Única</span></td>
+        </tr>
+        <tr>
+          <td><strong>Programa de indicação (créditos)</strong></td>
+          <td>R$ 3.000</td>
+          <td>R$ 6.000</td>
+          <td>R$ 9.000</td>
+          <td>R$ 12.000</td>
+          <td><strong>R$ 30.000</strong></td>
+          <td><span class="badge-cost high">Alta</span></td>
+        </tr>
+        <tr>
+          <td><strong>Time de vendas (SDR) + combustível</strong></td>
+          <td>R$ 9.000</td>
+          <td>R$ 9.000</td>
+          <td>R$ 15.000</td>
+          <td>R$ 15.000</td>
+          <td><strong>R$ 48.000</strong></td>
+          <td><span class="badge-cost high">Alta</span></td>
+        </tr>
+        <tr>
+          <td><strong>Produção de conteúdo (vídeos, design)</strong></td>
+          <td>R$ 3.000</td>
+          <td>R$ 4.000</td>
+          <td>R$ 5.000</td>
+          <td>R$ 6.000</td>
+          <td><strong>R$ 18.000</strong></td>
+          <td><span class="badge-cost med">Média</span></td>
+        </tr>
+        <tr>
+          <td><strong>SEO + Blog + Email marketing</strong></td>
+          <td>R$ 1.500</td>
+          <td>R$ 1.500</td>
+          <td>R$ 1.500</td>
+          <td>R$ 1.500</td>
+          <td><strong>R$ 6.000</strong></td>
+          <td><span class="badge-cost low">Baixa</span></td>
+        </tr>
+        <tr>
+          <td><strong>Parcerias + Eventos + PR</strong></td>
+          <td>R$ 2.000</td>
+          <td>R$ 3.000</td>
+          <td>R$ 5.000</td>
+          <td>R$ 5.000</td>
+          <td><strong>R$ 15.000</strong></td>
+          <td><span class="badge-cost low">Baixa</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ferramentas de marketing (CRM, analytics)</strong></td>
+          <td>R$ 500</td>
+          <td>R$ 500</td>
+          <td>R$ 1.000</td>
+          <td>R$ 1.000</td>
+          <td><strong>R$ 3.000</strong></td>
+          <td><span class="badge-cost low">Baixa</span></td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>TOTAL POR TRIMESTRE</strong></td>
+          <td><strong>R$ 57.000</strong></td>
+          <td><strong>R$ 57.000</strong></td>
+          <td><strong>R$ 89.500</strong></td>
+          <td><strong>R$ 109.500</strong></td>
+          <td><strong>R$ 312.000</strong></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:13px;color:var(--grey);margin-top:12px;">* Valores em BRL. Custos de equipe de marketing interna não incluídos (apenas iniciativas de marketing externas). SDR = Sales Development Representative.</p>
+  </div>
+</section>
+
+<!-- KPIs -->
+<section>
+  <div class="container">
+    <div class="section-tag">Métricas</div>
+    <h2>KPIs e metas por fase</h2>
+    <p class="section-sub">Baseado nos benchmarks de marketplaces two-sided brasileiros (iFood, GetNinjas) e internacionais (TaskRabbit, Handy).</p>
+
+    <h3 style="margin-bottom:16px;">Metas ao final do mês 12</h3>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="val">10.000</div><div class="label">Freelancers cadastrados</div><div class="period">Mês 12</div></div>
+      <div class="kpi"><div class="val">1.500</div><div class="label">Empresas ativas</div><div class="period">Mês 12</div></div>
+      <div class="kpi"><div class="val">R$ 2M</div><div class="label">GMV mensal</div><div class="period">Mês 12</div></div>
+      <div class="kpi"><div class="val">4,5★</div><div class="label">Avaliação média App Store</div><div class="period">Meta contínua</div></div>
+      <div class="kpi"><div class="val">&lt; R$ 25</div><div class="label">CAC médio (freelancer)</div><div class="period">Meta contínua</div></div>
+      <div class="kpi"><div class="val">&lt; R$ 90</div><div class="label">CAC médio (empresa)</div><div class="period">Meta contínua</div></div>
+      <div class="kpi"><div class="val">40%</div><div class="label">Retenção mês 2</div><div class="period">Benchmark setor</div></div>
+      <div class="kpi"><div class="val">3 cidades</div><div class="label">SP · RJ · BH</div><div class="period">Mês 12</div></div>
+    </div>
+
+    <h3 style="margin:40px 0 16px;">Métricas de saúde do marketplace</h3>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Liquidez (Fill Rate)</h3>
+        <p>% de vagas publicadas que encontram um freelancer. Meta: &gt; 80%. Abaixo disso, o marketplace não funciona. Acompanhar diariamente.</p>
+      </div>
+      <div class="card">
+        <h3>NPS (Net Promoter Score)</h3>
+        <p>Meta: NPS &gt; 50 para freelancers e &gt; 40 para empresas. Medir mensalmente via push notification após cada serviço concluído.</p>
+      </div>
+      <div class="card">
+        <h3>LTV / CAC</h3>
+        <p>Ratio mínimo de 3:1. Se CAC de empresa é R$ 90, o LTV deve ser &gt; R$ 270. Empresas que usam 2x/semana pagam comissão de R$ 150+/mês.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH HACKS -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Growth Hacking</div>
+    <h2>Táticas não-convencionais de crescimento</h2>
+    <p class="section-sub">Inspiradas nos hacks de crescimento do Airbnb (Craigslist), Dropbox (referral viral), Hotmail (assinatura de email) e Uber (eventos).</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-top:3px solid #f5a623;grid-column:1/-1;">
+        <div class="icon">🏅</div>
+        <h3>Programa Fundador — Primeiras 100 Empresas (Premium Grátis por 12 meses)</h3>
+        <p>As 100 primeiras empresas cadastradas recebem <strong>12 meses de Premium gratuito</strong> (valor: R$ 358,80) + comissão de 7% durante esse período (vs 10% padrão). Badge exclusivo "Empresa Fundadora" no perfil. Prazo: encerra quando a 100ª empresa for confirmada.</p>
+        <p style="margin-top:8px;"><strong>Por que funciona:</strong> O Nubank fez isso com o cartão roxo — escassez real + benefício tangível = urgência de cadastro. Empresas fundadoras viram evangelistas da marca, gerando indicações espontâneas. A Notion também usou esse modelo para crescer de 0 para 1M de usuários pagantes.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+          <span class="tl-tag">Badge "Empresa Fundadora"</span>
+          <span class="tl-tag">Premium 12 meses grátis (R$ 358,80)</span>
+          <span class="tl-tag">Comissão 7% pelo período</span>
+          <span class="tl-tag">Suporte prioritário</span>
+          <span class="tl-tag">Destaque no mapa para freelancers</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid #34c759;grid-column:1/-1;">
+        <div class="icon">🤝</div>
+        <h3>Indicações Bonificadas — Modelo Nubank</h3>
+        <p>Programa de referral em dois lados:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
+          <div>
+            <strong style="font-size:14px;color:var(--blue);">👷 Freelancer indica Freelancer</strong>
+            <ul style="list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+              <li style="font-size:14px;padding-left:18px;position:relative;"><span style="position:absolute;left:0;">→</span>Quem indicou: R$ 30 em dinheiro real (não crédito) após o indicado completar 3 serviços</li>
+              <li style="font-size:14px;padding-left:18px;position:relative;"><span style="position:absolute;left:0;">→</span>Quem foi indicado: R$ 15 de bônus na primeira diária</li>
+              <li style="font-size:14px;padding-left:18px;position:relative;"><span style="position:absolute;left:0;">→</span>Sem limite de indicações</li>
+            </ul>
+          </div>
+          <div>
+            <strong style="font-size:14px;color:var(--orange);">🏢 Empresa indica Empresa</strong>
+            <ul style="list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+              <li style="font-size:14px;padding-left:18px;position:relative;"><span style="position:absolute;left:0;">→</span>Quem indicou: 1 mês de Premium grátis por empresa indicada que fechar 5+ diárias</li>
+              <li style="font-size:14px;padding-left:18px;position:relative;"><span style="position:absolute;left:0;">→</span>Quem foi indicado: 30 dias de Premium grátis + comissão 7% no primeiro mês</li>
+              <li style="font-size:14px;padding-left:18px;position:relative;"><span style="position:absolute;left:0;">→</span>Limite: 12 meses acumulados de Premium por indicações</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:13px;color:var(--grey);"><strong>Benchmark:</strong> O Nubank cresceu 40% das aquisições via indicação. O Dropbox passou de 100k para 4M usuários em 15 meses com o referral de armazenamento grátis. Dinheiro real converte 3x mais que créditos (Rappi).</p>
+      </div>
+
+      <div class="card blue">
+        <div class="icon">📣</div>
+        <h3>Hack 1: Grupos de WhatsApp de garçons</h3>
+        <p>Mapear e entrar nos 200+ grupos de garçons freelancers de SP. Contratar 5 moderadores (R$ 500/mês cada) que postam oportunidades reais do app. Custo: R$ 2.500/mês. Potencial: 50.000 freelancers.</p>
+      </div>
+      <div class="card orange">
+        <div class="icon">🎪</div>
+        <h3>Hack 2: Eventos de alta demanda</h3>
+        <p>Estar presente em Virada Cultural, Rock in Rio SP, Carnaval com equipe de recrutamento. Eventos criam demanda urgente — momento perfeito para demonstrar o produto. Custo: R$ 3.000/evento.</p>
+      </div>
+      <div class="card green">
+        <div class="icon">🏆</div>
+        <h3>Hack 3: "Freelancer do Mês"</h3>
+        <p>Programa mensal com premiação pública (R$ 500 + badge + destaque no app). Freelancers compartilham nas redes. Mídia espontânea estimada: 5.000 impressões orgânicas por prêmio. Custo: R$ 500/mês.</p>
+      </div>
+      <div class="card purple">
+        <div class="icon">🤝</div>
+        <h3>Hack 4: SDR infiltrado</h3>
+        <p>Vendedor visita restaurantes às 17h (antes do rush) com tablet na mão, faz live demo do app na frente do gerente. Taxa de conversão desse formato: 35% vs 8% de email frio. Custo: tempo do SDR.</p>
+      </div>
+      <div class="card red">
+        <div class="icon">📰</div>
+        <h3>Hack 5: PR de dados</h3>
+        <p>Publicar relatório trimestral "Economia Freelance no Brasil" com dados reais do app. Mídia de tech e negócios adora dados exclusivos. Starta.com.br, Exame, Folha. Custo: R$ 0 (trabalho interno).</p>
+      </div>
+      <div class="card yellow">
+        <div class="icon">🎬</div>
+        <h3>Hack 6: Mini-documentário</h3>
+        <p>Produzir vídeo de 5 minutos contando a história real de um freelancer que mudou de vida com o app. Distribuir no YouTube e LinkedIn. Custo: R$ 3.000 produção. ROI potencial: viral e cobertura de mídia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section>
+  <div class="container">
+    <div class="section-tag">Stack de Marketing</div>
+    <h2>Ferramentas necessárias</h2>
+    <div class="grid-4">
+      <div class="card"><h3>Analytics</h3><p>Firebase (grátis) + Mixpanel (growth plan) para funil completo dentro do app.</p></div>
+      <div class="card"><h3>CRM</h3><p>HubSpot (gratuito até 1.000 contatos) para pipeline de empresas e acompanhamento de SDR.</p></div>
+      <div class="card"><h3>Email</h3><p>Brevo (ex-Sendinblue) — gratuito até 20k emails/mês. Automações de onboarding e reativação.</p></div>
+      <div class="card"><h3>Social</h3><p>Buffer ou Later para agendamento. Canva Pro (R$ 55/mês) para criação de conteúdo visual.</p></div>
+      <div class="card"><h3>SEO</h3><p>Google Search Console (grátis) + Ubersuggest (R$ 29/mês) para monitorar rankings.</p></div>
+      <div class="card"><h3>Ads</h3><p>Meta Business Suite + Google Ads Manager. Instalar Pixel e SDK de conversão desde o dia 1.</p></div>
+      <div class="card"><h3>Pesquisa</h3><p>Typeform para NPS mensal. Hotjar (gratuito) para análise de comportamento no site.</p></div>
+      <div class="card"><h3>Atribuição</h3><p>AppsFlyer (plano gratuito até 10k instalações/mês) para rastrear origem de cada download.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RISCOS -->
+<section style="background: var(--light);">
+  <div class="container">
+    <div class="section-tag">Gestão de Riscos</div>
+    <h2>Principais riscos e mitigações</h2>
+    <div class="grid-2">
+      <div class="card red">
+        <h3>⚠️ Problema de liquidez (chicken & egg)</h3>
+        <p>Poucas empresas porque poucos freelancers e vice-versa.</p>
+        <p style="margin-top:8px;"><strong>Mitigação:</strong> Focar em um bairro pequeno (Vila Madalena) até atingir densidade crítica. Subsidiar diárias por 60 dias para garantir disponibilidade.</p>
+      </div>
+      <div class="card orange">
+        <h3>⚠️ No-show de freelancers</h3>
+        <p>Empresa contrata, freelancer não aparece. Destrói confiança na plataforma.</p>
+        <p style="margin-top:8px;"><strong>Mitigação:</strong> Sistema de penalidade progressiva, rating mínimo para aceitar vagas de empresa premium, seguro de "vaga garantida" como diferencial.</p>
+      </div>
+      <div class="card purple">
+        <h3>⚠️ Concorrente grande entrando</h3>
+        <p>iFood ou GetNinjas lançar produto similar.</p>
+        <p style="margin-top:8px;"><strong>Mitigação:</strong> Crescer rápido nos próximos 12 meses para criar efeito de rede. Garantir contratos anuais com empresas-chave e programa de fidelidade para freelancers.</p>
+      </div>
+      <div class="card blue">
+        <h3>⚠️ CAC maior que o previsto</h3>
+        <p>Custo de aquisição supera o planejado, especialmente empresas.</p>
+        <p style="margin-top:8px;"><strong>Mitigação:</strong> Investir em vendas presenciais (ROI comprovado), focar em parcerias de canal (ABRASEL) com custo fixo e escala infinita.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>Freelas Now</strong> · Plano de Marketing 12 Meses · Confidencial · Abril 2025<br>
+  <span style="margin-top:8px;display:block;">suporte@freelasnow.app · freelasnow.app</span>
+</footer>
+
+</body>
+</html>
