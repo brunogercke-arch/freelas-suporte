@@ -130,6 +130,22 @@
       font-size: 14px; color: var(--grey);
     }
     .support-bar a { color: var(--blue); text-decoration: none; }
+    .social-section {
+      background: #fff; border-top: 1px solid #e5e5e5;
+      text-align: center; padding: 48px 24px;
+    }
+    .social-section h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--dark); }
+    .social-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .social-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 12px;
+      text-decoration: none; font-weight: 600; font-size: 15px;
+      transition: opacity .2s;
+    }
+    .social-link:hover { opacity: .8; }
+    .social-link.instagram { background: #f5f5f7; color: #1d1d1f; border: 1px solid #e5e5e5; }
+    .social-link.tiktok { background: #f5f5f7; color: #1d1d1f; border: 1px solid #e5e5e5; }
+    .social-link svg { width: 24px; height: 24px; flex-shrink: 0; }
 
     footer {
       border-top: 1px solid #e5e5e5; padding: 24px 32px;
@@ -304,7 +320,21 @@
   <span data-pt="Dúvidas? " data-en="Questions? ">Dúvidas? </span><a href="/suporte" data-pt="Central de suporte" data-en="Support center">Central de suporte</a>
   &nbsp;·&nbsp; <a href="mailto:suporte@freelasnow.app">suporte@freelasnow.app</a>
   &nbsp;·&nbsp; <a href="mailto:contato@freelasnow.app" data-pt="Comercial" data-en="Business">Comercial</a>
-  &nbsp;·&nbsp; <a href="https://instagram.com/freelasnow" target="_blank">@freelasnow</a>
+  &nbsp;·&nbsp; <a href="https://instagram.com/freelasnow" target="_blank" style="display:inline-flex;align-items:center;gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@freelasnow</a>
+</div>
+
+<div class="social-section">
+  <h3 data-pt="Nossas Redes Sociais" data-en="Follow Us">Nossas Redes Sociais</h3>
+  <div class="social-links">
+    <a href="https://instagram.com/freelasnow" target="_blank" class="social-link instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#E1306C" stroke="none"/></svg>
+      <span>@freelasnow</span>
+    </a>
+    <a href="https://tiktok.com/@freelasnow" target="_blank" class="social-link tiktok">
+      <svg viewBox="0 0 24 24" fill="#1d1d1f"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.24 8.24 0 004.84 1.56V6.79a4.85 4.85 0 01-1.07-.1z"/></svg>
+      <span>@freelasnow</span>
+    </a>
+  </div>
 </div>
 
 <footer>
