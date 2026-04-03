@@ -23,7 +23,8 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 32px; height: 56px;
     }
-    .nav-logo { font-size: 18px; font-weight: 700; color: var(--dark); text-decoration: none; }
+    .nav-logo { font-size: 18px; font-weight: 700; color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { width: 36px; height: 36px; border-radius: 9px; }
     .nav-logo span { color: var(--blue); }
     .lang-toggle { display: flex; gap: 4px; }
     .lang-btn {
@@ -151,7 +152,7 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="/"><span>Freelas</span> Now</a>
+  <a class="nav-logo" href="/"><img src="/logo.png" alt=""><span>Freelas</span> Now</a>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('pt')">PT</button>
     <button class="lang-btn" onclick="setLang('en')">EN</button>
