@@ -386,12 +386,26 @@
 </div>
 
 <script>
-  function cadastrar(e) {
+  async function cadastrar(e) {
     e.preventDefault();
+    const btn = e.target.querySelector('button');
     const phone = document.getElementById('phone-input').value.trim();
     if (!phone) return;
-    // Aqui integraria com backend/planilha
+
+    btn.disabled = true;
+    btn.textContent = 'Salvando...';
+
+    try {
+      await fetch('https://backend-production-f89e.up.railway.app/api/v1/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ telefone: phone }),
+      });
+    } catch (_) {}
+
     document.getElementById('modal').classList.add('open');
+    btn.disabled = false;
+    btn.textContent = 'Me cadastrar';
   }
 
   function fecharModal() {
