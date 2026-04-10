@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium — Freelas Now</title>
+  <style>
+    :root { --blue: #007aff; --dark: #1d1d1f; --grey: #6e6e73; --yellow: #f5a623; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: var(--dark); min-height: 100vh; display: flex; flex-direction: column; }
+
+    nav {
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e5e5e5;
+      display: flex; align-items: center; padding: 0 24px; height: 56px;
+    }
+    .nav-logo { font-size: 18px; font-weight: 700; color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-logo span { color: var(--blue); }
+
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; }
+
+    .card {
+      background: #fff; border-radius: 20px; padding: 36px 32px;
+      max-width: 420px; width: 100%; text-align: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+
+    .badge {
+      display: inline-block; background: var(--yellow); color: #000;
+      font-size: 11px; font-weight: 700; letter-spacing: .5px;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .price { font-size: 44px; font-weight: 800; color: var(--blue); margin: 16px 0 4px; }
+    .price span { font-size: 20px; font-weight: 500; color: var(--grey); }
+    .subtitle { font-size: 14px; color: var(--grey); margin-bottom: 24px; }
+
+    .benefits { text-align: left; margin-bottom: 28px; }
+    .benefit {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px;
+    }
+    .benefit:last-child { border-bottom: none; }
+    .benefit-icon { width: 24px; height: 24px; background: #e8f4ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; }
+
+    .btn {
+      width: 100%; padding: 16px; border-radius: 14px; border: none;
+      font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity .2s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* PIX section */
+    .pix-section { display: none; }
+    .pix-section.visible { display: block; }
+
+    .qr-wrapper { background: #fff; border: 2px solid #e5e5e5; border-radius: 16px; padding: 20px; margin: 20px 0; display: inline-block; }
+    .qr-wrapper img { width: 200px; height: 200px; display: block; }
+
+    .pix-copia {
+      background: #f5f5f7; border-radius: 10px; padding: 12px 16px;
+      font-size: 11px; color: var(--grey); word-break: break-all;
+      text-align: left; margin: 12px 0; position: relative; cursor: pointer;
+    }
+    .copy-btn {
+      display: block; width: 100%; margin-top: 8px;
+      padding: 10px; border-radius: 10px; border: 1.5px solid var(--blue);
+      background: transparent; color: var(--blue); font-weight: 600; font-size: 14px; cursor: pointer;
+    }
+    .copy-btn:hover { background: #e8f4ff; }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+      margin: 16px 0;
+    }
+    .status-waiting { background: #fff3cd; color: #856404; }
+    .status-success { background: #d1e7dd; color: #0a3622; }
+
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-waiting { background: #ffc107; animation: pulse 1.5s infinite; }
+    .dot-success { background: #198754; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    .success-icon { font-size: 56px; margin: 16px 0; }
+    .error-msg { color: #dc3545; font-size: 14px; margin-top: 12px; }
+
+    .loading { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px; }
+    .spinner { width: 36px; height: 36px; border: 3px solid #e5e5e5; border-top-color: var(--blue); border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="/logo.png" alt="Freelas Now">
+    Freelas <span>Now</span>
+  </a>
+</nav>
+
+<main>
+  <div class="card">
+
+    <!-- Estado: loading inicial -->
+    <div id="state-loading" class="loading">
+      <div class="spinner"></div>
+      <p style="color:var(--grey);font-size:14px">Carregando...</p>
+    </div>
+
+    <!-- Estado: plano -->
+    <div id="state-plan" style="display:none">
+      <div class="badge">⭐ Exclusivo para empresas</div>
+      <h1>Freelas Now<br>Premium</h1>
+      <div class="price">R$ 29<span>,90/mês</span></div>
+      <p class="subtitle">Cancele quando quiser</p>
+
+      <div class="benefits">
+        <div class="benefit"><div class="benefit-icon">⚡</div> Prioridade no envio de vagas (2 min exclusivos)</div>
+        <div class="benefit"><div class="benefit-icon">🔍</div> Filtros avançados por avaliação e função</div>
+        <div class="benefit"><div class="benefit-icon">❤️</div> Favoritar freelancers</div>
+        <div class="benefit"><div class="benefit-icon">💰</div> Comissão reduzida: 8% (em vez de 10%)</div>
+        <div class="benefit"><div class="benefit-icon">📊</div> Estatísticas avançadas</div>
+        <div class="benefit"><div class="benefit-icon">🎧</div> Suporte prioritário</div>
+      </div>
+
+      <button class="btn btn-primary" id="btn-assinar">Assinar via PIX — R$ 29,90</button>
+      <p id="plan-error" class="error-msg"></p>
+    </div>
+
+    <!-- Estado: QR Code PIX -->
+    <div id="state-pix" style="display:none">
+      <div class="badge">Pagamento PIX</div>
+      <h1>Escaneie o QR Code</h1>
+      <p class="subtitle" style="margin-top:8px">Pague R$ 29,90 com qualquer app de pagamento</p>
+
+      <div class="qr-wrapper">
+        <img id="qr-img" src="" alt="QR Code PIX">
+      </div>
+
+      <div class="status-badge status-waiting">
+        <div class="dot dot-waiting"></div>
+        Aguardando pagamento...
+      </div>
+
+      <p style="font-size:13px;color:var(--grey);margin-bottom:8px">Ou copie o código PIX:</p>
+      <div class="pix-copia" id="pix-code" onclick="copiarPix()"></div>
+      <button class="copy-btn" onclick="copiarPix()">📋 Copiar código PIX</button>
+
+      <p style="font-size:12px;color:var(--grey);margin-top:16px">O QR Code expira em 30 minutos</p>
+    </div>
+
+    <!-- Estado: sucesso -->
+    <div id="state-success" style="display:none">
+      <div class="success-icon">🎉</div>
+      <h1>Premium ativado!</h1>
+      <p class="subtitle" style="margin-top:12px">Sua assinatura está ativa. Abra o app para aproveitar todos os benefícios.</p>
+      <div class="status-badge status-success" style="margin:24px auto;display:inline-flex">
+        <div class="dot dot-success"></div>
+        Pagamento confirmado
+      </div>
+    </div>
+
+    <!-- Estado: erro de auth -->
+    <div id="state-error" style="display:none">
+      <div class="success-icon">⚠️</div>
+      <h1>Link inválido</h1>
+      <p class="subtitle" style="margin-top:12px">Abra este link diretamente pelo app Freelas Now no seu Android.</p>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  const API = 'https://backend-production-f89e.up.railway.app/api/v1';
+  let token = null;
+  let pollingInterval = null;
+  let pagamentoId = null;
+
+  function showState(id) {
+    ['state-loading','state-plan','state-pix','state-success','state-error']
+      .forEach(s => document.getElementById(s).style.display = s === id ? 'block' : 'none');
+  }
+
+  async function init() {
+    const params = new URLSearchParams(window.location.search);
+    token = params.get('t');
+
+    if (!token) { showState('state-error'); return; }
+
+    // Verificar se já é premium
+    try {
+      const res = await fetch(`${API}/premium/status`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) { showState('state-error'); return; }
+      const data = await res.json();
+      if (data.data?.isPremium) { showState('state-success'); return; }
+      showState('state-plan');
+    } catch (e) {
+      showState('state-error');
+    }
+  }
+
+  document.getElementById('btn-assinar').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-assinar');
+    const errEl = document.getElementById('plan-error');
+    btn.disabled = true;
+    btn.textContent = 'Gerando PIX...';
+    errEl.textContent = '';
+
+    try {
+      const res = await fetch(`${API}/premium/pix`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        errEl.textContent = json.error?.message || 'Erro ao gerar PIX. Tente novamente.';
+        btn.disabled = false;
+        btn.textContent = 'Assinar via PIX — R$ 29,90';
+        return;
+      }
+      const { pagamentoId: pid, qrCodeBase64, pixCopiaECola } = json.data;
+      pagamentoId = pid;
+
+      document.getElementById('qr-img').src = `data:image/png;base64,${qrCodeBase64}`;
+      document.getElementById('pix-code').textContent = pixCopiaECola;
+
+      showState('state-pix');
+      iniciarPolling();
+    } catch (e) {
+      errEl.textContent = 'Erro de conexão. Tente novamente.';
+      btn.disabled = false;
+      btn.textContent = 'Assinar via PIX — R$ 29,90';
+    }
+  });
+
+  function iniciarPolling() {
+    pollingInterval = setInterval(async () => {
+      try {
+        const res = await fetch(`${API}/premium/status`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.data?.isPremium) {
+          clearInterval(pollingInterval);
+          showState('state-success');
+        }
+      } catch (_) {}
+    }, 5000);
+  }
+
+  function copiarPix() {
+    const code = document.getElementById('pix-code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✅ Copiado!';
+      setTimeout(() => btn.textContent = '📋 Copiar código PIX', 2000);
+    });
+  }
+
+  init();
+</script>
+</body>
+</html>
