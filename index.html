@@ -180,9 +180,15 @@
     .flux-info-card { background: #fff; border: 1px solid #ddf2f3; border-radius: 12px; padding: 20px; }
     .flux-info-card h4 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
     .flux-info-card p { font-size: 13px; color: var(--grey); line-height: 1.5; }
+    .flux-mascot-row { display: flex; align-items: center; gap: 20px; margin-bottom: 36px; }
+    .flux-mascot-img { width: 90px; height: 90px; object-fit: contain; border-radius: 50%; background: #fff; border: 2px solid #ddf2f3; padding: 6px; }
+    .flux-mascot-label { display: flex; flex-direction: column; }
+    .flux-mascot-name { font-size: 22px; font-weight: 800; color: var(--teal); letter-spacing: 1px; }
+    .flux-mascot-sub { font-size: 13px; color: var(--grey); margin-top: 2px; }
 
     @media(max-width: 640px) {
       .flux-body { grid-template-columns: 1fr; gap: 28px; }
+      .flux-mascot-img { width: 72px; height: 72px; }
     }
     /* ───────────────────────────────────────── */
 
@@ -247,6 +253,14 @@
     <h2 class="flux-title" data-pt="A IA que encontra o profissional<br>certo em <span>segundos</span>." data-en="The AI that finds the right<br>professional in <span>seconds</span>." data-es="La IA que encuentra al profesional<br>correcto en <span>segundos</span>.">A IA que encontra o profissional<br>certo em <span>segundos</span>.</h2>
     <p class="flux-desc" data-pt="FLUX analisa 5 critérios simultaneamente e ranqueia os candidatos mais adequados para cada vaga — distância, histórico, comparecimento, experiência e fidelidade." data-en="FLUX simultaneously analyzes 5 criteria and ranks the best candidates for each job — distance, history, attendance, experience, and loyalty." data-es="FLUX analiza 5 criterios simultáneamente y clasifica a los mejores candidatos para cada vacante — distancia, historial, asistencia, experiencia y fidelidad.">FLUX analisa 5 critérios simultaneamente e ranqueia os candidatos mais adequados para cada vaga — distância, histórico, comparecimento, experiência e fidelidade.</p>
 
+    <div class="flux-mascot-row">
+      <img src="flux-mascot.png" alt="FLUX AI" class="flux-mascot-img" />
+      <div class="flux-mascot-label">
+        <span class="flux-mascot-name">FLUX</span>
+        <span class="flux-mascot-sub" data-pt="Seu assistente de matching inteligente" data-en="Your intelligent matching assistant" data-es="Tu asistente de matching inteligente">Seu assistente de matching inteligente</span>
+      </div>
+    </div>
+
     <div class="flux-body">
       <div class="flux-algo" id="flux-algo">
         <div class="flux-criterion">
@@ -293,7 +307,7 @@
         </div>
         <div class="flux-info-card">
           <h4 data-pt="Custódia de pagamento" data-en="Payment escrow" data-es="Custodia de pago">Custódia de pagamento</h4>
-          <p data-pt="A empresa paga antecipado. O valor fica em custódia e é liberado ao profissional após a conclusão do turno — com desconto automático por atraso." data-en="The business pays upfront. Funds are held in escrow and released to the professional after the shift ends — with automatic late-arrival discounts." data-es="La empresa paga por adelantado. Los fondos quedan en custodia y se liberan al profesional al finalizar el turno — con descuento automático por retraso.">A empresa paga antecipado. O valor fica em custódia e é liberado ao profissional após a conclusão do turno — com desconto automático por atraso.</p>
+          <p data-pt="A empresa paga antecipado. O valor fica em custódia e é liberado em até 2h após o turno — ou instantâneo com taxa de 5%. Desconto automático por atraso." data-en="The business pays upfront. Funds held in escrow and released within 2h after the shift — or instantly with a 5% fee. Automatic late-arrival discounts." data-es="La empresa paga por adelantado. Los fondos quedan en custodia y se liberan en 2h tras el turno — o instantáneamente con comisión del 5%. Descuento automático por retraso.">A empresa paga antecipado. O valor fica em custódia e é liberado em até 2h após o turno — ou instantâneo com taxa de 5%. Desconto automático por atraso.</p>
         </div>
         <div class="flux-info-card">
           <h4 data-pt="Desenvolvido para o Brasil" data-en="Built for Brazil" data-es="Desarrollado para Brasil">Desenvolvido para o Brasil</h4>
@@ -324,7 +338,7 @@
     <div class="step">
       <div class="step-num">3</div>
       <h3 data-pt="Check-in & Pagamento" data-en="Check-in & Payment" data-es="Check-in & Pago">Check-in & Pagamento</h3>
-      <p data-pt="Freelancer faz check-in com código de 4 dígitos. Pagamento processado pelo app e liberado em 24h." data-en="Freelancer checks in with a 4-digit code. Payment processed in-app and released within 24h." data-es="El freelancer hace check-in con un código de 4 dígitos. Pago procesado en la app y liberado en 24h.">Freelancer faz check-in com código de 4 dígitos. Pagamento processado pelo app e liberado em 24h.</p>
+      <p data-pt="Freelancer faz check-in com código de 4 dígitos. Pagamento processado pelo app e liberado em até 2h." data-en="Freelancer checks in with a 4-digit code. Payment processed in-app and released within 2h." data-es="El freelancer hace check-in con un código de 4 dígitos. Pago procesado en la app y liberado en 2h.">Freelancer faz check-in com código de 4 dígitos. Pagamento processado pelo app e liberado em até 2h.</p>
     </div>
   </div>
 </section>
@@ -342,12 +356,12 @@
     <div class="feature-card">
       <div class="feature-icon">💳</div>
       <h3 data-pt="Pagamento Seguro" data-en="Secure Payment" data-es="Pago Seguro">Pagamento Seguro</h3>
-      <p data-pt="Carteira integrada com depósito via PIX. Valor bloqueado por 1h após o serviço antes de ser liberado." data-en="Integrated wallet with PIX deposit. Amount held for 1h after the service before being released." data-es="Billetera integrada con depósito vía PIX. El monto queda retenido 1h tras el servicio antes de liberarse.">Carteira integrada com depósito via PIX. Valor bloqueado por 1h após o serviço antes de ser liberado.</p>
+      <p data-pt="Carteira integrada com depósito via PIX. Pagamento liberado em até 2h após o serviço — ou instantâneo com taxa de 5%." data-en="Integrated wallet with PIX deposit. Payment released within 2h after the shift — or instantly with a 5% fee." data-es="Billetera integrada con depósito vía PIX. Pago liberado en 2h tras el servicio — o instantáneo con comisión del 5%.">Carteira integrada com depósito via PIX. Pagamento liberado em até 2h após o serviço — ou instantâneo com taxa de 5%.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⭐</div>
       <h3 data-pt="Sistema de Bônus" data-en="Bonus System" data-es="Sistema de Bonos">Sistema de Bônus</h3>
-      <p data-pt="Avaliação acima de 4.1 garante bônus na diária: até +10% para nota 5.0. Qualidade recompensada." data-en="Rating above 4.1 earns a daily bonus: up to +10% for a 5.0 score. Quality rewarded." data-es="Calificación superior a 4.1 garantiza bono diario: hasta +10% para nota 5.0. La calidad tiene recompensa.">Avaliação acima de 4.1 garante bônus na diária: até +10% para nota 5.0. Qualidade recompensada.</p>
+      <p data-pt="Avaliação acima de 4.1 garante bônus na diária: até +7% para nota 5.0. Qualidade recompensada." data-en="Rating above 4.1 earns a daily bonus: up to +7% for a 5.0 score. Quality rewarded." data-es="Calificación superior a 4.1 garantiza bono diario: hasta +7% para nota 5.0. La calidad tiene recompensa.">Avaliação acima de 4.1 garante bônus na diária: até +7% para nota 5.0. Qualidade recompensada.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🤖</div>
