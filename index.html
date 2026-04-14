@@ -297,6 +297,16 @@
     .success-screen p { font-size: 14px; color: var(--grey); margin-bottom: 24px; line-height: 1.6; }
     .success-screen .store-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+    .cep-section {
+      background: #f0f7ff; border-radius: 12px; padding: 14px 14px 4px;
+      margin-bottom: 14px; border: 1.5px solid #bbdefb;
+    }
+    .cep-label {
+      font-size: 12px; font-weight: 700; color: var(--blue);
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .cep-section .form-group input { background: #fff; }
+
     @media(max-width: 480px) {
       .tipo-grid { grid-template-columns: 1fr; }
       .step { padding: 20px 20px 28px; }
@@ -620,10 +630,62 @@
         <div class="err-msg">Campo obrigatório</div>
       </div>
       <div class="form-group">
-        <label>Cidade / Bairro *</label>
-        <input type="text" id="e-local" placeholder="Ex.: Vila Madalena, São Paulo">
+        <label>Estado *</label>
+        <select id="e-uf" onchange="carregarCidades('e')">
+          <option value="">Selecione o estado</option>
+          <option value="AC">Acre (AC)</option><option value="AL">Alagoas (AL)</option><option value="AP">Amapá (AP)</option><option value="AM">Amazonas (AM)</option><option value="BA">Bahia (BA)</option><option value="CE">Ceará (CE)</option><option value="DF">Distrito Federal (DF)</option><option value="ES">Espírito Santo (ES)</option><option value="GO">Goiás (GO)</option><option value="MA">Maranhão (MA)</option><option value="MT">Mato Grosso (MT)</option><option value="MS">Mato Grosso do Sul (MS)</option><option value="MG">Minas Gerais (MG)</option><option value="PA">Pará (PA)</option><option value="PB">Paraíba (PB)</option><option value="PR">Paraná (PR)</option><option value="PE">Pernambuco (PE)</option><option value="PI">Piauí (PI)</option><option value="RJ">Rio de Janeiro (RJ)</option><option value="RN">Rio Grande do Norte (RN)</option><option value="RS">Rio Grande do Sul (RS)</option><option value="RO">Rondônia (RO)</option><option value="RR">Roraima (RR)</option><option value="SC">Santa Catarina (SC)</option><option value="SP">São Paulo (SP)</option><option value="SE">Sergipe (SE)</option><option value="TO">Tocantins (TO)</option>
+        </select>
+        <div class="err-msg">Selecione o estado</div>
+      </div>
+      <div class="form-group">
+        <label>Cidade *</label>
+        <select id="e-cidade" disabled>
+          <option value="">Selecione o estado primeiro</option>
+        </select>
+        <div class="err-msg">Selecione a cidade</div>
+      </div>
+      <div class="form-group">
+        <label>Bairro *</label>
+        <input type="text" id="e-bairro" placeholder="Ex.: Vila Madalena">
         <div class="err-msg">Campo obrigatório</div>
       </div>
+
+      <div class="cep-section">
+        <div class="cep-label">📍 Endereço do estabelecimento</div>
+        <div class="form-group">
+          <label>CEP *</label>
+          <input type="text" id="e-cep" placeholder="00000-000" maxlength="9" inputmode="numeric" oninput="mascaraCep(this)" onblur="buscarCep()">
+          <div class="err-msg">CEP inválido</div>
+        </div>
+        <div id="e-endereco-campos" style="display:none">
+          <div class="form-group">
+            <label>Rua / Avenida</label>
+            <input type="text" id="e-rua" placeholder="Rua das Flores">
+          </div>
+          <div style="display:grid;grid-template-columns:100px 1fr;gap:10px">
+            <div class="form-group">
+              <label>Número *</label>
+              <input type="text" id="e-numero" placeholder="123" inputmode="numeric">
+              <div class="err-msg">Obrigatório</div>
+            </div>
+            <div class="form-group">
+              <label>Bairro</label>
+              <input type="text" id="e-bairro-end" placeholder="Centro">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 64px;gap:10px">
+            <div class="form-group">
+              <label>Cidade</label>
+              <input type="text" id="e-cidade-end" placeholder="São Paulo">
+            </div>
+            <div class="form-group">
+              <label>UF</label>
+              <input type="text" id="e-uf-end" placeholder="SP" maxlength="2">
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <label>Telefone de Contato *</label>
         <input type="tel" id="e-tel" placeholder="(11) 99999-9999" maxlength="15" inputmode="numeric">
@@ -681,8 +743,23 @@
         <div class="err-msg">Selecione uma profissão</div>
       </div>
       <div class="form-group">
-        <label>Cidade / Bairro *</label>
-        <input type="text" id="f-local" placeholder="Ex.: Osasco, São Paulo">
+        <label>Estado *</label>
+        <select id="f-uf" onchange="carregarCidades('f')">
+          <option value="">Selecione o estado</option>
+          <option value="AC">Acre (AC)</option><option value="AL">Alagoas (AL)</option><option value="AP">Amapá (AP)</option><option value="AM">Amazonas (AM)</option><option value="BA">Bahia (BA)</option><option value="CE">Ceará (CE)</option><option value="DF">Distrito Federal (DF)</option><option value="ES">Espírito Santo (ES)</option><option value="GO">Goiás (GO)</option><option value="MA">Maranhão (MA)</option><option value="MT">Mato Grosso (MT)</option><option value="MS">Mato Grosso do Sul (MS)</option><option value="MG">Minas Gerais (MG)</option><option value="PA">Pará (PA)</option><option value="PB">Paraíba (PB)</option><option value="PR">Paraná (PR)</option><option value="PE">Pernambuco (PE)</option><option value="PI">Piauí (PI)</option><option value="RJ">Rio de Janeiro (RJ)</option><option value="RN">Rio Grande do Norte (RN)</option><option value="RS">Rio Grande do Sul (RS)</option><option value="RO">Rondônia (RO)</option><option value="RR">Roraima (RR)</option><option value="SC">Santa Catarina (SC)</option><option value="SP">São Paulo (SP)</option><option value="SE">Sergipe (SE)</option><option value="TO">Tocantins (TO)</option>
+        </select>
+        <div class="err-msg">Selecione o estado</div>
+      </div>
+      <div class="form-group">
+        <label>Cidade *</label>
+        <select id="f-cidade" disabled>
+          <option value="">Selecione o estado primeiro</option>
+        </select>
+        <div class="err-msg">Selecione a cidade</div>
+      </div>
+      <div class="form-group">
+        <label>Bairro *</label>
+        <input type="text" id="f-bairro" placeholder="Ex.: Osasco">
         <div class="err-msg">Campo obrigatório</div>
       </div>
       <div class="form-group">
@@ -765,7 +842,56 @@
   }
   function voltarStep1() { irStep('step1'); }
 
-  // Máscaras
+  // ── IBGE: Estado → Cidades ────────────────────────────────────────────────
+  async function carregarCidades(prefix) {
+    const uf = document.getElementById(`${prefix}-uf`)?.value;
+    const sel = document.getElementById(`${prefix}-cidade`);
+    if (!uf || !sel) return;
+    sel.disabled = true;
+    sel.innerHTML = '<option value="">Carregando...</option>';
+    try {
+      const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
+      const list = await r.json();
+      list.sort((a,b) => a.nome.localeCompare(b.nome));
+      sel.innerHTML = '<option value="">Selecione a cidade</option>' +
+        list.map(m => `<option value="${m.nome}">${m.nome}</option>`).join('');
+      sel.disabled = false;
+    } catch {
+      sel.innerHTML = '<option value="">Erro — tente novamente</option>';
+      sel.disabled = false;
+    }
+  }
+
+  // ── ViaCEP: CEP → Endereço ────────────────────────────────────────────────
+  function mascaraCep(el) {
+    const d = el.value.replace(/\D/g,'').slice(0,8);
+    el.value = d.length > 5 ? d.slice(0,5) + '-' + d.slice(5) : d;
+    if (d.length === 8) buscarCep();
+  }
+
+  async function buscarCep() {
+    const cep = document.getElementById('e-cep')?.value.replace(/\D/g,'');
+    if (!cep || cep.length !== 8) return;
+    const campos = document.getElementById('e-endereco-campos');
+    try {
+      const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const d = await r.json();
+      if (d.erro) {
+        campos.style.display = 'block';
+        return;
+      }
+      document.getElementById('e-rua').value = d.logradouro || '';
+      document.getElementById('e-bairro-end').value = d.bairro || '';
+      document.getElementById('e-cidade-end').value = d.localidade || '';
+      document.getElementById('e-uf-end').value = d.uf || '';
+      campos.style.display = 'block';
+      document.getElementById('e-numero')?.focus();
+    } catch {
+      campos.style.display = 'block';
+    }
+  }
+
+  // ── Máscaras ──────────────────────────────────────────────────────────────
   document.getElementById('e-cnpj')?.addEventListener('input', function() {
     const d = this.value.replace(/\D/g,'').slice(0,14);
     let v = '';
@@ -864,23 +990,39 @@
     const senha  = val('e-senha');
     const cnpj   = val('e-cnpj').replace(/\D/g,'');
     const tipo   = val('e-tipo');
-    const local  = val('e-local');
+    const uf     = val('e-uf');
+    const cidade = val('e-cidade');
+    const bairro = val('e-bairro');
     const tel    = val('e-tel');
     const hor    = val('e-horarios');
+    const numero = val('e-numero');
     const termos = document.getElementById('e-termos')?.checked;
 
+    const local  = (cidade && uf && bairro) ? `${cidade} - ${uf}, ${bairro}` : '';
+
     let ok = true;
-    const groups = document.querySelectorAll('#step2-empresa .form-group');
-    const inputs = ['e-nome','e-email','e-senha','e-cnpj','e-tipo','e-local','e-tel','e-horarios'];
-    inputs.forEach((id, i) => {
-      const v = val(id);
-      const errEl = groups[i]?.querySelector('.err-msg');
-      if (!v) { document.getElementById(id)?.classList.add('error'); if(errEl) errEl.classList.add('show'); ok = false; }
+    const required = [
+      ['e-nome', nome], ['e-email', email], ['e-senha', senha],
+      ['e-tipo', tipo], ['e-uf', uf], ['e-cidade', cidade],
+      ['e-bairro', bairro], ['e-tel', tel], ['e-horarios', hor],
+    ];
+    required.forEach(([id, v]) => {
+      if (!v) { document.getElementById(id)?.classList.add('error'); const g = document.getElementById(id)?.closest('.form-group'); g?.querySelector('.err-msg')?.classList.add('show'); ok = false; }
     });
     if (cnpj.length !== 14) {
       document.getElementById('e-cnpj')?.classList.add('error');
-      const errEl = document.querySelectorAll('#step2-empresa .form-group')[3]?.querySelector('.err-msg');
-      if (errEl) { errEl.classList.add('show'); }
+      document.getElementById('e-cnpj')?.closest('.form-group')?.querySelector('.err-msg')?.classList.add('show');
+      ok = false;
+    }
+    const cepDigits = val('e-cep').replace(/\D/g,'');
+    if (cepDigits.length !== 8) {
+      document.getElementById('e-cep')?.classList.add('error');
+      document.getElementById('e-cep')?.closest('.form-group')?.querySelector('.err-msg')?.classList.add('show');
+      ok = false;
+    }
+    if (cepDigits.length === 8 && !numero) {
+      document.getElementById('e-numero')?.classList.add('error');
+      document.getElementById('e-numero')?.closest('.form-group')?.querySelector('.err-msg')?.classList.add('show');
       ok = false;
     }
     if (!termos) {
@@ -889,6 +1031,15 @@
       bar.classList.add('show'); ok = false;
     }
     if (!ok) return;
+
+    const rua        = val('e-rua');
+    const bairroEnd  = val('e-bairro-end');
+    const cidadeEnd  = val('e-cidade-end');
+    const ufEnd      = val('e-uf-end');
+    const enderecoCompleto = [
+      `${rua}${numero ? ', ' + numero : ''}`,
+      bairroEnd, `${cidadeEnd} - ${ufEnd}`
+    ].filter(Boolean).join(', ');
 
     setLoading('btnEmpresa', true);
     try {
@@ -914,23 +1065,27 @@
     const senha  = val('f-senha');
     const cpf    = val('f-cpf').replace(/\D/g,'');
     const funcao = val('f-funcao');
-    const local  = val('f-local');
+    const uf     = val('f-uf');
+    const cidade = val('f-cidade');
+    const bairro = val('f-bairro');
     const tel    = val('f-tel');
     const exp    = val('f-exp');
     const termos = document.getElementById('f-termos')?.checked;
 
+    const local  = (cidade && uf && bairro) ? `${cidade} - ${uf}, ${bairro}` : '';
+
     let ok = true;
-    const groups = document.querySelectorAll('#step2-freelancer .form-group');
-    const inputs = ['f-nome','f-email','f-senha','f-cpf','f-funcao','f-local','f-tel','f-exp'];
-    inputs.forEach((id, i) => {
-      const v = val(id);
-      const errEl = groups[i]?.querySelector('.err-msg');
-      if (!v) { document.getElementById(id)?.classList.add('error'); if(errEl) errEl.classList.add('show'); ok = false; }
+    const required = [
+      ['f-nome', nome], ['f-email', email], ['f-senha', senha],
+      ['f-funcao', funcao], ['f-uf', uf], ['f-cidade', cidade],
+      ['f-bairro', bairro], ['f-tel', tel], ['f-exp', exp],
+    ];
+    required.forEach(([id, v]) => {
+      if (!v) { document.getElementById(id)?.classList.add('error'); const g = document.getElementById(id)?.closest('.form-group'); g?.querySelector('.err-msg')?.classList.add('show'); ok = false; }
     });
     if (cpf.length !== 11) {
       document.getElementById('f-cpf')?.classList.add('error');
-      const errEl = document.querySelectorAll('#step2-freelancer .form-group')[3]?.querySelector('.err-msg');
-      if (errEl) { errEl.classList.add('show'); }
+      document.getElementById('f-cpf')?.closest('.form-group')?.querySelector('.err-msg')?.classList.add('show');
       ok = false;
     }
     if (!termos) {
