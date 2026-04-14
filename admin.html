@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Freelas Now</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f4f8; color: #1a1a2e; min-height: 100vh; }
+
+  /* LOGIN */
+  .login-wrap {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+  }
+  .login-box {
+    background: #fff; border-radius: 16px; padding: 40px 36px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.12); width: 100%; max-width: 380px; text-align: center;
+  }
+  .login-box .logo { font-size: 22px; font-weight: 800; color: #1d1d1f; margin-bottom: 6px; }
+  .login-box .logo span { color: #007aff; }
+  .login-box p { font-size: 13px; color: #888; margin-bottom: 28px; }
+  .login-box input {
+    width: 100%; border: 1.5px solid #ddd; border-radius: 10px;
+    padding: 11px 14px; font-size: 15px; outline: none; margin-bottom: 14px;
+    transition: border .2s;
+  }
+  .login-box input:focus { border-color: #007aff; }
+  .login-box button {
+    width: 100%; background: #007aff; color: #fff; border: none;
+    border-radius: 10px; padding: 13px; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .login-box button:hover { opacity: .88; }
+  .login-err { font-size: 13px; color: #c62828; margin-top: 10px; display: none; }
+
+  /* DASHBOARD */
+  .dashboard { display: none; }
+  header {
+    background: #1565c0; color: #fff; padding: 0 28px; height: 54px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  header .h-logo { font-size: 17px; font-weight: 800; }
+  header .h-logo span { color: #ffd600; }
+  header .h-right { display: flex; align-items: center; gap: 16px; font-size: 13px; opacity: .85; }
+  header button.logout {
+    background: rgba(255,255,255,.15); border: none; color: #fff; cursor: pointer;
+    padding: 5px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  }
+
+  .main { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat-card {
+    background: #fff; border-radius: 12px; padding: 18px 20px;
+    border-left: 4px solid #007aff;
+  }
+  .stat-card.orange { border-color: #e65100; }
+  .stat-card.green { border-color: #2e7d32; }
+  .stat-card.purple { border-color: #6a1b9a; }
+  .stat-card .sv { font-size: 28px; font-weight: 800; color: #1565c0; }
+  .stat-card.orange .sv { color: #e65100; }
+  .stat-card.green .sv { color: #2e7d32; }
+  .stat-card.purple .sv { color: #6a1b9a; }
+  .stat-card .sl { font-size: 12px; color: #888; margin-top: 4px; }
+
+  /* TOOLBAR */
+  .toolbar {
+    display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .toolbar input {
+    flex: 1; min-width: 200px; border: 1.5px solid #ddd; border-radius: 9px;
+    padding: 8px 14px; font-size: 14px; outline: none;
+  }
+  .toolbar input:focus { border-color: #007aff; }
+  .filter-btn {
+    border: 1.5px solid #ddd; background: #fff; padding: 7px 16px;
+    border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all .2s;
+  }
+  .filter-btn.active { background: #007aff; color: #fff; border-color: #007aff; }
+  .export-btn {
+    background: #2e7d32; color: #fff; border: none; padding: 8px 18px;
+    border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .export-btn:hover { opacity: .88; }
+
+  /* TABLE */
+  .table-wrap {
+    background: #fff; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead th {
+    background: #1565c0; color: #fff; padding: 11px 14px;
+    text-align: left; font-size: 12px; font-weight: 700; letter-spacing: .4px;
+    white-space: nowrap;
+  }
+  tbody td { padding: 11px 14px; border-bottom: 1px solid #f0f4f8; vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #f8fbff; }
+
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; letter-spacing: .3px;
+  }
+  .badge-empresa { background: #e3f2fd; color: #1565c0; }
+  .badge-freelancer { background: #fff3e0; color: #e65100; }
+  .badge-premium { background: #ffd600; color: #7b4f00; margin-left: 4px; }
+
+  .wa-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #25d366; color: #fff; text-decoration: none;
+    padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
+    white-space: nowrap;
+  }
+  .wa-btn:hover { opacity: .88; }
+  .wa-icon { font-size: 14px; }
+
+  .no-phone { color: #bbb; font-size: 12px; font-style: italic; }
+
+  .empty { text-align: center; padding: 48px; color: #aaa; }
+
+  .loading { text-align: center; padding: 48px; color: #888; }
+  .loading::after {
+    content: ''; display: inline-block; width: 24px; height: 24px;
+    border: 3px solid #ddd; border-top-color: #007aff;
+    border-radius: 50%; animation: spin .7s linear infinite; margin-left: 10px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .count { font-size: 13px; color: #888; }
+
+  @media(max-width: 768px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    thead th:nth-child(5), tbody td:nth-child(5),
+    thead th:nth-child(6), tbody td:nth-child(6) { display: none; }
+  }
+  @media(max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="logo"><span>Freelas</span> Now</div>
+    <p>Painel Administrativo</p>
+    <input type="password" id="adminKey" placeholder="Chave de acesso" onkeydown="if(event.key==='Enter') entrar()">
+    <button onclick="entrar()">Entrar</button>
+    <div class="login-err" id="loginErr">Chave inválida.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <header>
+    <div class="h-logo"><span>Freelas</span> Now &nbsp;·&nbsp; Admin</div>
+    <div class="h-right">
+      <span id="headerCount"></span>
+      <button class="logout" onclick="sair()">Sair</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="sv" id="statTotal">—</div>
+        <div class="sl">Total de usuários</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="sv" id="statFreelancer">—</div>
+        <div class="sl">Freelancers</div>
+      </div>
+      <div class="stat-card green">
+        <div class="sv" id="statEmpresa">—</div>
+        <div class="sl">Empresas</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="sv" id="statHoje">—</div>
+        <div class="sl">Cadastros hoje</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="🔍  Buscar por nome, e-mail ou telefone..." oninput="renderTabela()">
+      <button class="filter-btn active" id="f-todos" onclick="setFiltro('todos')">Todos</button>
+      <button class="filter-btn" id="f-FREELANCER" onclick="setFiltro('FREELANCER')">Freelancers</button>
+      <button class="filter-btn" id="f-EMPRESA" onclick="setFiltro('EMPRESA')">Empresas</button>
+      <button class="export-btn" onclick="exportarCSV()">⬇ CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="loading" id="loadingMsg">Carregando usuários</div>
+      <table id="tabela" style="display:none">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Localização</th>
+            <th>Cadastro</th>
+            <th>WhatsApp</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="emptyMsg" style="display:none">Nenhum usuário encontrado.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API = 'https://backend-production-f89e.up.railway.app/api/v1';
+  let todosUsuarios = [];
+  let filtroAtivo = 'todos';
+  let adminKey = '';
+
+  async function entrar() {
+    const key = document.getElementById('adminKey').value.trim();
+    if (!key) return;
+    adminKey = key;
+    const err = document.getElementById('loginErr');
+    err.style.display = 'none';
+    try {
+      const r = await fetch(`${API}/admin/users`, {
+        headers: { 'x-admin-key': key }
+      });
+      if (r.status === 403) {
+        err.style.display = 'block';
+        adminKey = '';
+        return;
+      }
+      const data = await r.json();
+      todosUsuarios = data.users || [];
+      document.getElementById('loginWrap').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      renderStats();
+      renderTabela();
+      document.getElementById('loadingMsg').style.display = 'none';
+      document.getElementById('tabela').style.display = 'table';
+    } catch(e) {
+      err.textContent = 'Erro de conexão. Tente novamente.';
+      err.style.display = 'block';
+    }
+  }
+
+  function sair() {
+    adminKey = '';
+    todosUsuarios = [];
+    document.getElementById('loginWrap').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('adminKey').value = '';
+  }
+
+  function renderStats() {
+    const hoje = new Date().toISOString().slice(0,10);
+    const freelancers = todosUsuarios.filter(u => u.tipo === 'FREELANCER').length;
+    const empresas = todosUsuarios.filter(u => u.tipo === 'EMPRESA').length;
+    const cadastrosHoje = todosUsuarios.filter(u => u.createdAt?.slice(0,10) === hoje).length;
+    document.getElementById('statTotal').textContent = todosUsuarios.length;
+    document.getElementById('statFreelancer').textContent = freelancers;
+    document.getElementById('statEmpresa').textContent = empresas;
+    document.getElementById('statHoje').textContent = cadastrosHoje;
+    document.getElementById('headerCount').textContent = `${todosUsuarios.length} usuários`;
+  }
+
+  function setFiltro(f) {
+    filtroAtivo = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`f-${f}`)?.classList.add('active');
+    renderTabela();
+  }
+
+  function filtrados() {
+    const q = document.getElementById('search').value.toLowerCase();
+    return todosUsuarios.filter(u => {
+      if (filtroAtivo !== 'todos' && u.tipo !== filtroAtivo) return false;
+      if (!q) return true;
+      return (u.nome||'').toLowerCase().includes(q) ||
+             (u.email||'').toLowerCase().includes(q) ||
+             (u.telefone||'').includes(q);
+    });
+  }
+
+  function renderTabela() {
+    const lista = filtrados();
+    const tbody = document.getElementById('tbody');
+    const empty = document.getElementById('emptyMsg');
+
+    if (!lista.length) {
+      tbody.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    tbody.innerHTML = lista.map((u, i) => {
+      const tipo = u.tipo === 'EMPRESA' ? 'EMPRESA' : 'FREELANCER';
+      const badgeClass = tipo === 'EMPRESA' ? 'badge-empresa' : 'badge-freelancer';
+      const isPremium = u.empresaProfile?.isPremium;
+      const local = u.freelancerProfile?.localizacao || u.empresaProfile?.localizacao || '—';
+      const funcao = u.freelancerProfile?.funcao ? `<br><span style="font-size:11px;color:#888">${u.freelancerProfile.funcao}</span>` : '';
+      const negocio = u.empresaProfile?.tipoNegocio ? `<br><span style="font-size:11px;color:#888">${u.empresaProfile.tipoNegocio}</span>` : '';
+      const data = u.createdAt ? new Date(u.createdAt).toLocaleDateString('pt-BR') : '—';
+      const tel = u.telefone ? formatTel(u.telefone) : null;
+      const waNum = u.telefone ? u.telefone.replace(/\D/g,'') : null;
+      const waLink = waNum ? `https://wa.me/55${waNum}` : null;
+
+      const waBtnHtml = waLink
+        ? `<a class="wa-btn" href="${waLink}" target="_blank"><span class="wa-icon">💬</span> WhatsApp</a>`
+        : `<span class="no-phone">sem telefone</span>`;
+
+      return `<tr>
+        <td style="color:#bbb;font-size:12px">${i+1}</td>
+        <td><strong>${u.nome||'—'}</strong>${funcao}${negocio}</td>
+        <td>
+          <span class="badge ${badgeClass}">${tipo}</span>
+          ${isPremium ? '<span class="badge badge-premium">Premium</span>' : ''}
+        </td>
+        <td>${tel || '<span class="no-phone">—</span>'}</td>
+        <td style="font-size:12px;color:#555">${u.email||'—'}</td>
+        <td style="font-size:12px;color:#777;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${local}</td>
+        <td style="white-space:nowrap;font-size:12px">${data}</td>
+        <td>${waBtnHtml}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  function formatTel(t) {
+    const d = t.replace(/\D/g,'');
+    if (d.length === 11) return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+    if (d.length === 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+    return t;
+  }
+
+  function exportarCSV() {
+    const lista = filtrados();
+    const header = ['Nome','Tipo','Telefone','Email','Localização','Cadastro','Função/Negócio'];
+    const rows = lista.map(u => [
+      u.nome||'',
+      u.tipo||'',
+      u.telefone||'',
+      u.email||'',
+      u.freelancerProfile?.localizacao || u.empresaProfile?.localizacao || '',
+      u.createdAt ? new Date(u.createdAt).toLocaleDateString('pt-BR') : '',
+      u.freelancerProfile?.funcao || u.empresaProfile?.tipoNegocio || '',
+    ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+
+    const csv = [header.join(','), ...rows].join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `freelas-usuarios-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+  }
+
+  // Entrar com Enter
+  document.getElementById('adminKey').addEventListener('keydown', e => {
+    if (e.key === 'Enter') entrar();
+  });
+</script>
+</body>
+</html>
