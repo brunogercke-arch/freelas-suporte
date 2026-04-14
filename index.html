@@ -199,16 +199,122 @@
       footer { justify-content: center; text-align: center; }
       .audience-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── CADASTRO ── */
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .cadastro-btn {
+      background: var(--blue); color: #fff; border: none; cursor: pointer;
+      padding: 7px 18px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      transition: opacity .2s; white-space: nowrap;
+    }
+    .cadastro-btn:hover { opacity: .85; }
+
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff; border-radius: 20px; width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto; position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,.25);
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px; background: none; border: none;
+      font-size: 22px; cursor: pointer; color: var(--grey); line-height: 1; z-index: 1;
+    }
+    .modal-header {
+      padding: 28px 32px 0;
+      text-align: center;
+    }
+    .modal-header .m-logo { font-size: 22px; font-weight: 800; color: var(--dark); }
+    .modal-header .m-logo span { color: var(--blue); }
+    .modal-header h2 { font-size: 22px; font-weight: 800; margin: 10px 0 4px; }
+    .modal-header p { font-size: 14px; color: var(--grey); margin-bottom: 20px; }
+
+    .step { display: none; padding: 24px 32px 32px; }
+    .step.active { display: block; }
+
+    /* Step 1 — escolha tipo */
+    .tipo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .tipo-card {
+      border: 2px solid #e5e5e5; border-radius: 14px; padding: 20px 16px;
+      text-align: center; cursor: pointer; transition: all .2s;
+    }
+    .tipo-card:hover { border-color: var(--blue); background: #f0f7ff; }
+    .tipo-card .tc-icon { font-size: 36px; margin-bottom: 10px; }
+    .tipo-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .tipo-card p { font-size: 12px; color: var(--grey); line-height: 1.4; }
+
+    /* Step 2 — formulário */
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; border: 1.5px solid #ddd; border-radius: 10px;
+      padding: 10px 14px; font-size: 14px; outline: none; transition: border .2s;
+      background: #fff; font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--blue); }
+    .form-group input.error, .form-group select.error { border-color: #e53935; }
+    .form-group .err-msg { font-size: 11.5px; color: #e53935; margin-top: 4px; display: none; }
+    .form-group .err-msg.show { display: block; }
+
+    .terms-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 18px; font-size: 13px; color: var(--grey); }
+    .terms-row input[type=checkbox] { margin-top: 2px; accent-color: var(--blue); flex-shrink: 0; }
+    .terms-row a { color: var(--blue); }
+
+    .submit-btn {
+      width: 100%; background: var(--blue); color: #fff; border: none; cursor: pointer;
+      padding: 14px; border-radius: 12px; font-size: 16px; font-weight: 700;
+      transition: opacity .2s; display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .submit-btn:hover { opacity: .85; }
+    .submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .submit-btn .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.4);
+      border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none;
+    }
+    .submit-btn.loading .spinner { display: block; }
+    .submit-btn.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-error-bar {
+      background: #fdecea; border: 1px solid #f5c6c6; border-radius: 10px;
+      padding: 10px 14px; font-size: 13px; color: #c62828; margin-bottom: 14px;
+      display: none;
+    }
+    .form-error-bar.show { display: block; }
+
+    .back-link { text-align: center; margin-top: 12px; }
+    .back-link button { background: none; border: none; color: var(--grey); font-size: 13px; cursor: pointer; }
+    .back-link button:hover { color: var(--dark); }
+
+    /* Step 3 — sucesso */
+    .success-screen { text-align: center; padding: 32px; }
+    .success-screen .s-icon { font-size: 56px; margin-bottom: 16px; }
+    .success-screen h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .success-screen p { font-size: 14px; color: var(--grey); margin-bottom: 24px; line-height: 1.6; }
+    .success-screen .store-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    @media(max-width: 480px) {
+      .tipo-grid { grid-template-columns: 1fr; }
+      .step { padding: 20px 20px 28px; }
+      .modal-header { padding: 24px 20px 0; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a class="nav-logo" href="/"><img src="/logo.png" alt=""><span>Freelas</span> Now</a>
-  <div class="lang-toggle">
-    <button class="lang-btn active" onclick="setLang('pt')">PT</button>
-    <button class="lang-btn" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  <div class="nav-right">
+    <button class="cadastro-btn" onclick="abrirCadastro()">Cadastre-se</button>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
   </div>
 </nav>
 
@@ -459,6 +565,166 @@
   </div>
 </footer>
 
+<!-- ── MODAL CADASTRO ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="fecharCadastroExterno(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="fecharCadastro()" title="Fechar">×</button>
+    <div class="modal-header">
+      <div class="m-logo"><span>Freelas</span> Now</div>
+      <h2>Crie sua conta grátis</h2>
+      <p>Você é empresa ou freelancer?</p>
+    </div>
+
+    <!-- STEP 1: Escolha de tipo -->
+    <div class="step active" id="step1">
+      <div class="tipo-grid">
+        <div class="tipo-card" onclick="escolherTipo('EMPRESA')">
+          <div class="tc-icon">🏢</div>
+          <h3>Sou empresa</h3>
+          <p>Restaurante, bar, hotel ou buffet que precisa de profissionais sob demanda</p>
+        </div>
+        <div class="tipo-card" onclick="escolherTipo('FREELANCER')">
+          <div class="tc-icon">👨‍🍳</div>
+          <h3>Sou freelancer</h3>
+          <p>Garçom, cozinheiro, barman ou outro profissional de hospitalidade</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Formulário Empresa -->
+    <div class="step" id="step2-empresa">
+      <div class="form-error-bar" id="errEmpresa"></div>
+      <div class="form-group">
+        <label>Nome da Empresa *</label>
+        <input type="text" id="e-nome" placeholder="Ex.: Bar do João">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>E-mail *</label>
+        <input type="email" id="e-email" placeholder="contato@empresa.com.br">
+        <div class="err-msg">E-mail inválido</div>
+      </div>
+      <div class="form-group">
+        <label>Senha *</label>
+        <input type="password" id="e-senha" placeholder="Mínimo 6 caracteres">
+        <div class="err-msg">Mínimo 6 caracteres</div>
+      </div>
+      <div class="form-group">
+        <label>CNPJ *</label>
+        <input type="text" id="e-cnpj" placeholder="00.000.000/0000-00" maxlength="18" inputmode="numeric">
+        <div class="err-msg">CNPJ inválido (14 dígitos)</div>
+      </div>
+      <div class="form-group">
+        <label>Tipo de Negócio *</label>
+        <input type="text" id="e-tipo" placeholder="Ex.: Restaurante, Bar, Hotel">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>Cidade / Bairro *</label>
+        <input type="text" id="e-local" placeholder="Ex.: Vila Madalena, São Paulo">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>Telefone de Contato *</label>
+        <input type="tel" id="e-tel" placeholder="(11) 99999-9999" maxlength="15" inputmode="numeric">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>Horários de Funcionamento *</label>
+        <input type="text" id="e-horarios" placeholder="Ex.: Seg-Sex 12h-23h, Sáb-Dom 12h-00h">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="terms-row">
+        <input type="checkbox" id="e-termos">
+        <label for="e-termos">Li e aceito os <a href="/termos" target="_blank">Termos de Uso</a> e a <a href="/privacidade" target="_blank">Política de Privacidade</a></label>
+      </div>
+      <button class="submit-btn" id="btnEmpresa" onclick="cadastrarEmpresa()">
+        <div class="spinner"></div>
+        <span class="btn-text">Criar conta</span>
+      </button>
+      <div class="back-link"><button onclick="voltarStep1()">← Voltar</button></div>
+    </div>
+
+    <!-- STEP 2: Formulário Freelancer -->
+    <div class="step" id="step2-freelancer">
+      <div class="form-error-bar" id="errFreelancer"></div>
+      <div class="form-group">
+        <label>Nome Completo *</label>
+        <input type="text" id="f-nome" placeholder="Seu nome completo">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>E-mail *</label>
+        <input type="email" id="f-email" placeholder="seu@email.com">
+        <div class="err-msg">E-mail inválido</div>
+      </div>
+      <div class="form-group">
+        <label>Senha *</label>
+        <input type="password" id="f-senha" placeholder="Mínimo 6 caracteres">
+        <div class="err-msg">Mínimo 6 caracteres</div>
+      </div>
+      <div class="form-group">
+        <label>CPF *</label>
+        <input type="text" id="f-cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric">
+        <div class="err-msg">CPF inválido (11 dígitos)</div>
+      </div>
+      <div class="form-group">
+        <label>Profissão *</label>
+        <select id="f-funcao">
+          <option value="">Selecione sua profissão</option>
+          <option value="Garçom">Garçom</option>
+          <option value="Barman">Barman</option>
+          <option value="Cozinheiro">Cozinheiro</option>
+          <option value="Auxiliar de Cozinha">Auxiliar de Cozinha</option>
+          <option value="Chapeiro">Chapeiro</option>
+        </select>
+        <div class="err-msg">Selecione uma profissão</div>
+      </div>
+      <div class="form-group">
+        <label>Cidade / Bairro *</label>
+        <input type="text" id="f-local" placeholder="Ex.: Osasco, São Paulo">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>Telefone *</label>
+        <input type="tel" id="f-tel" placeholder="(11) 99999-9999" maxlength="15" inputmode="numeric">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="form-group">
+        <label>Experiência *</label>
+        <input type="text" id="f-exp" placeholder="Ex.: 2 anos como garçom em restaurante japonês">
+        <div class="err-msg">Campo obrigatório</div>
+      </div>
+      <div class="terms-row">
+        <input type="checkbox" id="f-termos">
+        <label for="f-termos">Li e aceito os <a href="/termos" target="_blank">Termos de Uso</a> e a <a href="/privacidade" target="_blank">Política de Privacidade</a></label>
+      </div>
+      <button class="submit-btn" id="btnFreelancer" onclick="cadastrarFreelancer()">
+        <div class="spinner"></div>
+        <span class="btn-text">Criar conta</span>
+      </button>
+      <div class="back-link"><button onclick="voltarStep1()">← Voltar</button></div>
+    </div>
+
+    <!-- STEP 3: Sucesso -->
+    <div class="step" id="step3">
+      <div class="success-screen">
+        <div class="s-icon">🎉</div>
+        <h2>Conta criada com sucesso!</h2>
+        <p>Seu cadastro está pronto. Baixe o app para acessar sua conta e começar a usar o Freelas Now.</p>
+        <div class="store-btns">
+          <a href="https://apps.apple.com/app/id6761491861" target="_blank" class="store-btn">
+            <svg width="18" height="22" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.8 134.4-317.9 266.5-317.9 99.8 0 162.3 53.3 221.8 53.3 56.8 0 128.3-56.9 240.3-56.9 38.7 0 108.2 3.8 168.1 67.4zm-176.9-173.9c36.5-43.1 61.4-103.3 61.4-163.5 0-8.3-.6-16.6-2-24.3-57.8 2.2-126.1 38.7-168.8 84.7-32.5 36.5-63.5 96.2-63.5 157.2 0 9 1.3 17.9 2 21.1 3.8.6 9.7 1.3 15.5 1.3 52.1 0 114.3-34.8 155.4-76.5z"/></svg>
+            App Store
+          </a>
+        </div>
+        <p style="margin-top:16px;font-size:12px;">Use o mesmo e-mail e senha para entrar no app.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
   const langMap = { pt: 'pt-BR', en: 'en', es: 'es' };
   // FLUX bar animation on scroll
@@ -473,6 +739,226 @@
     }, { threshold: 0.3 });
     io.observe(fluxAlgo);
   }
+
+  // ── CADASTRO ──────────────────────────────────────────────────────────────
+  const FB_KEY  = 'AIzaSyAm5Rpw_tua0Q54XlOUwQljs0RVll0850A';
+  const API_URL = 'https://backend-production-f89e.up.railway.app/api/v1';
+
+  function abrirCadastro() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    irStep('step1');
+  }
+  function fecharCadastro() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function fecharCadastroExterno(e) {
+    if (e.target === document.getElementById('modalOverlay')) fecharCadastro();
+  }
+  function irStep(id) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+  function escolherTipo(tipo) {
+    irStep(tipo === 'EMPRESA' ? 'step2-empresa' : 'step2-freelancer');
+  }
+  function voltarStep1() { irStep('step1'); }
+
+  // Máscaras
+  document.getElementById('e-cnpj')?.addEventListener('input', function() {
+    const d = this.value.replace(/\D/g,'').slice(0,14);
+    let v = '';
+    for (let i = 0; i < d.length; i++) {
+      if (i===2||i===5) v+='.';
+      if (i===8) v+='/';
+      if (i===12) v+='-';
+      v+=d[i];
+    }
+    this.value = v;
+  });
+  document.getElementById('f-cpf')?.addEventListener('input', function() {
+    const d = this.value.replace(/\D/g,'').slice(0,11);
+    let v = '';
+    for (let i = 0; i < d.length; i++) {
+      if (i===3||i===6) v+='.';
+      if (i===9) v+='-';
+      v+=d[i];
+    }
+    this.value = v;
+  });
+  ['e-tel','f-tel'].forEach(id => {
+    document.getElementById(id)?.addEventListener('input', function() {
+      const d = this.value.replace(/\D/g,'').slice(0,11);
+      let v = '';
+      if (d.length > 0) v = '(' + d.slice(0,2);
+      if (d.length >= 2) v += ') ' + d.slice(2, d.length <= 10 ? 6 : 7);
+      if (d.length > (d.length <= 10 ? 6 : 7)) v += '-' + d.slice(d.length <= 10 ? 6 : 7);
+      this.value = v;
+    });
+  });
+
+  function val(id) { return document.getElementById(id)?.value.trim() || ''; }
+  function setErr(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    el.previousElementSibling?.previousElementSibling && null;
+    const input = document.getElementById(id.replace('err-',''));
+    if (input) input.classList.add('error');
+  }
+  function clrErr(barId) {
+    document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('show'));
+    document.querySelectorAll('.form-group input, .form-group select').forEach(e => e.classList.remove('error'));
+    const bar = document.getElementById(barId);
+    if (bar) { bar.textContent=''; bar.classList.remove('show'); }
+  }
+
+  function markErr(inputId, msgEl) {
+    document.getElementById(inputId)?.classList.add('error');
+    if (msgEl) { msgEl.classList.add('show'); }
+    return false;
+  }
+
+  async function firebaseSignUp(email, senha) {
+    const r = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FB_KEY}`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email, password: senha, returnSecureToken: true }) }
+    );
+    const data = await r.json();
+    if (!r.ok) {
+      const code = data.error?.message || 'ERRO';
+      if (code.includes('EMAIL_EXISTS')) throw new Error('Este e-mail já está cadastrado.');
+      if (code.includes('WEAK_PASSWORD')) throw new Error('Senha muito fraca. Use pelo menos 6 caracteres.');
+      if (code.includes('INVALID_EMAIL')) throw new Error('E-mail inválido.');
+      throw new Error('Erro ao criar conta. Tente novamente.');
+    }
+    return data.idToken;
+  }
+
+  async function backendSync(token, payload) {
+    const r = await fetch(`${API_URL}/auth/sync`, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${token}` },
+      body: JSON.stringify(payload)
+    });
+    if (!r.ok) {
+      const d = await r.json().catch(()=>({}));
+      throw new Error(d.message || 'Erro ao sincronizar com o servidor.');
+    }
+  }
+
+  function setLoading(btnId, on) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    btn.disabled = on;
+    btn.classList.toggle('loading', on);
+  }
+
+  async function cadastrarEmpresa() {
+    clrErr('errEmpresa');
+    const nome   = val('e-nome');
+    const email  = val('e-email');
+    const senha  = val('e-senha');
+    const cnpj   = val('e-cnpj').replace(/\D/g,'');
+    const tipo   = val('e-tipo');
+    const local  = val('e-local');
+    const tel    = val('e-tel');
+    const hor    = val('e-horarios');
+    const termos = document.getElementById('e-termos')?.checked;
+
+    let ok = true;
+    const groups = document.querySelectorAll('#step2-empresa .form-group');
+    const inputs = ['e-nome','e-email','e-senha','e-cnpj','e-tipo','e-local','e-tel','e-horarios'];
+    inputs.forEach((id, i) => {
+      const v = val(id);
+      const errEl = groups[i]?.querySelector('.err-msg');
+      if (!v) { document.getElementById(id)?.classList.add('error'); if(errEl) errEl.classList.add('show'); ok = false; }
+    });
+    if (cnpj.length !== 14) {
+      document.getElementById('e-cnpj')?.classList.add('error');
+      const errEl = document.querySelectorAll('#step2-empresa .form-group')[3]?.querySelector('.err-msg');
+      if (errEl) { errEl.classList.add('show'); }
+      ok = false;
+    }
+    if (!termos) {
+      const bar = document.getElementById('errEmpresa');
+      bar.textContent = 'Você precisa aceitar os Termos de Uso para continuar.';
+      bar.classList.add('show'); ok = false;
+    }
+    if (!ok) return;
+
+    setLoading('btnEmpresa', true);
+    try {
+      const token = await firebaseSignUp(email, senha);
+      await backendSync(token, {
+        nome, tipo: 'EMPRESA', telefone: tel,
+        cnpj, tipoNegocio: tipo, localizacao: local, horarios: hor
+      });
+      irStep('step3');
+    } catch(e) {
+      const bar = document.getElementById('errEmpresa');
+      bar.textContent = e.message;
+      bar.classList.add('show');
+    } finally {
+      setLoading('btnEmpresa', false);
+    }
+  }
+
+  async function cadastrarFreelancer() {
+    clrErr('errFreelancer');
+    const nome   = val('f-nome');
+    const email  = val('f-email');
+    const senha  = val('f-senha');
+    const cpf    = val('f-cpf').replace(/\D/g,'');
+    const funcao = val('f-funcao');
+    const local  = val('f-local');
+    const tel    = val('f-tel');
+    const exp    = val('f-exp');
+    const termos = document.getElementById('f-termos')?.checked;
+
+    let ok = true;
+    const groups = document.querySelectorAll('#step2-freelancer .form-group');
+    const inputs = ['f-nome','f-email','f-senha','f-cpf','f-funcao','f-local','f-tel','f-exp'];
+    inputs.forEach((id, i) => {
+      const v = val(id);
+      const errEl = groups[i]?.querySelector('.err-msg');
+      if (!v) { document.getElementById(id)?.classList.add('error'); if(errEl) errEl.classList.add('show'); ok = false; }
+    });
+    if (cpf.length !== 11) {
+      document.getElementById('f-cpf')?.classList.add('error');
+      const errEl = document.querySelectorAll('#step2-freelancer .form-group')[3]?.querySelector('.err-msg');
+      if (errEl) { errEl.classList.add('show'); }
+      ok = false;
+    }
+    if (!termos) {
+      const bar = document.getElementById('errFreelancer');
+      bar.textContent = 'Você precisa aceitar os Termos de Uso para continuar.';
+      bar.classList.add('show'); ok = false;
+    }
+    if (!ok) return;
+
+    setLoading('btnFreelancer', true);
+    try {
+      const token = await firebaseSignUp(email, senha);
+      await backendSync(token, {
+        nome, tipo: 'FREELANCER', telefone: tel,
+        cpf, funcao, experiencia: exp, localizacao: local
+      });
+      irStep('step3');
+    } catch(e) {
+      const bar = document.getElementById('errFreelancer');
+      bar.textContent = e.message;
+      bar.classList.add('show');
+    } finally {
+      setLoading('btnFreelancer', false);
+    }
+  }
+
+  // Fechar com ESC
+  document.addEventListener('keydown', e => { if (e.key==='Escape') fecharCadastro(); });
 
   function setLang(lang) {
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
