@@ -29,59 +29,97 @@
     <a href="/">← Voltar ao site</a>
   </header>
   <main>
-    <p class="updated">Última atualização: 2 de abril de 2025</p>
+    <p class="updated">Última atualização: 19 de abril de 2026</p>
 
     <p>A Freelas Now ("nós", "nosso") respeita sua privacidade e está comprometida em proteger os dados pessoais que você compartilha conosco ao usar nosso aplicativo e serviços.</p>
 
-    <h2>1. Dados que coletamos</h2>
+    <h2>1. Quem somos</h2>
+    <p>Freelas Now é uma plataforma que conecta freelancers e empresas para contratações de diárias. O responsável pelo tratamento de dados é <strong>Bruno Gercke</strong>, com contato disponível em <a href="mailto:brunogercke@gmail.com">brunogercke@gmail.com</a>.</p>
+
+    <h2>2. Dados que coletamos</h2>
+    <p>Coletamos apenas os dados necessários para o funcionamento do serviço:</p>
     <ul>
-      <li><strong>Dados de cadastro:</strong> nome, e-mail, CPF/CNPJ, telefone e foto de perfil.</li>
-      <li><strong>Dados de localização:</strong> usados para exibir vagas próximas e calcular distâncias. Coletamos apenas quando o app está em uso.</li>
-      <li><strong>Dados financeiros:</strong> informações de pagamento processadas de forma segura via MercadoPago. Não armazenamos dados de cartão.</li>
-      <li><strong>Dados de uso:</strong> histórico de contratações, avaliações e interações dentro do app.</li>
+      <li><strong>Dados de cadastro:</strong> nome completo, e-mail, telefone e senha (armazenada de forma criptografada).</li>
+      <li><strong>Documentos:</strong> CPF (freelancers) e CNPJ (empresas), necessários para processamento de pagamentos e conformidade legal.</li>
+      <li><strong>Localização:</strong> coordenadas GPS do dispositivo, coletadas apenas quando o freelancer está com status "Disponível" para facilitar buscas por proximidade. A coleta é interrompida ao mudar para "Offline".</li>
+      <li><strong>Dados financeiros:</strong> histórico de pagamentos, saldo de carteira e chave PIX. Dados de cartão de crédito são processados diretamente pelo Mercado Pago e não são armazenados em nossos servidores.</li>
+      <li><strong>Avaliações e contratos:</strong> registros de contratações, avaliações e comunicações relacionadas aos serviços prestados.</li>
+      <li><strong>Dados técnicos:</strong> token de notificação push (FCM), endereço IP e logs de acesso para fins de segurança e diagnóstico de erros.</li>
+      <li><strong>Dados de uso:</strong> informações anônimas sobre como você interage com o aplicativo, como telas visitadas e funcionalidades utilizadas. Esses dados são coletados de forma agregada pelo Google Firebase Analytics e não permitem sua identificação pessoal.</li>
     </ul>
 
-    <h2>2. Como usamos seus dados</h2>
+    <h2>3. Como usamos os dados</h2>
     <ul>
-      <li>Conectar empresas a freelancers disponíveis na região.</li>
-      <li>Processar pagamentos e transferências de forma segura.</li>
-      <li>Enviar notificações sobre vagas, propostas e atualizações.</li>
-      <li>Melhorar nossos serviços e prevenir fraudes.</li>
+      <li>Autenticação e gerenciamento de conta.</li>
+      <li>Exibição de freelancers próximos no mapa para empresas contratantes.</li>
+      <li>Processamento de pagamentos, saques e transferências via PIX.</li>
+      <li>Envio de notificações push sobre contratações, pagamentos e avisos do sistema.</li>
+      <li>Cálculo de métricas de desempenho (avaliação média, pontualidade, ranking).</li>
+      <li>Análise de uso do aplicativo para melhoria contínua da experiência do usuário, utilizando dados anônimos e agregados.</li>
+      <li>Prevenção de fraudes e conformidade com obrigações legais.</li>
+      <li>Resolução de disputas entre usuários, incluindo análise por inteligência artificial.</li>
     </ul>
 
-    <h2>3. Compartilhamento de dados</h2>
-    <p>Não vendemos seus dados. Compartilhamos informações apenas com:</p>
+    <h2>4. Compartilhamento de dados</h2>
+    <p>Não vendemos seus dados. Compartilhamos informações apenas com os seguintes prestadores de serviço, estritamente necessários para o funcionamento da plataforma:</p>
     <ul>
-      <li><strong>MercadoPago:</strong> para processamento de pagamentos.</li>
-      <li><strong>Firebase (Google):</strong> para autenticação e notificações push.</li>
-      <li><strong>Autoridades competentes:</strong> quando exigido por lei.</li>
+      <li><strong>Google Firebase</strong> — autenticação, banco de dados, armazenamento de arquivos, notificações push e analytics de uso. <a href="https://firebase.google.com/support/privacy" target="_blank">Política de privacidade</a>.</li>
+      <li><strong>Mercado Pago</strong> — processamento de pagamentos e assinaturas premium. <a href="https://www.mercadopago.com.br/privacidade" target="_blank">Política de privacidade</a>.</li>
+      <li><strong>Railway</strong> — hospedagem do servidor backend. <a href="https://railway.app/legal/privacy" target="_blank">Política de privacidade</a>.</li>
+      <li><strong>Anthropic (Claude)</strong> — análise de disputas por inteligência artificial. Os dados enviados são limitados ao contexto da disputa. <a href="https://www.anthropic.com/privacy" target="_blank">Política de privacidade</a>.</li>
+    </ul>
+    <p>Podemos divulgar dados quando exigido por lei, ordem judicial ou autoridade competente.</p>
+
+    <h2>5. Localização</h2>
+    <p>O app solicita permissão de localização em segundo plano exclusivamente para freelancers que ativam o status "Disponível". A localização é usada para:</p>
+    <ul>
+      <li>Exibir o freelancer no mapa para empresas próximas.</li>
+      <li>Calcular distância e tempo estimado de chegada.</li>
+    </ul>
+    <p>A coleta de localização cessa imediatamente ao definir o status como "Offline" ou ao encerrar o aplicativo.</p>
+
+    <h2>6. Retenção de dados</h2>
+    <ul>
+      <li>Dados de conta: mantidos enquanto a conta estiver ativa.</li>
+      <li>Histórico de pagamentos: retidos por 5 anos para fins fiscais e legais.</li>
+      <li>Logs técnicos: excluídos automaticamente após 90 dias.</li>
+      <li>Dados de localização: não são armazenados de forma permanente; apenas a última posição conhecida é mantida.</li>
     </ul>
 
-    <h2>4. Segurança</h2>
-    <p>Seus dados são transmitidos via HTTPS e armazenados em servidores seguros. Adotamos medidas técnicas e organizacionais para proteger suas informações contra acesso não autorizado.</p>
-
-    <h2>5. Seus direitos (LGPD)</h2>
-    <p>De acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você tem direito a:</p>
+    <h2>7. Seus direitos (LGPD)</h2>
+    <p>Conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você tem direito a:</p>
     <ul>
-      <li>Acessar, corrigir ou excluir seus dados pessoais.</li>
+      <li>Confirmar a existência de tratamento de seus dados.</li>
+      <li>Acessar os dados que temos sobre você.</li>
+      <li>Corrigir dados incompletos, inexatos ou desatualizados.</li>
+      <li>Solicitar a anonimização, bloqueio ou eliminação de dados desnecessários.</li>
       <li>Revogar o consentimento a qualquer momento.</li>
       <li>Solicitar a portabilidade dos seus dados.</li>
     </ul>
-    <p>Para exercer seus direitos, entre em contato: <a href="mailto:suporte@freelasnow.app">suporte@freelasnow.app</a></p>
+    <p>Para exercer qualquer desses direitos, entre em contato: <a href="mailto:brunogercke@gmail.com">brunogercke@gmail.com</a>.</p>
 
-    <h2>6. Retenção de dados</h2>
-    <p>Mantemos seus dados pelo tempo necessário para a prestação dos serviços ou conforme exigido por lei. Ao excluir sua conta, seus dados pessoais são removidos em até 30 dias.</p>
+    <h2>8. Segurança</h2>
+    <p>Adotamos as seguintes medidas para proteger seus dados:</p>
+    <ul>
+      <li>Comunicação criptografada via HTTPS/TLS em todas as requisições.</li>
+      <li>Autenticação via Firebase com tokens JWT de curta duração.</li>
+      <li>Senhas nunca armazenadas em texto puro.</li>
+      <li>Monitoramento de erros via Firebase Crashlytics.</li>
+      <li>Credenciais de produção gerenciadas via variáveis de ambiente, nunca no código-fonte.</li>
+    </ul>
 
-    <h2>7. Menores de idade</h2>
-    <p>Nosso serviço não é destinado a menores de 18 anos. Não coletamos intencionalmente dados de menores.</p>
+    <h2>9. Menores de idade</h2>
+    <p>O Freelas Now é destinado exclusivamente a maiores de 18 anos. Não coletamos intencionalmente dados de menores. Se identificarmos um cadastro de menor de idade, a conta será encerrada imediatamente.</p>
 
-    <h2>8. Alterações nesta política</h2>
-    <p>Podemos atualizar esta política periodicamente. Notificaremos você por e-mail ou pelo app em caso de mudanças significativas.</p>
+    <h2>10. Alterações nesta política</h2>
+    <p>Podemos atualizar esta política periodicamente. Em caso de alterações relevantes, notificaremos os usuários pelo app com pelo menos 15 dias de antecedência. O uso continuado do serviço após a notificação implica concordância com a nova versão.</p>
 
-    <h2>9. Contato</h2>
-    <p>Dúvidas sobre privacidade? Fale conosco:<br>
-    📧 <a href="mailto:suporte@freelasnow.app">suporte@freelasnow.app</a></p>
+    <h2>11. Contato</h2>
+    <p>Dúvidas, solicitações ou reclamações sobre privacidade:</p>
+    <ul>
+      <li>E-mail: <a href="mailto:brunogercke@gmail.com">brunogercke@gmail.com</a></li>
+    </ul>
   </main>
-  <footer>© 2025 Freelas Now. Todos os direitos reservados.</footer>
+  <footer>© 2026 Freelas Now. Todos os direitos reservados.</footer>
 </body>
 </html>
