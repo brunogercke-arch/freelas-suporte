@@ -39,8 +39,50 @@
       50% { opacity: 0.5; transform: scale(1.3); }
     }
     html { scroll-behavior: smooth; }
+
+    /* Responsive overrides — inline style prevalece, então !important é necessário */
+    @media (max-width: 860px) {
+      .fn-container { padding: 0 20px !important; }
+      .fn-section { padding: 56px 0 !important; }
+
+      .fn-nav-inner { padding: 14px 20px !important; }
+      .fn-nav-links { display: none !important; }
+
+      .fn-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; min-height: auto !important; }
+      .fn-h1 { font-size: 44px !important; line-height: 1.02 !important; }
+      .fn-hero-p { font-size: 17px !important; }
+      .fn-phone-wrap { display: flex !important; justify-content: center !important; width: 100% !important; }
+      .fn-phone { transform: scale(0.9); transform-origin: top center; }
+
+      .fn-h2 { font-size: 36px !important; line-height: 1.05 !important; }
+      .fn-h2-big { font-size: 44px !important; line-height: 1.02 !important; }
+
+      .fn-flux-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+      .fn-flux-mascot-wrap { order: -1; }
+      .fn-match-card { position: static !important; width: 100% !important; margin: 16px 0 0 !important; bottom: auto !important; left: auto !important; }
+      .fn-flux-stats { grid-template-columns: 1fr 1fr !important; }
+
+      .fn-3col { grid-template-columns: 1fr !important; }
+      .fn-2col { grid-template-columns: 1fr !important; }
+
+      .fn-compare { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+      .fn-compare-inner { min-width: 680px !important; }
+
+      .fn-merit-row { grid-template-columns: 36px 1fr 80px !important; padding: 16px 18px !important; gap: 10px !important; }
+      .fn-merit-row > .fn-merit-range { display: none !important; }
+
+      .fn-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+    }
+
+    @media (max-width: 480px) {
+      .fn-h1 { font-size: 36px !important; }
+      .fn-h2 { font-size: 30px !important; }
+      .fn-h2-big { font-size: 36px !important; }
+      .fn-footer-grid { grid-template-columns: 1fr !important; }
+      .fn-flux-stats { grid-template-columns: 1fr !important; }
+    }
   </style>
-  <script type="module" crossorigin src="/assets/index-CmKjYPwL.js"></script>
+  <script type="module" crossorigin src="/assets/index-D8lBzJgH.js"></script>
 </head>
 <body>
   <div id="root"></div>
