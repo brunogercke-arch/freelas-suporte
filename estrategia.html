@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Estratégia de Captação · Freelas Now</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f7fa; color: #1a1a2e; line-height: 1.55;
+    padding: 32px 20px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+
+  header.top {
+    background: linear-gradient(135deg, #007aff, #0055cc);
+    color: #fff; border-radius: 16px; padding: 32px 28px; margin-bottom: 28px;
+  }
+  header.top h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+  header.top p { opacity: .9; font-size: 15px; }
+  .badge-internal {
+    display: inline-block; background: rgba(255,255,255,.2);
+    padding: 4px 12px; border-radius: 20px; font-size: 11px;
+    font-weight: 700; letter-spacing: 1px; margin-bottom: 14px;
+  }
+
+  section.card {
+    background: #fff; border-radius: 14px; padding: 26px 28px;
+    margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.04);
+  }
+  section.card h2 {
+    font-size: 19px; font-weight: 800; color: #007aff;
+    margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 2px solid #f0f4f8;
+  }
+  section.card h3 { font-size: 15px; font-weight: 700; margin: 18px 0 8px; }
+  section.card p { font-size: 14px; margin-bottom: 10px; color: #333; }
+  section.card ul { margin: 8px 0 12px 22px; }
+  section.card ul li { font-size: 14px; margin-bottom: 6px; color: #333; }
+  section.card strong { color: #1a1a2e; }
+  .pill {
+    display: inline-block; background: #fff3e0; color: #e65100;
+    padding: 2px 10px; border-radius: 12px; font-size: 12px;
+    font-weight: 700; margin-right: 4px;
+  }
+  .pill.green { background: #e8f5e9; color: #2e7d32; }
+  .pill.blue { background: #e3f2fd; color: #1565c0; }
+  .pill.purple { background: #f3e5f5; color: #6a1b9a; }
+
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin-top: 14px;
+  }
+  .meta-card {
+    background: #f5f7fa; border-radius: 10px; padding: 14px;
+    border-left: 3px solid #007aff;
+  }
+  .meta-card .v { font-size: 22px; font-weight: 800; color: #007aff; }
+  .meta-card .l { font-size: 12px; color: #666; margin-top: 2px; }
+
+  .msg-block {
+    background: #f8fbff; border-left: 4px solid #25d366;
+    border-radius: 8px; padding: 18px 20px; margin: 12px 0;
+    font-family: -apple-system, sans-serif; font-size: 13.5px;
+    color: #1a1a2e; white-space: pre-wrap;
+    position: relative;
+  }
+  .msg-block.android { border-left-color: #3ddc84; background: #f1faf2; }
+  .msg-block.ios { border-left-color: #007aff; background: #f0f7ff; }
+  .msg-block.generic { border-left-color: #ff9500; background: #fff8ef; }
+  .msg-block.tiktok { border-left-color: #ff0050; background: #fff0f3; }
+  .msg-label {
+    position: absolute; top: -10px; left: 14px;
+    background: #1a1a2e; color: #fff; font-size: 10px; font-weight: 800;
+    padding: 3px 10px; border-radius: 10px; letter-spacing: .8px;
+  }
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: #007aff; color: #fff; border: none; cursor: pointer;
+    padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 700;
+  }
+  .copy-btn:hover { opacity: .85; }
+
+  .checklist { list-style: none; margin-left: 0 !important; }
+  .checklist li { padding-left: 24px; position: relative; margin-bottom: 8px !important; }
+  .checklist li::before {
+    content: '✓'; position: absolute; left: 0; top: 0;
+    color: #2e7d32; font-weight: 800;
+  }
+
+  .warn {
+    background: #fff8e1; border-left: 4px solid #ff9800;
+    padding: 12px 16px; border-radius: 6px; font-size: 13.5px;
+    margin: 12px 0;
+  }
+  .warn strong { color: #e65100; }
+
+  .footer-note {
+    text-align: center; color: #888; font-size: 12px;
+    padding: 24px; margin-top: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .meta-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="badge-internal">DOCUMENTO INTERNO</div>
+  <h1>Estratégia de Captação de Freelancers</h1>
+  <p>Plano operacional para encher o app antes de ativar empresas pagantes</p>
+</header>
+
+<!-- TESE -->
+<section class="card">
+  <h2>🎯 A tese central</h2>
+  <p><strong>Freela tem paciência. Empresa não.</strong></p>
+  <p>Empresa que abre app, publica vaga e não recebe candidato em minutos desinstala e fala mal. Freela fica esperando vaga aparecer porque é renda extra, não custo.</p>
+  <p><strong>Por isso:</strong> encher de freelancers cadastrados <em>primeiro</em> em cada cidade-alvo. Só ativar empresas quando tivermos massa crítica garantida.</p>
+</section>
+
+<!-- META -->
+<section class="card">
+  <h2>📊 Metas por cidade (antes de ativar empresas)</h2>
+  <div class="meta-grid">
+    <div class="meta-card">
+      <div class="v">30+</div>
+      <div class="l">Freelas cadastrados<br>com perfil completo</div>
+    </div>
+    <div class="meta-card">
+      <div class="v">3+</div>
+      <div class="l">Funções diferentes<br>(garçom, cozinha, bar...)</div>
+    </div>
+    <div class="meta-card">
+      <div class="v">3+</div>
+      <div class="l">Bairros distintos<br>(cobertura geográfica)</div>
+    </div>
+  </div>
+  <p style="margin-top:14px; font-size:13px; color:#666;">Quando uma cidade bate as 3 metas, libera para o time comercial chamar empresas locais com confiança ("temos 40 freelas prontos em [cidade]").</p>
+</section>
+
+<!-- O QUE NÃO FALAR -->
+<section class="card">
+  <h2>🚫 Regras de comunicação</h2>
+  <h3>O que NUNCA dizer publicamente:</h3>
+  <ul>
+    <li><strong>Valores específicos das diárias mínimas</strong> — varia por região (90/110/130) e expor pode atrair freelas que reclamam ou empresas que querem pagar menos</li>
+    <li><strong>Comissão da plataforma</strong> — empresa paga, freela não, ponto. Não detalhar percentuais</li>
+    <li><strong>Datas de lançamento</strong> — falar "em breve" / "fase final" / "em testes". Nunca prometer uma data que pode atrasar</li>
+  </ul>
+  <h3>O que SEMPRE destacar:</h3>
+  <ul>
+    <li><strong>R$10 de bônus</strong> após o primeiro serviço (vender como exclusividade dos "primeiros cadastros")</li>
+    <li><strong>Diária mínima garantida</strong> (sem dar valor) — sem leilão pra baixo</li>
+    <li><strong>Pagamento em custódia</strong> — empresa só consegue confirmar serviço se já pagou. Sem calote.</li>
+    <li><strong>Receba no dia seguinte às 10h</strong> ou adiantado pagando 5%</li>
+    <li><strong>100% da diária é sua</strong> — freela não paga nada, nunca</li>
+    <li><strong>Prioridade pra quem se cadastra agora</strong> — primeiras vagas vão pros primeiros</li>
+  </ul>
+</section>
+
+<!-- MENSAGENS -->
+<section class="card">
+  <h2>💬 Mensagens prontas (WhatsApp 1-a-1)</h2>
+  <p>Para usar com freelas que se cadastraram espontaneamente. <strong>Adapte [NOME], [CIDADE], [FUNÇÃO]</strong>.</p>
+
+  <div class="msg-block android">
+    <span class="msg-label">ANDROID — RESPOSTA A CADASTRO</span>
+    <button class="copy-btn" onclick="copy(this)">Copiar</button>
+Oi [NOME]! Tudo bem? 👋
+
+Aqui é da equipe do *Freelas Now*. Vimos seu cadastro como [FUNÇÃO] em [CIDADE] e queremos te dar um retorno.
+
+O app Android está em fase final de testes — em breve disponível direto na Play Store. Por enquanto, complete seu cadastro no site pra ficar entre os *primeiros a receber as vagas* quando ativarmos sua cidade:
+
+👉 https://freelasnow.app
+
+*Vantagens de quem se cadastra agora:*
+✅ Prioridade nas primeiras vagas em [CIDADE]
+✅ R$10 de bônus depois do primeiro serviço (só pros primeiros)
+✅ Diária mínima garantida — nada de leilão pra baixo
+✅ Pagamento protegido em custódia: empresa só fecha o serviço se já pagou. Sem calote.
+✅ Receba no dia seguinte às 10h — ou na hora pagando 5%
+✅ Você não paga nada. 100% da diária é sua.
+
+Qualquer dúvida é só chamar.
+Equipe Freelas Now
+  </div>
+
+  <div class="msg-block ios">
+    <span class="msg-label">iPHONE — RESPOSTA A CADASTRO (após Apple aprovar)</span>
+    <button class="copy-btn" onclick="copy(this)">Copiar</button>
+Oi [NOME]! Tudo bem? 👋
+
+Aqui é da equipe do *Freelas Now*. Vimos seu cadastro como [FUNÇÃO] em [CIDADE].
+
+Pra iPhone o app já está na *App Store*! Baixe agora e complete seu cadastro pra ficar entre os primeiros da fila:
+
+👉 https://apps.apple.com/br/app/freelas-now/
+
+*Vantagens dos primeiros cadastros em [CIDADE]:*
+✅ Prioridade nas primeiras vagas
+✅ R$10 de bônus depois do primeiro serviço (só pros primeiros)
+✅ Diária mínima garantida
+✅ Pagamento protegido em custódia. Sem calote.
+✅ Receba no dia seguinte às 10h — ou na hora pagando 5%
+✅ Você não paga nada. 100% da diária é sua.
+
+Qualquer dúvida chama aqui.
+Equipe Freelas Now
+  </div>
+
+  <div class="msg-block ios">
+    <span class="msg-label">iPHONE — RESPOSTA A CADASTRO (enquanto Apple não aprovou)</span>
+    <button class="copy-btn" onclick="copy(this)">Copiar</button>
+Oi [NOME]! Tudo bem? 👋
+
+Aqui é da equipe do *Freelas Now*. Vimos seu cadastro como [FUNÇÃO] em [CIDADE].
+
+A versão iOS está em fase final de aprovação na Apple. Enquanto isso, complete seu cadastro no site pra ficar entre os *primeiros a receber as vagas* quando ativarmos sua cidade:
+
+👉 https://freelasnow.app
+
+*Vantagens dos primeiros cadastros em [CIDADE]:*
+✅ Prioridade nas primeiras vagas
+✅ R$10 de bônus depois do primeiro serviço (só pros primeiros)
+✅ Diária mínima garantida
+✅ Pagamento protegido em custódia. Sem calote.
+✅ Receba no dia seguinte às 10h — ou na hora pagando 5%
+✅ Você não paga nada. 100% da diária é sua.
+
+Te aviso por aqui assim que sair na App Store.
+Equipe Freelas Now
+  </div>
+
+  <div class="msg-block generic">
+    <span class="msg-label">GENÉRICA — POSTAR EM GRUPOS DE WHATSAPP</span>
+    <button class="copy-btn" onclick="copy(this)">Copiar</button>
+🚨 *Vagas de freela na gastronomia* 🚨
+
+Lançamento do *Freelas Now* — app que conecta restaurantes, bares, eventos e padarias a profissionais como você:
+
+👨‍🍳 Auxiliar de cozinha · Cozinheiro · Garçom · Bartender
+☕ Barista · Pizzaiolo · Padeiro · Confeiteiro
+👋 Hostess · Sommelier
+
+*Por que se cadastrar agora:*
+✅ Prioridade nas primeiras vagas da sua cidade
+✅ Bônus de R$10 depois do primeiro serviço (só pros primeiros)
+✅ Diária mínima garantida — sem leilão
+✅ Dinheiro protegido em custódia. Sem calote.
+✅ Receba no dia seguinte às 10h ou adiantado
+✅ Você não paga nada. 100% da diária é sua.
+
+📲 Cadastre-se: https://freelasnow.app
+
+(App Android em fase final de lançamento. iOS já disponível.)
+  </div>
+
+  <div class="msg-block tiktok">
+    <span class="msg-label">TIKTOK — ROTEIROS</span>
+    <button class="copy-btn" onclick="copy(this)">Copiar</button>
+🎬 IDEIAS DE CONTEÚDO TIKTOK (formatos curtos, 15-30s)
+
+1. "POV: você é freela e tá sem trabalho hoje"
+   → Mostra a notificação chegando, aceita, vai trabalhar, recebe na conta.
+
+2. "Como ganhei R$X em 1 dia trabalhando como [função]"
+   → Bastidor de um turno real (sem dizer o valor exato — usar "X" no thumbnail)
+
+3. "3 motivos pra largar o app de garçom que você usa hoje"
+   → Comparativo: sem calote (custódia), sem taxa (100% seu), sem leilão.
+
+4. "Tutorial: como funciona o Freelas Now em 30 segundos"
+   → Print da tela: cadastra, recebe oferta, aceita, faz check-in, recebe.
+
+5. "O bônus secreto pros primeiros cadastros"
+   → Cria curiosidade sobre o R$10 (sem revelar tudo no thumb).
+
+6. "Coisas que ninguém te conta sobre trabalhar como freela"
+   → Engajamento por desabafo + soft pitch no fim.
+
+CTAs SEMPRE:
+• "Link na bio" → freelasnow.app
+• "Cadastra agora pra ter prioridade na sua cidade"
+• Hashtags: #FreelaGastronomia #VagaGarcom #TrabalhoExtra #FreelasNow + #[NomeCidade]
+
+DICA: postar em horários de pico do público (6-8h, 12-14h, 21-23h).
+Reels/TikTok mais virais mostram bastidores reais — não animações.
+  </div>
+</section>
+
+<!-- CANAIS DE DIVULGAÇÃO -->
+<section class="card">
+  <h2>📡 Canais de divulgação (custo zero)</h2>
+  <ul class="checklist">
+    <li><strong>Grupos de WhatsApp</strong> de "vagas garçom [cidade]", freelas gastronomia, vagas extras</li>
+    <li><strong>Facebook</strong>: grupos públicos "Vagas Garçom [cidade]", "Bicos de Cozinha [cidade]", "Freela Eventos"</li>
+    <li><strong>Instagram</strong>: comentários em posts de profissionais da área, parcerias com perfis de gastronomia</li>
+    <li><strong>TikTok</strong>: conteúdo orgânico (ver roteiros acima) — segmento de freela engaja muito</li>
+    <li><strong>Indicação cruzada</strong>: quem se cadastra ganha bônus se indicar 3 amigos (a estudar — não implementar antes do lançamento)</li>
+    <li><strong>Marmitarias e fornecedores B2B</strong> de gastronomia conhecem o pessoal da cozinha — parcerias indiretas</li>
+    <li><strong>Escolas técnicas de gastronomia</strong> — público de início de carreira, perfil ideal pra freelas</li>
+    <li><strong>Sindicatos / associações de garçom e cozinheiro</strong> — listar como benefício pros associados</li>
+  </ul>
+</section>
+
+<!-- CRONOGRAMA -->
+<section class="card">
+  <h2>📅 Cronograma sugerido</h2>
+  <h3>Próximos 14 dias (até 09/05)</h3>
+  <ul>
+    <li>App Android em Closed Testing (Google exige) — <strong>NÃO subir versão nova</strong>, manter os 12 testers ativos</li>
+    <li>Foco total em captação de freelas via mensagens 1-a-1 + grupos + TikTok</li>
+    <li>Meta: chegar a 100+ freelas cadastrados distribuídos por 5+ cidades</li>
+  </ul>
+  <h3>09/05 - 15/05 (após aprovação Google)</h3>
+  <ul>
+    <li>Promover app para produção (Play Store)</li>
+    <li>Disparar mensagens em massa pros freelas Android cadastrados ("já tá no ar, baixa agora")</li>
+    <li>Se Apple aprovou: disparar mensagens iOS também</li>
+  </ul>
+  <h3>16/05 em diante</h3>
+  <ul>
+    <li>Identificar cidades com 30+ freelas (admin.html mostra agrupado)</li>
+    <li>Começar abordagem comercial em empresas <strong>SÓ</strong> nas cidades com massa crítica</li>
+    <li>Monitorar tempo médio entre publicação de vaga e candidato (meta: &lt;5min)</li>
+  </ul>
+</section>
+
+<!-- O QUE EVITAR -->
+<section class="card">
+  <h2>⚠️ Erros a evitar</h2>
+  <div class="warn">
+    <strong>Não chame empresa antes de ter freela.</strong> Empresa que publica vaga e fica vazia desinstala o app e te bloqueia no WhatsApp. Reverter isso custa muito mais do que esperar a massa crítica.
+  </div>
+  <div class="warn">
+    <strong>Não prometa data específica de lançamento.</strong> Apple e Google podem demorar. Sempre falar "em breve" / "fase final".
+  </div>
+  <div class="warn">
+    <strong>Não exponha valores de diária mínima nem comissão.</strong> Cria expectativa errada (freela quer mais, empresa quer menos) e dificulta ajuste futuro.
+  </div>
+  <div class="warn">
+    <strong>Não dispare em massa pelo número pessoal.</strong> WhatsApp pode banir. Disparos &gt;30/dia: usar número alternativo ou ferramenta dedicada.
+  </div>
+</section>
+
+<div class="footer-note">
+  Documento interno · Atualizado 28/abr/2026<br>
+  Equipe Freelas Now
+</div>
+
+</div>
+
+<script>
+function copy(btn) {
+  const block = btn.parentElement;
+  const text = block.innerText
+    .replace(btn.innerText, '')
+    .replace(block.querySelector('.msg-label').innerText, '')
+    .trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerText;
+    btn.innerText = '✓ Copiado!';
+    btn.style.background = '#2e7d32';
+    setTimeout(() => {
+      btn.innerText = orig;
+      btn.style.background = '#007aff';
+    }, 1800);
+  });
+}
+</script>
+</body>
+</html>
