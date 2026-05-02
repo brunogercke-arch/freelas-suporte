@@ -285,6 +285,8 @@
       <button class="filter-btn active" id="f-todos" onclick="setFiltro('todos')">Todos</button>
       <button class="filter-btn" id="f-FREELANCER" onclick="setFiltro('FREELANCER')">Freelancers</button>
       <button class="filter-btn" id="f-EMPRESA" onclick="setFiltro('EMPRESA')">Empresas</button>
+      <button class="filter-btn" id="f-sem-token" onclick="setFiltro('sem-token')">🔴 Sem push</button>
+      <button class="export-btn" onclick="copiarEmails()">📧 Copiar e-mails</button>
       <button class="export-btn" onclick="exportarCSV()">⬇ CSV</button>
     </div>
 
@@ -296,6 +298,7 @@
             <th>#</th>
             <th>Nome</th>
             <th>Tipo</th>
+            <th>Push</th>
             <th>Telefone</th>
             <th>E-mail</th>
             <th>Localização</th>
@@ -464,7 +467,11 @@
   function filtrados() {
     const q = document.getElementById('search').value.toLowerCase();
     return todosUsuarios.filter(u => {
-      if (filtroAtivo !== 'todos' && u.tipo !== filtroAtivo) return false;
+      if (filtroAtivo === 'sem-token') {
+        if (u.hasFcmToken) return false;
+      } else if (filtroAtivo !== 'todos' && u.tipo !== filtroAtivo) {
+        return false;
+      }
       if (cidadeAtiva) {
         const c = parseCidade(locDe(u));
         if (!c || c.label !== cidadeAtiva) return false;
@@ -518,6 +525,7 @@
           <span class="badge ${badgeClass}">${tipo}</span>
           ${isPremium ? '<span class="badge badge-premium">Premium</span>' : ''}
         </td>
+        <td style="text-align:center;font-size:14px" title="${u.hasFcmToken ? 'Recebe push' : 'Sem token (não recebe push)'}">${u.hasFcmToken ? '🟢' : '🔴'}</td>
         <td>${tel || '<span class="no-phone">—</span>'}</td>
         <td style="font-size:12px;color:#555">${u.email||'—'}</td>
         <td style="font-size:12px;color:#777;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${local}</td>
@@ -532,6 +540,28 @@
     if (d.length === 11) return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
     if (d.length === 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
     return t;
+  }
+
+  function copiarEmails() {
+    const emails = filtrados()
+      .map(u => (u.email||'').trim())
+      .filter(e => e && e.includes('@'));
+    if (!emails.length) {
+      alert('Nenhum e-mail no filtro atual.');
+      return;
+    }
+    const texto = emails.join(', ');
+    navigator.clipboard.writeText(texto).then(() => {
+      alert(`✅ ${emails.length} e-mails copiados! Cole no campo BCC do seu provedor de e-mail.`);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = texto;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert(`✅ ${emails.length} e-mails copiados!`);
+    });
   }
 
   function exportarCSV() {
