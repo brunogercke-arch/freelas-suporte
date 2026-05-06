@@ -299,6 +299,7 @@
             <th>Nome</th>
             <th>Tipo</th>
             <th>Push</th>
+            <th title="Plataforma do dispositivo">📱</th>
             <th>Telefone</th>
             <th>E-mail</th>
             <th>Localização</th>
@@ -526,6 +527,7 @@
           ${isPremium ? '<span class="badge badge-premium">Premium</span>' : ''}
         </td>
         <td style="text-align:center;font-size:14px" title="${u.hasFcmToken ? 'Recebe push' : 'Sem token (não recebe push)'}">${u.hasFcmToken ? '🟢' : '🔴'}</td>
+        <td style="text-align:center;font-size:14px" title="${u.platform ? 'Plataforma: '+u.platform : 'Plataforma não detectada (user antigo ou ainda não abriu o app patcheado)'}">${u.platform === 'ios' ? '🍎' : u.platform === 'android' ? '🤖' : u.platform === 'web' ? '🌐' : '—'}</td>
         <td>${tel || '<span class="no-phone">—</span>'}</td>
         <td style="font-size:12px;color:#555">${u.email||'—'}</td>
         <td style="font-size:12px;color:#777;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${local}</td>
@@ -615,6 +617,9 @@ O app Android está em fase final de testes — em breve disponível direto na P
 👉 https://freelasnow.app
 
 ${vantagens}
+
+🎁 *Quer acelerar seus ganhos?*
+Indique amigos do ramo direto pelo app (botão "Compartilhar no WhatsApp" na tela "Indicar Amigos"). A cada amigo que completar 3 trabalhos em até 60 dias, você ganha *R$10* extras na sua carteira — e ele também!
 
 Qualquer dúvida é só chamar.
 Equipe Freelas Now`,
