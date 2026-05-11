@@ -660,22 +660,29 @@ Fica tranquilo, é só aguardar nosso aviso.
 Qualquer dúvida chama aqui 🙌
 Equipe Freelas Now`,
 
-      'empresa': `Olá ${nome}, tudo bem? 👋
+      'empresa': (() => {
+        const isFundadora = !!u.empresaProfile?.isPremium;
+        const blocoPremium = isFundadora ? `🎁 *Presente de fundador: 1 ANO de Premium grátis*
+Como você entrou cedo, sua conta já tá com o Premium liberado por *12 meses*, por nossa conta. Ativa automático quando ${cidade} abrir.
+
+` : '';
+        const linhaPremium = isFundadora ? `✅ *1 ano de Premium grátis* (presente de fundador)
+` : '';
+        const linhaPrioridade = isFundadora
+          ? `✅ Prioridade no atendimento pra sempre (fundador é fundador)`
+          : `✅ Atendimento humano por aqui enquanto a operação não abre`;
+        return `Olá ${nome}, tudo bem? 👋
 
 Aqui é da equipe do *Freelas Now*. Vi que seu negócio está em ${cidade} e queria te dar um retorno pessoal sobre o cadastro — obrigado por entrar tão cedo. 🙏
 
 Vou ser direto: o app *acabou de lançar* e estamos em fase final de captação dos freelancers da sua região (garçom, cozinha, bartender, hostess, pizzaiolo). A gente prefere te avisar quando tiver gente suficiente pra atender de verdade — em vez de você publicar uma vaga e ninguém aparecer.
 
-🎁 *Presente de fundador: 1 ANO de Premium grátis*
-Como você entrou cedo, sua conta já tá com o Premium liberado por *12 meses*, por nossa conta. Ativa automático quando ${cidade} abrir.
-
-*Por que vale a pena ficar:*
+${blocoPremium}*Por que vale a pena ficar:*
 ✅ Você é um dos *primeiros cadastros* em ${cidade} — entra na frente quando liberar
-✅ *1 ano de Premium grátis* (presente de fundador)
-✅ Acompanhamento da nossa equipe no seu *primeiro turno*
+${linhaPremium}✅ Acompanhamento da nossa equipe no seu *primeiro turno*
 ✅ Pagamento protegido em custódia — só sai quando o serviço acontece
 ✅ Aviso direto aqui no WhatsApp assim que a malha estiver pronta
-✅ Prioridade no atendimento pra sempre (fundador é fundador)
+${linhaPrioridade}
 
 Pra acelerar do seu lado, me conta 2 coisas:
 1️⃣ Qual função você mais sofre pra encontrar?
@@ -683,7 +690,8 @@ Pra acelerar do seu lado, me conta 2 coisas:
 
 Com isso a gente prioriza a captação dos freelas certos pra você.
 
-Equipe Freelas Now`
+Equipe Freelas Now`;
+      })()
     };
   }
 
