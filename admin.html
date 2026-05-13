@@ -244,6 +244,7 @@
     <div class="h-logo"><span>Freelas</span> Now &nbsp;·&nbsp; Admin</div>
     <div class="h-right">
       <span id="headerCount"></span>
+      <button class="logout" style="background:#34c759" onclick="abrirIndicacoes()">🎁 Indicações</button>
       <button class="logout" onclick="sair()">Sair</button>
     </div>
   </header>
@@ -330,6 +331,33 @@
       <button class="btn-close" onclick="fecharMsg()">Fechar</button>
       <button class="btn-copy" onclick="copiarMsg(this)">📋 Copiar</button>
       <a class="btn-wa" id="msgWaLink" target="_blank">💬 Abrir WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL INDICAÇÕES -->
+<div class="modal-overlay" id="indicacoesModal" style="display:none">
+  <div class="modal-box" style="max-width:1100px;width:95%">
+    <h3>🎁 Programa de Indicações</h3>
+    <div class="sub" id="indicacoesResumo">Carregando…</div>
+    <div style="max-height:60vh;overflow:auto;margin-top:14px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="background:#f5f5f7;text-align:left">
+            <th style="padding:10px;border-bottom:1px solid #ddd">Status</th>
+            <th style="padding:10px;border-bottom:1px solid #ddd">Indicador</th>
+            <th style="padding:10px;border-bottom:1px solid #ddd">Indicado</th>
+            <th style="padding:10px;border-bottom:1px solid #ddd;text-align:center">Progresso</th>
+            <th style="padding:10px;border-bottom:1px solid #ddd;text-align:center">Dias</th>
+            <th style="padding:10px;border-bottom:1px solid #ddd">Data</th>
+          </tr>
+        </thead>
+        <tbody id="indicacoesBody"></tbody>
+      </table>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-close" onclick="fecharIndicacoes()">Fechar</button>
+      <button class="btn-copy" onclick="carregarIndicacoes()">🔄 Atualizar</button>
     </div>
   </div>
 </div>
@@ -754,6 +782,75 @@ Equipe Freelas Now`;
   document.getElementById('adminKey').addEventListener('keydown', e => {
     if (e.key === 'Enter') entrar();
   });
+
+  // ────────────────────────── INDICAÇÕES ──────────────────────────
+  function abrirIndicacoes() {
+    document.getElementById('indicacoesModal').style.display = 'flex';
+    carregarIndicacoes();
+  }
+  function fecharIndicacoes() {
+    document.getElementById('indicacoesModal').style.display = 'none';
+  }
+
+  async function carregarIndicacoes() {
+    const body = document.getElementById('indicacoesBody');
+    const resumo = document.getElementById('indicacoesResumo');
+    body.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#888">Carregando…</td></tr>';
+    try {
+      const r = await fetch(`${API}/admin/indicacoes`, { headers: { 'x-admin-key': adminKey } });
+      const data = await r.json();
+      if (!data.ok) throw new Error(data.error || 'Erro');
+
+      const re = data.resumo;
+      resumo.innerHTML = `<b>${re.total}</b> indicações · ✅ <b>${re.completas}</b> completas (R$10 creditados) · ⏳ <b>${re.pendentes}</b> pendentes · ❌ <b>${re.expiradas}</b> expiradas`;
+
+      if (!data.indicacoes.length) {
+        body.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#888">Nenhuma indicação ainda.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = data.indicacoes.map(i => {
+        const statusBadge = i.status === 'COMPLETO_CREDITADO'
+          ? '<span style="background:#34c759;color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600">✅ COMPLETO</span>'
+          : i.status === 'EXPIRADO'
+            ? '<span style="background:#ff3b30;color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600">❌ EXPIRADO</span>'
+            : `<span style="background:#ff9500;color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600">⏳ ${i.trabalhosCompletados}/3</span>`;
+
+        const indicador = i.indicador;
+        const indicado = i.indicado;
+        const indicadorTipo = indicador.tipo === 'EMPRESA' ? '🏢' : '👤';
+        const indicadoTipo = indicado.tipo === 'EMPRESA' ? '🏢' : '👤';
+        const indicadoFuncao = indicado.freelancerProfile?.funcao ? ` (${indicado.freelancerProfile.funcao})` : '';
+        const indicadoTotalServ = indicado.freelancerProfile?.totalServicos ?? '—';
+
+        const progresso = `${i.trabalhosCompletados}/3 trab` + (indicado.freelancerProfile ? ` · total: ${indicadoTotalServ}` : '');
+        const dias = i.creditoAplicado
+          ? `<span style="color:#34c759">finalizado</span>`
+          : i.diasDecorridos > 60
+            ? `<span style="color:#ff3b30">${i.diasDecorridos}d (expirou)</span>`
+            : `<span>${i.diasDecorridos}d · ${i.diasRestantes}d restantes</span>`;
+        const dataFmt = new Date(i.createdAt).toLocaleDateString('pt-BR');
+
+        return `
+          <tr style="border-bottom:1px solid #eee">
+            <td style="padding:10px">${statusBadge}</td>
+            <td style="padding:10px">
+              <div style="font-weight:600">${indicadorTipo} ${indicador.nome}</div>
+              <div style="color:#888;font-size:11px">${indicador.codigoIndicacao || '—'} · ${indicador.email || ''}</div>
+            </td>
+            <td style="padding:10px">
+              <div style="font-weight:600">${indicadoTipo} ${indicado.nome}${indicadoFuncao}</div>
+              <div style="color:#888;font-size:11px">${indicado.email || ''}</div>
+            </td>
+            <td style="padding:10px;text-align:center;font-weight:600">${progresso}</td>
+            <td style="padding:10px;text-align:center;font-size:12px">${dias}</td>
+            <td style="padding:10px;color:#888">${dataFmt}</td>
+          </tr>`;
+      }).join('');
+    } catch (e) {
+      body.innerHTML = `<tr><td colspan="6" style="padding:20px;text-align:center;color:#ff3b30">Erro: ${e.message}</td></tr>`;
+    }
+  }
 </script>
 </body>
 </html>
