@@ -370,6 +370,21 @@
   let adminKey = '';
   let msgUserAtual = null;
 
+  // Amigos/família que testaram o app — excluídos da contagem de massa crítica por cidade
+  // (ainda aparecem no total geral e na tabela).
+  const TESTERS_EXCLUIR_CONTAGEM = new Set([
+    'bruno gercke',
+    'caroline gercke',
+    'alexandre assalve',
+    'adriano valente',
+    'isabela alckmin',
+    'walter gercke',
+    'oswaldo estevam',
+  ]);
+  function isTesterExcluido(u) {
+    return TESTERS_EXCLUIR_CONTAGEM.has((u.nome || '').trim().toLowerCase());
+  }
+
   // Extrai "Cidade - UF" de uma string de localização tipo "Mogi das Cruzes - SP, J" ou "Porto Alegre - RS, Sara"
   function parseCidade(loc) {
     if (!loc || typeof loc !== 'string') return null;
@@ -457,6 +472,7 @@
     const mapa = {};
     todosUsuarios.forEach(u => {
       if (filtroAtivo !== 'todos' && u.tipo !== filtroAtivo) return;
+      if (isTesterExcluido(u)) return;
       const c = parseCidade(locDe(u));
       if (!c) return;
       const key = c.label;
