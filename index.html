@@ -100,7 +100,8 @@
   #fn-dl-overlay.show #fn-dl-card { transform: translateY(0); }
   #fn-dl-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: #F6F4EF; display: flex; align-items: center; justify-content: center; color: #0A0E1A; font-size: 18px; line-height: 1; cursor: pointer; border: none; }
   #fn-dl-close:hover { background: #ebe7df; }
-  #fn-dl-logo { width: 64px; height: 64px; border-radius: 14px; background: #1565C0; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  #fn-dl-logo { display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  #fn-dl-logo img { height: 56px; width: auto; display: block; }
   #fn-dl-title { font-size: 22px; font-weight: 800; color: #0A0E1A; text-align: center; margin: 0 0 6px; line-height: 1.15; }
   #fn-dl-sub { font-size: 14px; color: #5a6072; text-align: center; margin: 0 0 22px; line-height: 1.4; }
   .fn-dl-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px 18px; border-radius: 12px; background: #0A0E1A; color: #fff; font-size: 15px; font-weight: 600; text-decoration: none; margin-bottom: 10px; transition: opacity .15s; }
@@ -113,7 +114,7 @@
   <div id="fn-dl-card">
     <button id="fn-dl-close" aria-label="Fechar" onclick="fnFecharDownload()">×</button>
     <div id="fn-dl-logo">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4M3 17l9 4 9-4"/></svg>
+      <img src="/logo-mark-only.png" alt="Freelas Now" />
     </div>
     <h3 id="fn-dl-title">Baixe o Freelas Now</h3>
     <p id="fn-dl-sub">Contrate freelancers de gastronomia em minutos — ou trabalhe como freela e receba via PIX no dia seguinte.</p>
