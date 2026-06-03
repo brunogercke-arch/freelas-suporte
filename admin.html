@@ -393,6 +393,31 @@
     return { cidade: m[1].trim(), uf: m[2].trim(), label: `${m[1].trim()} - ${m[2].trim()}` };
   }
 
+  // Os 39 municípios da Região Metropolitana de São Paulo (RMSP — IBGE).
+  // Como o raio de busca de freelas em SP cobre toda a Grande SP, agregamos
+  // os 39 sob um único label "Grande São Paulo - SP" pra contagem de massa
+  // crítica refletir o que de fato atende uma empresa em SP capital.
+  const RMSP = new Set([
+    'São Paulo','Guarulhos','São Bernardo do Campo','Santo André','Osasco',
+    'São Caetano do Sul','Diadema','Mauá','Mogi das Cruzes','Carapicuíba',
+    'Suzano','Itaquaquecetuba','Taboão da Serra','Barueri','Cotia',
+    'Embu das Artes','Embu-Guaçu','Itapevi','Itapecerica da Serra','Jandira',
+    'Poá','Santana de Parnaíba','Ferraz de Vasconcelos','Francisco Morato',
+    'Franco da Rocha','Caieiras','Cajamar','Vargem Grande Paulista','Mairiporã',
+    'Ribeirão Pires','Rio Grande da Serra','Arujá','Biritiba-Mirim',
+    'Guararema','Juquitiba','Salesópolis','Santa Isabel',
+    'São Lourenço da Serra','Pirapora do Bom Jesus'
+  ]);
+
+  // Retorna o label de agregação usado em chips/filtro/select.
+  // Pra cidades da RMSP devolve "Grande São Paulo - SP"; senão devolve "Cidade - UF" normal.
+  function cidadeLabel(loc) {
+    const c = parseCidade(loc);
+    if (!c) return null;
+    if (c.uf === 'SP' && RMSP.has(c.cidade)) return 'Grande São Paulo - SP';
+    return c.label;
+  }
+
   async function entrar() {
     const key = document.getElementById('adminKey').value.trim();
     if (!key) return;
@@ -473,9 +498,8 @@
     todosUsuarios.forEach(u => {
       if (filtroAtivo !== 'todos' && u.tipo !== filtroAtivo) return;
       if (isTesterExcluido(u)) return;
-      const c = parseCidade(locDe(u));
-      if (!c) return;
-      const key = c.label;
+      const key = cidadeLabel(locDe(u));
+      if (!key) return;
       if (!mapa[key]) mapa[key] = { label: key, freela: 0, empresa: 0 };
       if (u.tipo === 'EMPRESA') mapa[key].empresa++; else mapa[key].freela++;
     });
@@ -501,8 +525,8 @@
     const sel = document.getElementById('cidadeSelect');
     const set = new Set();
     todosUsuarios.forEach(u => {
-      const c = parseCidade(locDe(u));
-      if (c) set.add(c.label);
+      const l = cidadeLabel(locDe(u));
+      if (l) set.add(l);
     });
     const opts = ['<option value="">📍 Todas as cidades</option>']
       .concat([...set].sort().map(l => `<option value="${l}">${l}</option>`));
@@ -518,8 +542,7 @@
         return false;
       }
       if (cidadeAtiva) {
-        const c = parseCidade(locDe(u));
-        if (!c || c.label !== cidadeAtiva) return false;
+        if (cidadeLabel(locDe(u)) !== cidadeAtiva) return false;
       }
       if (!q) return true;
       return (u.nome||'').toLowerCase().includes(q) ||
