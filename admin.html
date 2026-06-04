@@ -432,6 +432,7 @@
       if (r.status === 403) {
         adminKey = '';
         localStorage.removeItem('freelas_admin_key');
+        document.getElementById('loginWrap').style.display = 'flex';
         if (!auto) { err.textContent = 'Chave inválida.'; err.style.display = 'block'; }
         return;
       }
@@ -447,6 +448,7 @@
       document.getElementById('loadingMsg').style.display = 'none';
       document.getElementById('tabela').style.display = 'table';
     } catch(e) {
+      document.getElementById('loginWrap').style.display = 'flex';
       if (!auto) {
         err.textContent = 'Erro de conexão. Tente novamente.';
         err.style.display = 'block';
@@ -902,6 +904,7 @@ Equipe Freelas Now`;
     const saved = localStorage.getItem('freelas_admin_key');
     if (saved) {
       document.getElementById('adminKey').value = saved;
+      document.getElementById('loginWrap').style.display = 'none';
       entrar(saved);
     }
   })();
