@@ -418,8 +418,9 @@
     return c.label;
   }
 
-  async function entrar() {
-    const key = document.getElementById('adminKey').value.trim();
+  async function entrar(savedKey) {
+    const auto = typeof savedKey === 'string';
+    const key = auto ? savedKey : document.getElementById('adminKey').value.trim();
     if (!key) return;
     adminKey = key;
     const err = document.getElementById('loginErr');
@@ -429,12 +430,14 @@
         headers: { 'x-admin-key': key }
       });
       if (r.status === 403) {
-        err.style.display = 'block';
         adminKey = '';
+        localStorage.removeItem('freelas_admin_key');
+        if (!auto) { err.textContent = 'Chave inválida.'; err.style.display = 'block'; }
         return;
       }
       const data = await r.json();
       todosUsuarios = data.users || [];
+      localStorage.setItem('freelas_admin_key', key);
       document.getElementById('loginWrap').style.display = 'none';
       document.getElementById('dashboard').style.display = 'block';
       renderStats();
@@ -444,14 +447,17 @@
       document.getElementById('loadingMsg').style.display = 'none';
       document.getElementById('tabela').style.display = 'table';
     } catch(e) {
-      err.textContent = 'Erro de conexão. Tente novamente.';
-      err.style.display = 'block';
+      if (!auto) {
+        err.textContent = 'Erro de conexão. Tente novamente.';
+        err.style.display = 'block';
+      }
     }
   }
 
   function sair() {
     adminKey = '';
     todosUsuarios = [];
+    localStorage.removeItem('freelas_admin_key');
     document.getElementById('loginWrap').style.display = 'flex';
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('adminKey').value = '';
@@ -890,6 +896,15 @@ Equipe Freelas Now`;
       body.innerHTML = `<tr><td colspan="6" style="padding:20px;text-align:center;color:#ff3b30">Erro: ${e.message}</td></tr>`;
     }
   }
+
+  // Mantém o login entre reloads: se há chave salva, reentra automaticamente.
+  (function () {
+    const saved = localStorage.getItem('freelas_admin_key');
+    if (saved) {
+      document.getElementById('adminKey').value = saved;
+      entrar(saved);
+    }
+  })();
 </script>
 </body>
 </html>
