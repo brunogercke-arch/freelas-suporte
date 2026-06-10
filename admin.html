@@ -385,10 +385,14 @@
     return TESTERS_EXCLUIR_CONTAGEM.has((u.nome || '').trim().toLowerCase());
   }
 
-  // Extrai "Cidade - UF" de uma string de localização tipo "Mogi das Cruzes - SP, J" ou "Porto Alegre - RS, Sara"
+  // Extrai "Cidade - UF" de uma string de localização. Tolerante a formatos:
+  //  - "Mogi das Cruzes - SP, Jd X" (cidade no início, traço)
+  //  - "São Paulo, SP" (separador vírgula)
+  //  - "Rua Caiubi, 1537, Perdizes, São Paulo - SP" (endereço completo, cidade no fim)
+  // Busca o último "Cidade [-,] UF" onde UF (2 letras) é seguida de vírgula ou fim.
   function parseCidade(loc) {
     if (!loc || typeof loc !== 'string') return null;
-    const m = loc.match(/^([^,]+?)\s*-\s*([A-Z]{2})/);
+    const m = loc.match(/([^,]+?)\s*[-,]\s*([A-Z]{2})(?=\s*(?:,|$))/);
     if (!m) return null;
     return { cidade: m[1].trim(), uf: m[2].trim(), label: `${m[1].trim()} - ${m[2].trim()}` };
   }
