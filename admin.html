@@ -469,11 +469,17 @@
     document.getElementById('adminKey').value = '';
   }
 
+  // Dia YYYY-MM-DD no horário de Brasília (createdAt vem em UTC; sem isso,
+  // cadastro feito entre 21h e meia-noite cai no "hoje" do dia seguinte).
+  function diaBrasilia(d) {
+    return new Date(d).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
+  }
+
   function renderStats() {
-    const hoje = new Date().toISOString().slice(0,10);
+    const hoje = diaBrasilia(new Date());
     const freelancers = todosUsuarios.filter(u => u.tipo === 'FREELANCER').length;
     const empresas = todosUsuarios.filter(u => u.tipo === 'EMPRESA').length;
-    const cadastrosHoje = todosUsuarios.filter(u => u.createdAt?.slice(0,10) === hoje).length;
+    const cadastrosHoje = todosUsuarios.filter(u => u.createdAt && diaBrasilia(u.createdAt) === hoje).length;
     document.getElementById('statTotal').textContent = todosUsuarios.length;
     document.getElementById('statFreelancer').textContent = freelancers;
     document.getElementById('statEmpresa').textContent = empresas;
