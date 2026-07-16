@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como funciona o Freelas Now</title>
+<meta name="description" content="Entenda como o Freelas Now conecta restaurantes a freelancers da alimentação, com contratação na hora, pagamento garantido e sem vínculo empregatício.">
+<style>
+  :root{
+    --azul:#1565C0; --azul-claro:#E3F2FD; --laranja:#FB8C00; --laranja-claro:#FFF3E0;
+    --verde:#2E7D32; --verde-claro:#E8F5E9; --cinza:#5f6b7a; --texto:#1f2a37; --borda:#e5e9f0;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--texto);line-height:1.55;margin:0;background:#f6f8fb}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 20px 60px}
+  header.top{text-align:center;padding:44px 20px;background:linear-gradient(135deg,#1565C0,#1E88E5);color:#fff;border-radius:0 0 22px 22px}
+  header.top .logo{font-size:30px;font-weight:800;letter-spacing:-.5px}
+  header.top .logo .now{color:#FFB74D}
+  header.top h1{margin:12px 0 0;font-size:26px;font-weight:800}
+  header.top p{margin:8px 0 0;opacity:.95;font-size:16px;max-width:600px;margin-left:auto;margin-right:auto}
+  h2{font-size:22px;margin:38px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--borda);display:flex;align-items:center;gap:10px}
+  h3{font-size:17px;margin:20px 0 8px}
+  .pitch{background:var(--azul-claro);border-left:5px solid var(--azul);padding:16px 18px;border-radius:10px;font-size:17px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+  @media(max-width:680px){.cards{grid-template-columns:1fr}}
+  .card{border:1px solid var(--borda);border-radius:12px;padding:16px 18px;background:#fff}
+  .card.rest{border-top:4px solid var(--laranja)}
+  .card.free{border-top:4px solid var(--azul)}
+  .card h3{margin-top:0}
+  ul{margin:8px 0;padding-left:20px} li{margin:6px 0}
+  .flow{counter-reset:step;display:grid;gap:10px;margin-top:10px}
+  .flow .s{position:relative;background:#fff;border:1px solid var(--borda);border-radius:10px;padding:12px 14px 12px 52px}
+  .flow .s:before{counter-increment:step;content:counter(step);position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;border-radius:50%;background:var(--azul);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--verde-claro);color:var(--verde)}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+  th,td{border:1px solid var(--borda);padding:10px 12px;text-align:left;vertical-align:top} th{background:#f0f4fa}
+  .faq{background:#fff;border:1px solid var(--borda);border-radius:12px;padding:6px 18px;margin-top:10px}
+  .faq details{padding:12px 0;border-bottom:1px solid var(--borda)} .faq details:last-child{border-bottom:none}
+  .faq summary{font-weight:700;cursor:pointer;color:var(--azul)} .faq p{margin:8px 0 0}
+  .pill{display:inline-block;background:#eef2f7;border-radius:20px;padding:6px 12px;margin:4px 6px 0 0;font-size:14px}
+  .cta{text-align:center;margin:44px 0 10px;background:#fff;border:1px solid var(--borda);border-radius:16px;padding:28px 20px}
+  .cta h2{border:none;justify-content:center;margin-top:0}
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:12px;font-size:15px}
+  .btn.ios{background:#111;color:#fff} .btn.and{background:var(--laranja);color:#fff}
+  footer{text-align:center;color:var(--cinza);font-size:13px;margin-top:36px}
+  footer a{color:var(--cinza)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">Freelas<span class="now">Now</span></div>
+  <h1>Como funciona</h1>
+  <p>O jeito rápido de restaurantes contratarem profissionais de alimentação na hora, e de freelancers conseguirem trabalho hoje.</p>
+</header>
+
+<div class="wrap">
+
+  <h2>O que é o Freelas Now</h2>
+  <div class="pitch">
+    Um aplicativo que conecta <strong>restaurantes que precisam de mão de obra na hora</strong> a
+    <strong>freelancers da área de alimentação</strong>, no estilo Uber. O restaurante publica a vaga,
+    o profissional mais próximo é chamado na hora, aceita e vai trabalhar <strong>no mesmo dia</strong>.
+    Sem agência, sem burocracia, sem vínculo empregatício, com pagamento garantido.
+  </div>
+
+  <h2>Como funciona, passo a passo</h2>
+  <div class="flow">
+    <div class="s"><strong>O restaurante publica a vaga</strong> — escolhe a função (garçom, cozinheiro, etc.), o valor da diária e se é pra hoje (imediata) ou agendada (data e hora marcadas).</div>
+    <div class="s"><strong>Os freelas próximos são avisados na hora</strong> — o app notifica os profissionais compatíveis mais perto do restaurante.</div>
+    <div class="s"><strong>O freela aceita e vai pro local</strong> — o restaurante acompanha o tempo estimado de chegada pelo mapa.</div>
+    <div class="s"><strong>Check-in no local com código</strong> — ao chegar, o profissional digita um código de 4 dígitos que o restaurante fornece. O app confirma que ele está no endereço.</div>
+    <div class="s"><strong>O serviço acontece</strong> — o profissional trabalha o turno combinado.</div>
+    <div class="s"><strong>Encerramento e pagamento</strong> — o restaurante confirma a conclusão. O freela recebe no dia seguinte; o restaurante paga só o serviço realizado.</div>
+  </div>
+
+  <h2>Para o restaurante</h2>
+  <div class="cards">
+    <div class="card rest">
+      <h3>Por que usar</h3>
+      <ul>
+        <li>Resolve falta de última hora em minutos.</li>
+        <li>Trabalha hoje: o profissional aparece no mesmo dia.</li>
+        <li>Sem vínculo empregatício, contrata por diária quando precisa.</li>
+        <li>Paga só o que usar, sem mensalidade no plano grátis.</li>
+        <li>Profissionais avaliados, com nota e histórico visíveis.</li>
+        <li>Pagamento seguro: fica retido e só é liberado depois do serviço.</li>
+        <li>Se o freela não aparece, o app busca substituto sozinho e o restaurante é reembolsado.</li>
+      </ul>
+    </div>
+    <div class="card rest">
+      <h3>Funcionalidades</h3>
+      <ul>
+        <li>Vaga imediata (pra hoje) ou agendada (turno com data e hora).</li>
+        <li>Mapa de freelas próximos, com filtro por profissão e avaliação.</li>
+        <li>Contratação direta de favoritos e de Super Freelas.</li>
+        <li>Uniforme e valor da diária definidos pelo restaurante.</li>
+        <li>Acompanhamento em tempo real do freela chegando.</li>
+        <li>Check-in por código e confirmação de presença.</li>
+        <li>Pagamento por PIX, saldo em carteira ou cartão.</li>
+        <li>Cadastro por CNPJ ou CPF (empresa ou pessoa física).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Para o freelancer</h2>
+  <div class="cards">
+    <div class="card free">
+      <h3>Por que usar</h3>
+      <ul>
+        <li>Trabalho hoje, na hora, com vagas perto de casa.</li>
+        <li>Pagamento garantido: o valor fica reservado antes de você ir. Recebe no dia seguinte.</li>
+        <li>Bônus de boas-vindas no primeiro trabalho concluído.</li>
+        <li>Ganha mais com boa reputação: bônus de desempenho de até 7% na diária.</li>
+        <li>Vira Super Freela e passa a ser chamado com prioridade.</li>
+        <li>Indica amigos e ganha por cada um que trabalha.</li>
+        <li>Sem patrão fixo, trabalha quando quiser.</li>
+      </ul>
+    </div>
+    <div class="card free">
+      <h3>Funcionalidades</h3>
+      <ul>
+        <li>Notificação de vaga na hora que aparece perto de você.</li>
+        <li>Vagas pra hoje e vagas agendadas.</li>
+        <li>Rota e tempo até o local (carro ou transporte público).</li>
+        <li>Carteira digital com saque por PIX e saque automático.</li>
+        <li>Perfil com função, experiência e avaliação, tudo editável.</li>
+        <li>Identidade verificada na Receita, que passa mais confiança.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Segurança e confiança <span class="badge">DIFERENCIAL</span></h2>
+  <ul>
+    <li><strong>Identidade verificada:</strong> CPF do freela e do contratante conferidos na Receita Federal no cadastro.</li>
+    <li><strong>Check-in por geolocalização:</strong> só valida quando o profissional está fisicamente no restaurante.</li>
+    <li><strong>Custódia do pagamento:</strong> o valor fica retido e só é liberado depois do serviço concluído.</li>
+    <li><strong>Proteção anti-falta:</strong> o app detecta quando alguém não comparece, busca substituto e reembolsa o restaurante.</li>
+    <li><strong>Confirmação de presença:</strong> em turno agendado, o freela confirma antes, e o restaurante é avisado se ele não confirmar.</li>
+    <li><strong>Aviso de vínculo trabalhista:</strong> o app avisa quando o mesmo profissional é contratado com frequência, protegendo o restaurante.</li>
+  </ul>
+
+  <h2>Pagamento e planos</h2>
+  <table>
+    <tr><th>Item</th><th>Como é</th></tr>
+    <tr><td>Custo pro restaurante</td><td>Sem mensalidade no plano grátis. Paga a diária do freela mais uma comissão da plataforma por contratação.</td></tr>
+    <tr><td>Comissão da plataforma</td><td>12% no plano grátis, 10% no Premium.</td></tr>
+    <tr><td>Formas de pagamento</td><td>PIX, saldo em carteira ou cartão de crédito.</td></tr>
+    <tr><td>Quando o freela recebe</td><td>No dia seguinte ao serviço concluído.</td></tr>
+    <tr><td>Premium (restaurante)</td><td>Comissão reduzida, prioridade no envio de vagas, contratação direta de qualquer freela e filtros avançados.</td></tr>
+  </table>
+
+  <h2>Profissões disponíveis</h2>
+  <div>
+    <span class="pill">Garçom</span><span class="pill">Barman</span><span class="pill">Barista</span>
+    <span class="pill">Cozinheiro</span><span class="pill">Auxiliar de Cozinha</span><span class="pill">Chapeiro</span>
+    <span class="pill">Hostess</span><span class="pill">Sommelier</span><span class="pill">Padeiro</span>
+    <span class="pill">Confeiteiro</span><span class="pill">Pizzaiolo</span><span class="pill">Manobrista</span>
+    <span class="pill">Churrasqueiro</span><span class="pill">Recreador Infantil</span>
+  </div>
+
+  <h2>Perguntas frequentes</h2>
+  <div class="faq">
+    <details><summary>E se o freela não aparecer?</summary>
+      <p>O app detecta a falta, busca um substituto próximo automaticamente e o restaurante é reembolsado. Quem falta perde reputação e pode ser bloqueado.</p></details>
+    <details><summary>Como sei que é gente de confiança?</summary>
+      <p>Todo profissional tem CPF verificado na Receita, além de nota e histórico visíveis. Ainda existe o selo Super Freela para os mais bem avaliados.</p></details>
+    <details><summary>Vou ter vínculo trabalhista?</summary>
+      <p>Não. É contratação por diária (freelancer autônomo), sem vínculo. O app ainda avisa quando o mesmo profissional é chamado com frequência.</p></details>
+    <details><summary>Preciso pagar adiantado?</summary>
+      <p>O valor fica retido em custódia e só é liberado ao profissional depois que o serviço é concluído. Se não acontecer, o restaurante é reembolsado.</p></details>
+    <details><summary>Tem mensalidade?</summary>
+      <p>Não no plano grátis. O restaurante só paga quando contrata. Quem contrata muito pode assinar o Premium para pagar menos comissão.</p></details>
+    <details><summary>Quanto tempo pra conseguir alguém?</summary>
+      <p>Minutos. Assim que a vaga é publicada, os profissionais próximos são notificados e o primeiro a aceitar já vai pro local no mesmo dia.</p></details>
+  </div>
+
+  <div class="cta">
+    <h2>Baixe o app e comece hoje</h2>
+    <p>Disponível para iPhone e Android. É grátis pra baixar e cadastrar.</p>
+    <div class="btns">
+      <a class="btn ios" href="https://apps.apple.com/br/app/freelasnow/id6761491861">Baixar no iPhone</a>
+      <a class="btn and" href="https://play.google.com/store/apps/details?id=com.alckmingercke.freelas">Baixar no Android</a>
+    </div>
+  </div>
+
+  <footer>
+    Freelas Now &middot; <a href="/termos">Termos de Uso</a> &middot; <a href="/privacidade">Política de Privacidade</a> &middot; <a href="/suporte">Suporte</a>
+  </footer>
+</div>
+</body>
+</html>
