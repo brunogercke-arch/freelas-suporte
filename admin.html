@@ -332,6 +332,13 @@
         <div class="pan-card red"><div class="pv" id="pbTotal">—</div><div class="pl">Total de bônus</div></div>
       </div>
 
+      <div class="pan-sec">⚠️ Fricção (no período)</div>
+      <div class="pan-cards">
+        <div class="pan-card orange"><div class="pv" id="pfDesist">—</div><div class="pl">Desistências de freela</div></div>
+        <div class="pan-card red"><div class="pv" id="pfPixNP">—</div><div class="pl">PIX não pago (empresa abandonou)</div></div>
+      </div>
+      <div class="table-wrap"><table class="pan-table"><thead><tr><th>Tipo</th><th>Empresa</th><th>Freela</th><th>Função</th><th>Valor</th><th>Quando</th></tr></thead><tbody id="panFriccao"></tbody></table></div>
+
       <div class="pan-sec">🏦 Capital consignado (dinheiro das empresas)</div>
       <div class="pan-cards">
         <div class="pan-card blue"><div class="pv" id="pcNaConta">—</div><div class="pl">Capital externo na conta AGORA</div></div>
@@ -1086,6 +1093,11 @@ Equipe Freelas Now`;
       const b = d.bonus || {};
       S('pbBoas', panFmt(b.boasVindas)); S('pbInd', panFmt(b.indicacao));
       S('pbCbPix', panFmt(b.cashbackPix)); S('pbCbPrem', panFmt(b.cashbackPremium)); S('pbTotal', panFmt(b.total));
+      const fr = d.friccao || {};
+      S('pfDesist', fr.desistencias ?? 0); S('pfPixNP', fr.pixNaoPago ?? 0);
+      document.getElementById('panFriccao').innerHTML = (fr.lista || []).map(e =>
+        `<tr><td>${e.tipo === 'PIX_NAO_PAGO' ? '💳 PIX não pago' : '🚶 Desistiu'}</td><td>${esc(e.empresa || '—')}</td><td>${esc(e.freela || '—')}</td><td>${esc(e.funcao || '—')}</td><td>${panFmt(e.valor)}</td><td>${esc(e.quando || '')}</td></tr>`
+      ).join('') || '<tr><td colspan="6" style="text-align:center;color:#889">Nenhuma fricção no período 🎉</td></tr>';
       const cap = d.capital || {};
       S('pcNaConta', panFmt(cap.naConta)); S('pcDepositado', panFmt(cap.totalDepositado));
       S('pcConsumido', panFmt(cap.consumido));
@@ -1125,6 +1137,7 @@ Equipe Freelas Now`;
     push('BONUS NO PERIODO'); push('Boas-vindas', d.bonus.boasVindas); push('Indicacao', d.bonus.indicacao);
     push('Cashback PIX', d.bonus.cashbackPix); push('Cashback Premium', d.bonus.cashbackPremium); push('Total bonus', d.bonus.total);
     push('');
+    if (d.friccao) { push('FRICCAO (' + d.periodo + ')'); push('Desistencias de freela', d.friccao.desistencias); push('PIX nao pago', d.friccao.pixNaoPago); (d.friccao.lista || []).forEach(e => push(e.tipo, e.empresa, e.freela, e.funcao, e.valor, e.quando)); push(''); }
     push('CAPITAL CONSIGNADO'); push('Na conta agora', d.capital.naConta); push('Total depositado (top-ups)', d.capital.totalDepositado);
     push('Ja consumido', d.capital.consumido); push('Queima por dia', d.capital.gastoPorDia);
     push('Runway (dias)', d.capital.runwayDias); push('Dias p/ gastar deposito cheio', d.capital.diasParaGastarDeposito);
