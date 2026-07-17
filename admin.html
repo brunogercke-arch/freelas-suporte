@@ -308,7 +308,9 @@
         <div class="pan-card blue"><div class="pv" id="pImediatas">—</div><div class="pl">Vagas abertas (pra hoje)</div></div>
         <div class="pan-card blue"><div class="pv" id="pAgendadas">—</div><div class="pl">Vagas agendadas</div></div>
         <div class="pan-card orange"><div class="pv" id="pRolando">—</div><div class="pl">Turnos rolando agora</div></div>
-        <div class="pan-card"><div class="pv" id="pAguardando">—</div><div class="pl">Aguardando aceite</div></div>
+        <div class="pan-card green"><div class="pv" id="pConfirmados">—</div><div class="pl">Confirmados (aceitos, aguardando turno)</div></div>
+        <div class="pan-card"><div class="pv" id="pAguardando">—</div><div class="pl">Aguardando aceite do freela</div></div>
+        <div class="pan-card orange"><div class="pv" id="pAguardPgto">—</div><div class="pl">Aguardando pagamento (PIX)</div></div>
       </div>
 
       <div class="pan-sec">💰 No período (<span id="pPeriodoLabel">hoje</span>)</div>
@@ -1084,7 +1086,8 @@ Equipe Freelas Now`;
       S('prComissao', panFmt(R.comissao)); S('prAntecip', panFmt(R.antecipacao));
       S('prBonus', panFmt(R.bonusDistribuidos)); S('prDesde', R.desde || '-');
       S('pImediatas', d.vagas.imediatasAbertas); S('pAgendadas', d.vagas.agendadasAbertas);
-      S('pRolando', d.turnos.rolando.length); S('pAguardando', d.turnos.aguardando);
+      S('pRolando', d.turnos.rolando.length); S('pConfirmados', d.turnos.confirmados ?? 0);
+      S('pAguardando', d.turnos.aguardandoAceite ?? 0); S('pAguardPgto', d.turnos.aguardandoPagamento ?? 0);
       const m = d.metricas;
       S('pConcl', m.concluidos); S('pCanc', m.cancelados); S('pFuros', m.furos);
       S('pTicket', panFmt(m.ticketMedio)); S('pGmv', panFmt(m.gmv));
@@ -1145,7 +1148,8 @@ Equipe Freelas Now`;
     push('FORMA DE PAGAMENTO', 'Turnos', 'Valor'); (d.formaPagamento || []).forEach(f => push(f.metodo, f.qtd, f.valor));
     push('');
     push('AGORA'); push('Vagas abertas (hoje)', d.vagas.imediatasAbertas); push('Vagas agendadas', d.vagas.agendadasAbertas);
-    push('Turnos rolando', d.turnos.rolando.length); push('Aguardando aceite', d.turnos.aguardando);
+    push('Turnos rolando', d.turnos.rolando.length); push('Confirmados (aceitos)', d.turnos.confirmados);
+    push('Aguardando aceite do freela', d.turnos.aguardandoAceite); push('Aguardando pagamento PIX', d.turnos.aguardandoPagamento);
     push('');
     const m = d.metricas;
     push('NO PERIODO (' + d.periodo + ')');
