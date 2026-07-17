@@ -299,8 +299,8 @@
       </div>
 
       <div class="pan-receita">
-        <div class="pr-total">💵 Receita total do app: <b id="prTotal">—</b></div>
-        <div class="pr-det">Comissão <b id="prComissao">—</b> · Antecipações 5% <b id="prAntecip">—</b> · desde <span id="prDesde">—</span></div>
+        <div class="pr-total">💰 Lucro líquido do app: <b id="prLucro">—</b></div>
+        <div class="pr-det">Receita bruta <b id="prTotal">—</b> (comissão <b id="prComissao">—</b> + antecipação <b id="prAntecip">—</b>) menos bônus <b id="prBonus">—</b> · desde <span id="prDesde">—</span></div>
       </div>
 
       <div class="pan-sec">🟢 Agora (tempo real)</div>
@@ -322,6 +322,24 @@
         <div class="pan-card green"><div class="pv" id="pCom">—</div><div class="pl">Comissão do app</div></div>
         <div class="pan-card orange"><div class="pv" id="pAnt">—</div><div class="pl">Antecipações 5% (qtd · taxa)</div></div>
       </div>
+
+      <div class="pan-sec">💸 Bônus distribuídos (custo do app, no período)</div>
+      <div class="pan-cards">
+        <div class="pan-card"><div class="pv" id="pbBoas">—</div><div class="pl">Boas-vindas (1º trabalho)</div></div>
+        <div class="pan-card"><div class="pv" id="pbInd">—</div><div class="pl">Indicação (indicador + indicado)</div></div>
+        <div class="pan-card"><div class="pv" id="pbCbPix">—</div><div class="pl">Cashback PIX 2% (top-up)</div></div>
+        <div class="pan-card"><div class="pv" id="pbCbPrem">—</div><div class="pl">Cashback Premium 1%</div></div>
+        <div class="pan-card red"><div class="pv" id="pbTotal">—</div><div class="pl">Total de bônus</div></div>
+      </div>
+
+      <div class="pan-sec">🏦 Capital consignado (dinheiro das empresas)</div>
+      <div class="pan-cards">
+        <div class="pan-card blue"><div class="pv" id="pcNaConta">—</div><div class="pl">Capital externo na conta AGORA</div></div>
+        <div class="pan-card"><div class="pv" id="pcDepositado">—</div><div class="pl">Total já depositado (top-ups)</div></div>
+      </div>
+
+      <div class="pan-sec">💳 Forma de pagamento (concluídos no período)</div>
+      <div class="table-wrap"><table class="pan-table"><thead><tr><th>Forma</th><th>Turnos</th><th>Valor</th></tr></thead><tbody id="panFormaPgto"></tbody></table></div>
 
       <div class="pan-tops">
         <div>
@@ -1047,8 +1065,9 @@ Equipe Freelas Now`;
       window.__panData = d;
       S('panAgora', d.agora);
       const R = d.receitaApp || {};
-      S('prTotal', panFmt(R.total)); S('prComissao', panFmt(R.comissao));
-      S('prAntecip', panFmt(R.antecipacao)); S('prDesde', R.desde || '-');
+      S('prLucro', panFmt(R.lucroLiquido)); S('prTotal', panFmt(R.total));
+      S('prComissao', panFmt(R.comissao)); S('prAntecip', panFmt(R.antecipacao));
+      S('prBonus', panFmt(R.bonusDistribuidos)); S('prDesde', R.desde || '-');
       S('pImediatas', d.vagas.imediatasAbertas); S('pAgendadas', d.vagas.agendadasAbertas);
       S('pRolando', d.turnos.rolando.length); S('pAguardando', d.turnos.aguardando);
       const m = d.metricas;
@@ -1056,6 +1075,14 @@ Equipe Freelas Now`;
       S('pTicket', panFmt(m.ticketMedio)); S('pGmv', panFmt(m.gmv));
       S('pPago', panFmt(m.pagoFreelas)); S('pCom', panFmt(m.comissaoApp));
       S('pAnt', m.antecipacoes + ' · ' + panFmt(m.taxaAntecip));
+      const b = d.bonus || {};
+      S('pbBoas', panFmt(b.boasVindas)); S('pbInd', panFmt(b.indicacao));
+      S('pbCbPix', panFmt(b.cashbackPix)); S('pbCbPrem', panFmt(b.cashbackPremium)); S('pbTotal', panFmt(b.total));
+      const cap = d.capital || {};
+      S('pcNaConta', panFmt(cap.naConta)); S('pcDepositado', panFmt(cap.totalDepositado));
+      document.getElementById('panFormaPgto').innerHTML = (d.formaPagamento || []).map(f =>
+        `<tr><td>${esc(f.metodo)}</td><td>${f.qtd}</td><td>${panFmt(f.valor)}</td></tr>`
+      ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
       document.getElementById('panTopEmp').innerHTML = d.topEmpresas.map(e =>
         `<tr><td>${esc(e.nome)}</td><td>${e.turnos}</td><td>${panFmt(e.gmv)}</td></tr>`
       ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
@@ -1078,8 +1105,17 @@ Equipe Freelas Now`;
     const push = (...a) => rows.push(a.map(x => `"${String(x == null ? '' : x).replace(/"/g, '""')}"`).join(';'));
     push('Freelas Now - Panorama', d.agora, 'periodo:', d.periodo);
     push('');
-    push('RECEITA TOTAL DO APP (desde ' + (d.receitaApp.desde || '-') + ')');
-    push('Comissao', d.receitaApp.comissao); push('Antecipacoes', d.receitaApp.antecipacao); push('TOTAL', d.receitaApp.total);
+    push('RECEITA / LUCRO DO APP (desde ' + (d.receitaApp.desde || '-') + ')');
+    push('Comissao', d.receitaApp.comissao); push('Antecipacoes', d.receitaApp.antecipacao);
+    push('Receita bruta', d.receitaApp.total); push('Bonus distribuidos', d.receitaApp.bonusDistribuidos);
+    push('LUCRO LIQUIDO', d.receitaApp.lucroLiquido);
+    push('');
+    push('BONUS NO PERIODO'); push('Boas-vindas', d.bonus.boasVindas); push('Indicacao', d.bonus.indicacao);
+    push('Cashback PIX', d.bonus.cashbackPix); push('Cashback Premium', d.bonus.cashbackPremium); push('Total bonus', d.bonus.total);
+    push('');
+    push('CAPITAL CONSIGNADO'); push('Na conta agora', d.capital.naConta); push('Total depositado (top-ups)', d.capital.totalDepositado);
+    push('');
+    push('FORMA DE PAGAMENTO', 'Turnos', 'Valor'); (d.formaPagamento || []).forEach(f => push(f.metodo, f.qtd, f.valor));
     push('');
     push('AGORA'); push('Vagas abertas (hoje)', d.vagas.imediatasAbertas); push('Vagas agendadas', d.vagas.agendadasAbertas);
     push('Turnos rolando', d.turnos.rolando.length); push('Aguardando aceite', d.turnos.aguardando);
