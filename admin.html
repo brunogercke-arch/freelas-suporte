@@ -336,6 +336,14 @@
       <div class="pan-cards">
         <div class="pan-card blue"><div class="pv" id="pcNaConta">—</div><div class="pl">Capital externo na conta AGORA</div></div>
         <div class="pan-card"><div class="pv" id="pcDepositado">—</div><div class="pl">Total já depositado (top-ups)</div></div>
+        <div class="pan-card"><div class="pv" id="pcConsumido">—</div><div class="pl">Já consumido (virou pagamento)</div></div>
+      </div>
+
+      <div class="pan-sec">🔥 Burn rate (velocidade que as empresas gastam)</div>
+      <div class="pan-cards">
+        <div class="pan-card"><div class="pv" id="pcGastoDia">—</div><div class="pl">Queima média por dia</div></div>
+        <div class="pan-card"><div class="pv" id="pcRunway">—</div><div class="pl">Runway: dias até o float zerar</div></div>
+        <div class="pan-card"><div class="pv" id="pcTempoDeposito">—</div><div class="pl">Dias p/ gastar um depósito cheio</div></div>
       </div>
 
       <div class="pan-sec">💳 Forma de pagamento (concluídos no período)</div>
@@ -1080,6 +1088,10 @@ Equipe Freelas Now`;
       S('pbCbPix', panFmt(b.cashbackPix)); S('pbCbPrem', panFmt(b.cashbackPremium)); S('pbTotal', panFmt(b.total));
       const cap = d.capital || {};
       S('pcNaConta', panFmt(cap.naConta)); S('pcDepositado', panFmt(cap.totalDepositado));
+      S('pcConsumido', panFmt(cap.consumido));
+      S('pcGastoDia', panFmt(cap.gastoPorDia) + '/dia');
+      S('pcRunway', (cap.runwayDias > 0 ? cap.runwayDias + ' dias' : '—'));
+      S('pcTempoDeposito', (cap.diasParaGastarDeposito > 0 ? cap.diasParaGastarDeposito + ' dias' : '—'));
       document.getElementById('panFormaPgto').innerHTML = (d.formaPagamento || []).map(f =>
         `<tr><td>${esc(f.metodo)}</td><td>${f.qtd}</td><td>${panFmt(f.valor)}</td></tr>`
       ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
@@ -1114,6 +1126,8 @@ Equipe Freelas Now`;
     push('Cashback PIX', d.bonus.cashbackPix); push('Cashback Premium', d.bonus.cashbackPremium); push('Total bonus', d.bonus.total);
     push('');
     push('CAPITAL CONSIGNADO'); push('Na conta agora', d.capital.naConta); push('Total depositado (top-ups)', d.capital.totalDepositado);
+    push('Ja consumido', d.capital.consumido); push('Queima por dia', d.capital.gastoPorDia);
+    push('Runway (dias)', d.capital.runwayDias); push('Dias p/ gastar deposito cheio', d.capital.diasParaGastarDeposito);
     push('');
     push('FORMA DE PAGAMENTO', 'Turnos', 'Valor'); (d.formaPagamento || []).forEach(f => push(f.metodo, f.qtd, f.valor));
     push('');
