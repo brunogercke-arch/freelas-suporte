@@ -272,6 +272,10 @@
       .pchip.active{background:#1a1a2e;color:#fff}
       .pan-tops{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
       @media(max-width:680px){.pan-tops{grid-template-columns:1fr}}
+      .pan-receita{background:linear-gradient(135deg,#0e6b3f,#2e9e4f);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:8px}
+      .pan-receita .pr-total{font-size:20px;font-weight:800}
+      .pan-receita .pr-total b{font-size:24px}
+      .pan-receita .pr-det{font-size:13px;opacity:.92;margin-top:4px}
     </style>
     <div class="view-tabs">
       <button class="vtab active" id="vt-usuarios" onclick="mostrarView('usuarios')">👥 Usuários</button>
@@ -290,7 +294,13 @@
           <button class="pchip" data-p="tudo" onclick="setPeriodo(this)">Tudo</button>
         </div>
         <button class="export-btn" onclick="carregarPanorama()">↻</button>
+        <button class="export-btn" onclick="exportarPanoramaCSV()">⬇ CSV</button>
         <span style="font-size:12px;color:#889">auto 20s</span>
+      </div>
+
+      <div class="pan-receita">
+        <div class="pr-total">💵 Receita total do app: <b id="prTotal">—</b></div>
+        <div class="pr-det">Comissão <b id="prComissao">—</b> · Antecipações 5% <b id="prAntecip">—</b> · desde <span id="prDesde">—</span></div>
       </div>
 
       <div class="pan-sec">🟢 Agora (tempo real)</div>
@@ -1034,7 +1044,11 @@ Equipe Freelas Now`;
       if (!d.ok) return;
       const S = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
       const esc = s => (s == null ? '-' : String(s).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])));
+      window.__panData = d;
       S('panAgora', d.agora);
+      const R = d.receitaApp || {};
+      S('prTotal', panFmt(R.total)); S('prComissao', panFmt(R.comissao));
+      S('prAntecip', panFmt(R.antecipacao)); S('prDesde', R.desde || '-');
       S('pImediatas', d.vagas.imediatasAbertas); S('pAgendadas', d.vagas.agendadasAbertas);
       S('pRolando', d.turnos.rolando.length); S('pAguardando', d.turnos.aguardando);
       const m = d.metricas;
@@ -1055,6 +1069,41 @@ Equipe Freelas Now`;
         `<tr><td>${esc(v.empresa)}</td><td>${esc(v.funcao)}</td><td>${panFmt(v.valor)}</td><td>${esc(v.tipo)}</td><td>${esc(v.candidaturas)}</td><td>${esc(v.turno)}</td><td>${esc(v.expira)}</td></tr>`
       ).join('') || '<tr><td colspan="7" style="text-align:center;color:#889">Nenhuma vaga aberta</td></tr>';
     } catch (e) { console.error('[panorama]', e); }
+  }
+
+  function exportarPanoramaCSV() {
+    const d = window.__panData;
+    if (!d) { alert('Abra o Panorama primeiro.'); return; }
+    const rows = [];
+    const push = (...a) => rows.push(a.map(x => `"${String(x == null ? '' : x).replace(/"/g, '""')}"`).join(';'));
+    push('Freelas Now - Panorama', d.agora, 'periodo:', d.periodo);
+    push('');
+    push('RECEITA TOTAL DO APP (desde ' + (d.receitaApp.desde || '-') + ')');
+    push('Comissao', d.receitaApp.comissao); push('Antecipacoes', d.receitaApp.antecipacao); push('TOTAL', d.receitaApp.total);
+    push('');
+    push('AGORA'); push('Vagas abertas (hoje)', d.vagas.imediatasAbertas); push('Vagas agendadas', d.vagas.agendadasAbertas);
+    push('Turnos rolando', d.turnos.rolando.length); push('Aguardando aceite', d.turnos.aguardando);
+    push('');
+    const m = d.metricas;
+    push('NO PERIODO (' + d.periodo + ')');
+    push('Concluidos', m.concluidos); push('Cancelados', m.cancelados); push('Furos', m.furos);
+    push('Ticket medio', m.ticketMedio); push('GMV', m.gmv); push('Pago freelas', m.pagoFreelas); push('Comissao app', m.comissaoApp);
+    push('Antecipacoes qtd', m.antecipacoes); push('Antecipacoes taxa', m.taxaAntecip);
+    push('');
+    push('TOP EMPRESAS', 'Turnos', 'GMV'); d.topEmpresas.forEach(e => push(e.nome, e.turnos, e.gmv));
+    push('');
+    push('TOP FREELAS', 'Turnos', 'Ganho'); d.topFreelas.forEach(f => push(f.nome, f.turnos, f.ganho));
+    push('');
+    push('TURNOS ROLANDO', 'Empresa', 'Freela', 'Funcao', 'Valor', 'Check-in');
+    d.turnos.rolando.forEach(t => push('', t.empresa, t.freela, t.funcao, t.valor, t.checkin));
+    push('');
+    push('VAGAS ABERTAS', 'Empresa', 'Funcao', 'Valor', 'Tipo', 'Candidatos', 'Turno', 'Expira');
+    d.vagas.lista.forEach(v => push('', v.empresa, v.funcao, v.valor, v.tipo, v.candidaturas, v.turno, v.expira));
+    const csv = '﻿' + rows.join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'panorama_freelas_' + d.periodo + '.csv';
+    a.click();
   }
 </script>
 </body>
