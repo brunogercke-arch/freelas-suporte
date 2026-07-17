@@ -267,6 +267,11 @@
       .pan-table{width:100%;border-collapse:collapse;font-size:13.5px}
       .pan-table th,.pan-table td{padding:9px 12px;text-align:left;border-bottom:1px solid #eee}
       .pan-table th{background:#f0f4fa;font-size:12px;color:#556}
+      .pan-periodo{display:flex;gap:6px;flex-wrap:wrap}
+      .pchip{background:#eef1f5;border:none;color:#445;padding:6px 13px;border-radius:16px;font-size:13px;font-weight:600;cursor:pointer}
+      .pchip.active{background:#1a1a2e;color:#fff}
+      .pan-tops{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+      @media(max-width:680px){.pan-tops{grid-template-columns:1fr}}
     </style>
     <div class="view-tabs">
       <button class="vtab active" id="vt-usuarios" onclick="mostrarView('usuarios')">👥 Usuários</button>
@@ -276,34 +281,49 @@
     <!-- VIEW: PANORAMA -->
     <div id="view-panorama" style="display:none">
       <div class="pan-head">
-        <h2>📊 Panorama em tempo real</h2>
+        <h2>📊 Panorama</h2>
         <span class="pan-agora" id="panAgora">—</span>
-        <button class="export-btn" onclick="carregarPanorama()">↻ Atualizar</button>
-        <span style="font-size:12px;color:#889">atualiza sozinho a cada 20s</span>
+        <div class="pan-periodo">
+          <button class="pchip active" data-p="hoje" onclick="setPeriodo(this)">Hoje</button>
+          <button class="pchip" data-p="7d" onclick="setPeriodo(this)">7 dias</button>
+          <button class="pchip" data-p="30d" onclick="setPeriodo(this)">30 dias</button>
+          <button class="pchip" data-p="tudo" onclick="setPeriodo(this)">Tudo</button>
+        </div>
+        <button class="export-btn" onclick="carregarPanorama()">↻</button>
+        <span style="font-size:12px;color:#889">auto 20s</span>
       </div>
+
+      <div class="pan-sec">🟢 Agora (tempo real)</div>
       <div class="pan-cards">
         <div class="pan-card blue"><div class="pv" id="pImediatas">—</div><div class="pl">Vagas abertas (pra hoje)</div></div>
         <div class="pan-card blue"><div class="pv" id="pAgendadas">—</div><div class="pl">Vagas agendadas</div></div>
         <div class="pan-card orange"><div class="pv" id="pRolando">—</div><div class="pl">Turnos rolando agora</div></div>
         <div class="pan-card"><div class="pv" id="pAguardando">—</div><div class="pl">Aguardando aceite</div></div>
       </div>
-      <h3 class="pan-sec">💰 Hoje</h3>
+
+      <div class="pan-sec">💰 No período (<span id="pPeriodoLabel">hoje</span>)</div>
       <div class="pan-cards">
-        <div class="pan-card green"><div class="pv" id="pConclHoje">—</div><div class="pl">Turnos concluídos e pagos</div></div>
-        <div class="pan-card red"><div class="pv" id="pCancHoje">—</div><div class="pl">Cancelados</div></div>
-        <div class="pan-card"><div class="pv" id="pGmvHoje">—</div><div class="pl">GMV (movimentado)</div></div>
-        <div class="pan-card"><div class="pv" id="pPagoHoje">—</div><div class="pl">Pago aos freelas</div></div>
-        <div class="pan-card green"><div class="pv" id="pComHoje">—</div><div class="pl">Comissão do app</div></div>
-        <div class="pan-card orange"><div class="pv" id="pAntHoje">—</div><div class="pl">Antecipações 5% (qtd · taxa)</div></div>
+        <div class="pan-card green"><div class="pv" id="pConcl">—</div><div class="pl">Turnos concluídos e pagos</div></div>
+        <div class="pan-card red"><div class="pv" id="pCanc">—</div><div class="pl">Cancelados</div></div>
+        <div class="pan-card red"><div class="pv" id="pFuros">—</div><div class="pl">Furos (no-show)</div></div>
+        <div class="pan-card"><div class="pv" id="pTicket">—</div><div class="pl">Ticket médio (diária)</div></div>
+        <div class="pan-card"><div class="pv" id="pGmv">—</div><div class="pl">GMV (movimentado)</div></div>
+        <div class="pan-card"><div class="pv" id="pPago">—</div><div class="pl">Pago aos freelas</div></div>
+        <div class="pan-card green"><div class="pv" id="pCom">—</div><div class="pl">Comissão do app</div></div>
+        <div class="pan-card orange"><div class="pv" id="pAnt">—</div><div class="pl">Antecipações 5% (qtd · taxa)</div></div>
       </div>
-      <h3 class="pan-sec">📈 Acumulado (total)</h3>
-      <div class="pan-cards">
-        <div class="pan-card"><div class="pv" id="pConclTot">—</div><div class="pl">Turnos concluídos</div></div>
-        <div class="pan-card"><div class="pv" id="pGmvTot">—</div><div class="pl">GMV total</div></div>
-        <div class="pan-card green"><div class="pv" id="pComTot">—</div><div class="pl">Comissão do app</div></div>
-        <div class="pan-card"><div class="pv" id="pPagoTot">—</div><div class="pl">Pago aos freelas</div></div>
-        <div class="pan-card orange"><div class="pv" id="pAntTot">—</div><div class="pl">Antecipações (qtd · taxa)</div></div>
+
+      <div class="pan-tops">
+        <div>
+          <h3 class="pan-sec">🏆 Top empresas</h3>
+          <div class="table-wrap"><table class="pan-table"><thead><tr><th>Empresa</th><th>Turnos</th><th>GMV</th></tr></thead><tbody id="panTopEmp"></tbody></table></div>
+        </div>
+        <div>
+          <h3 class="pan-sec">🏆 Top freelas</h3>
+          <div class="table-wrap"><table class="pan-table"><thead><tr><th>Freela</th><th>Turnos</th><th>Ganho</th></tr></thead><tbody id="panTopFree"></tbody></table></div>
+        </div>
       </div>
+
       <h3 class="pan-sec">🔴 Turnos rolando agora</h3>
       <div class="table-wrap"><table class="pan-table"><thead><tr><th>Empresa</th><th>Freela</th><th>Função</th><th>Valor</th><th>Check-in</th></tr></thead><tbody id="panRolando"></tbody></table></div>
       <h3 class="pan-sec">📋 Vagas abertas</h3>
@@ -984,6 +1004,7 @@ Equipe Freelas Now`;
 
   // ── Panorama ao vivo ──────────────────────────────────────────────────────
   let panTimer = null;
+  let panPeriodo = 'hoje';
   const panFmt = v => 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   function mostrarView(v) {
@@ -996,24 +1017,37 @@ Equipe Freelas Now`;
     else if (panTimer) { clearInterval(panTimer); panTimer = null; }
   }
 
+  function setPeriodo(btn) {
+    panPeriodo = btn.dataset.p;
+    document.querySelectorAll('.pchip').forEach(b => b.classList.toggle('active', b === btn));
+    const lbl = { hoje: 'hoje', '7d': 'últimos 7 dias', '30d': 'últimos 30 dias', tudo: 'total' }[panPeriodo];
+    const e = document.getElementById('pPeriodoLabel'); if (e) e.textContent = lbl;
+    carregarPanorama();
+  }
+
   async function carregarPanorama() {
     const key = adminKey || localStorage.getItem('freelas_admin_key');
     if (!key) return;
     try {
-      const r = await fetch(`${API}/admin/panorama`, { headers: { 'x-admin-key': key } });
+      const r = await fetch(`${API}/admin/panorama?periodo=${panPeriodo}`, { headers: { 'x-admin-key': key } });
       const d = await r.json();
       if (!d.ok) return;
       const S = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+      const esc = s => (s == null ? '-' : String(s).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])));
       S('panAgora', d.agora);
       S('pImediatas', d.vagas.imediatasAbertas); S('pAgendadas', d.vagas.agendadasAbertas);
       S('pRolando', d.turnos.rolando.length); S('pAguardando', d.turnos.aguardando);
-      S('pConclHoje', d.hoje.concluidos); S('pCancHoje', d.hoje.cancelados);
-      S('pGmvHoje', panFmt(d.hoje.gmv)); S('pPagoHoje', panFmt(d.hoje.pagoFreelas));
-      S('pComHoje', panFmt(d.hoje.comissaoApp)); S('pAntHoje', d.hoje.antecipacoes + ' · ' + panFmt(d.hoje.taxaAntecip));
-      S('pConclTot', d.acumulado.turnosConcluidos); S('pGmvTot', panFmt(d.acumulado.gmv));
-      S('pComTot', panFmt(d.acumulado.comissaoApp)); S('pPagoTot', panFmt(d.acumulado.pagoFreelas));
-      S('pAntTot', d.acumulado.antecipacoes + ' · ' + panFmt(d.acumulado.taxaAntecip));
-      const esc = s => (s == null ? '-' : String(s).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])));
+      const m = d.metricas;
+      S('pConcl', m.concluidos); S('pCanc', m.cancelados); S('pFuros', m.furos);
+      S('pTicket', panFmt(m.ticketMedio)); S('pGmv', panFmt(m.gmv));
+      S('pPago', panFmt(m.pagoFreelas)); S('pCom', panFmt(m.comissaoApp));
+      S('pAnt', m.antecipacoes + ' · ' + panFmt(m.taxaAntecip));
+      document.getElementById('panTopEmp').innerHTML = d.topEmpresas.map(e =>
+        `<tr><td>${esc(e.nome)}</td><td>${e.turnos}</td><td>${panFmt(e.gmv)}</td></tr>`
+      ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
+      document.getElementById('panTopFree').innerHTML = d.topFreelas.map(f =>
+        `<tr><td>${esc(f.nome)}</td><td>${f.turnos}</td><td>${panFmt(f.ganho)}</td></tr>`
+      ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
       document.getElementById('panRolando').innerHTML = d.turnos.rolando.map(t =>
         `<tr><td>${esc(t.empresa)}</td><td>${esc(t.freela)}</td><td>${esc(t.funcao)}</td><td>${panFmt(t.valor)}</td><td>${esc(t.checkin)}</td></tr>`
       ).join('') || '<tr><td colspan="5" style="text-align:center;color:#889">Nenhum turno rolando agora</td></tr>';
