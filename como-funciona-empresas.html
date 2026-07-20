@@ -44,8 +44,20 @@
   .cta .stores{font-size:13.5px;color:var(--cinza);margin-top:6px}
   footer{text-align:center;color:var(--cinza);font-size:11.5px;margin-top:22px}
   .seguranca li{font-size:13.5px}
+  .social{background:var(--azul-claro);border:1px solid #bbdefb;border-radius:10px;padding:10px 16px;text-align:center;font-size:15px;margin:14px 0;color:#0d47a1;font-weight:700}
+  .social span{color:var(--verde)}
+  .promo{background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border:2px solid var(--laranja);border-radius:14px;padding:16px 20px;margin:16px 0;break-inside:avoid}
+  .promo h3{margin:0 0 4px;color:#E65100;font-size:17px;display:flex;align-items:center;gap:8px}
+  .promo p{margin:0;font-size:14.5px}
+  .premium{background:var(--verde-claro);border:1px solid #c8e6c9;border-left:5px solid var(--verde);border-radius:12px;padding:14px 18px;margin-top:10px;break-inside:avoid}
+  .premium h3{margin:0 0 6px;color:var(--verde);font-size:16px}
+  .premium ul{margin:0;padding-left:18px}
+  .qrs{display:flex;gap:30px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .qrbox{text-align:center}
+  .qrbox img{width:132px;height:132px;border:1px solid var(--borda);border-radius:10px;background:#fff}
+  .qrbox .lbl{font-size:13.5px;font-weight:700;margin-top:6px}
   @page{size:A4;margin:12mm}
-  @media print{ header.top{border-radius:0} .card,.flow .s,.cta,.faq .q,table{box-shadow:none} }
+  @media print{ header.top{border-radius:0} .card,.flow .s,.cta,.faq .q,table,.promo,.premium{box-shadow:none} }
 </style>
 </head>
 <body>
@@ -63,6 +75,13 @@
     <strong>freelancers da área de alimentação</strong>, no estilo Uber. Você publica a vaga,
     o profissional mais próximo é chamado na hora, aceita e vai trabalhar <strong>no mesmo dia</strong>.
     Sem agência, sem burocracia, sem vínculo empregatício, com pagamento garantido.
+  </div>
+
+  <div class="social">Já são <span>mais de 800 profissionais qualificados</span> cadastrados em São Paulo, prontos pra atender seu restaurante.</div>
+
+  <div class="promo">
+    <h3>🎁 Oferta de lançamento</h3>
+    <p>As <strong>50 primeiras empresas</strong> cadastradas ganham <strong>acesso antecipado</strong> à plataforma e <strong>1 ano de Premium grátis</strong> — comissão reduzida, prioridade nas vagas e contratação direta de qualquer freela, sem pagar nada a mais.</p>
   </div>
 
   <h2>Passo a passo</h2>
@@ -124,6 +143,17 @@
     <tr><td>Premium</td><td>Comissão reduzida, prioridade no envio de vagas, contratação direta de qualquer freela e filtros avançados.</td></tr>
   </table>
 
+  <div class="premium">
+    <h3>⭐ Vantagens do Premium</h3>
+    <ul>
+      <li><strong>Comissão menor:</strong> 10% em vez de 12% em toda contratação.</li>
+      <li><strong>Prioridade nas vagas:</strong> suas vagas são enviadas antes aos melhores freelas.</li>
+      <li><strong>Contratação direta:</strong> chame qualquer profissional na hora, sem esperar candidatura.</li>
+      <li><strong>Filtros avançados:</strong> busque por profissão, avaliação e distância com mais precisão.</li>
+      <li><strong>Preview de chegada:</strong> veja o tempo estimado do freela antes mesmo de contratar.</li>
+    </ul>
+  </div>
+
   <h2>Profissões disponíveis</h2>
   <div>
     <span class="pill">Garçom</span><span class="pill">Barman</span><span class="pill">Barista</span>
@@ -144,9 +174,20 @@
   </div>
 
   <div class="cta">
-    <h2>Comece hoje, é grátis pra baixar</h2>
+    <h2>Baixe o app e cadastre seu restaurante</h2>
     <div class="site">freelasnow.app/empresa</div>
-    <div class="stores">Baixe o app "Freelas Now" na App Store (iPhone) ou Google Play (Android) e cadastre seu restaurante.</div>
+    <div class="stores">Aponte a câmera do celular para o QR code da sua loja de apps:</div>
+    <div class="qrs">
+      <div class="qrbox">
+        <img src="qr-ios.png" alt="QR code App Store">
+        <div class="lbl">iPhone (App Store)</div>
+      </div>
+      <div class="qrbox">
+        <img src="qr-android.png" alt="QR code Google Play">
+        <div class="lbl">Android (Google Play)</div>
+      </div>
+    </div>
+    <div class="stores" style="margin-top:12px">É grátis pra baixar e cadastrar. Garanta uma das 50 vagas de acesso antecipado com 1 ano de Premium grátis.</div>
   </div>
 
   <footer>
