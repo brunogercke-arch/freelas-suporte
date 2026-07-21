@@ -258,6 +258,10 @@
       .pan-head h2{font-size:20px;margin:0}
       .pan-agora{color:#007aff;font-weight:700;font-size:14px}
       .pan-sec{font-size:15px;margin:22px 0 10px;color:#334}
+      .prof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+      .prof-chip{background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid #fb8c00;display:flex;justify-content:space-between;align-items:center;gap:8px}
+      .prof-chip .pf-nome{font-size:13px;color:#334}
+      .prof-chip .pf-qtd{font-size:18px;font-weight:700;color:#003092}
       .pan-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
       .pan-card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid #ccd}
       .pan-card.blue{border-left-color:#007aff}.pan-card.orange{border-left-color:#fb8c00}
@@ -312,6 +316,9 @@
         <div class="pan-card"><div class="pv" id="pAguardando">—</div><div class="pl">Aguardando aceite do freela</div></div>
         <div class="pan-card orange"><div class="pv" id="pAguardPgto">—</div><div class="pl">Aguardando pagamento (PIX)</div></div>
       </div>
+
+      <div class="pan-sec">👥 Freelancers por profissão (total cadastrado) <span id="pProfTotal" style="color:#889;font-weight:400;font-size:13px"></span></div>
+      <div class="prof-grid" id="panProfissoes"></div>
 
       <div class="pan-sec">💰 No período (<span id="pPeriodoLabel">hoje</span>)</div>
       <div class="pan-cards">
@@ -1110,6 +1117,12 @@ Equipe Freelas Now`;
       document.getElementById('panFormaPgto').innerHTML = (d.formaPagamento || []).map(f =>
         `<tr><td>${esc(f.metodo)}</td><td>${f.qtd}</td><td>${panFmt(f.valor)}</td></tr>`
       ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
+      const profs = d.profissoes || [];
+      const profTotal = profs.reduce((s,p) => s + (p.qtd||0), 0);
+      S('pProfTotal', profTotal ? '· ' + profTotal + ' no total' : '');
+      document.getElementById('panProfissoes').innerHTML = profs.map(p =>
+        `<div class="prof-chip"><span class="pf-nome">${esc(p.funcao)}</span><span class="pf-qtd">${p.qtd}</span></div>`
+      ).join('') || '<div style="color:#889">Sem dados</div>';
       document.getElementById('panTopEmp').innerHTML = d.topEmpresas.map(e =>
         `<tr><td>${esc(e.nome)}</td><td>${e.turnos}</td><td>${panFmt(e.gmv)}</td></tr>`
       ).join('') || '<tr><td colspan="3" style="text-align:center;color:#889">Nada no período</td></tr>';
@@ -1160,6 +1173,8 @@ Equipe Freelas Now`;
     push('TOP EMPRESAS', 'Turnos', 'GMV'); d.topEmpresas.forEach(e => push(e.nome, e.turnos, e.gmv));
     push('');
     push('TOP FREELAS', 'Turnos', 'Ganho'); d.topFreelas.forEach(f => push(f.nome, f.turnos, f.ganho));
+    push('');
+    push('FREELANCERS POR PROFISSAO', 'Qtd'); (d.profissoes || []).forEach(p => push(p.funcao, p.qtd));
     push('');
     push('TURNOS ROLANDO', 'Empresa', 'Freela', 'Funcao', 'Valor', 'Check-in');
     d.turnos.rolando.forEach(t => push('', t.empresa, t.freela, t.funcao, t.valor, t.checkin));
