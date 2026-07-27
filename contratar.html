@@ -101,6 +101,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       line-height: 1.2; margin-bottom: 44px;
     }
 
+    /* BANNER FREELANCERS */
+    .freelas-band { background: #fff; text-align: center; padding: 0 24px; overflow: hidden; }
+    .freelas-band img { max-width: 720px; width: 100%; height: auto; display: block; margin: 0 auto; }
+
+    /* FAIXINHA — marquee de profissões (igual à home) */
+    .chips-strip { background: #f5f5f7; border-top: 1px solid #ececf0; border-bottom: 1px solid #ececf0; padding: 16px 0; overflow: hidden; }
+    .chips-track { display: flex; gap: 12px; width: max-content; animation: chipsScroll 32s linear infinite; }
+    .chips-strip:hover .chips-track { animation-play-state: paused; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+      background: #fff; border: 1px solid #e2e5ea; border-radius: 999px;
+      padding: 11px 20px; font-size: 15px; font-weight: 600; color: #3a4152;
+    }
+    .chip svg { width: 17px; height: 17px; stroke: #ffb300; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+    @keyframes chipsScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SLIDESHOW dashboard */
+    .shots { max-width: 900px; margin: 44px auto 0; }
+    .shots-viewport { position: relative; background: #f5f5f7; border-radius: 24px; padding: 32px 24px; overflow: hidden; }
+    .shots-track { display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .shot { min-width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .shot img { height: 460px; width: auto; border-radius: 22px; box-shadow: 0 12px 40px rgba(0,0,0,.14); }
+    .shot .cap { font-size: 15px; font-weight: 600; color: #444; }
+    .shots-dots { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
+    .shots-dots button { width: 9px; height: 9px; border-radius: 50%; border: none; background: #ccd; cursor: pointer; padding: 0; transition: background .2s, width .2s; }
+    .shots-dots button.on { background: #007aff; width: 24px; border-radius: 5px; }
+    .shots-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: none; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.15); font-size: 18px; color: #333; cursor: pointer; z-index: 2; display: flex; align-items: center; justify-content: center; }
+    .shots-nav.prev { left: 12px; } .shots-nav.next { right: 12px; }
+    @media(max-width: 640px){ .shot img { height: 360px; } .shots-nav { display: none; } }
+
     /* COMO FUNCIONA */
     .steps { display: flex; flex-direction: column; gap: 0; }
     .step-row {
@@ -218,6 +248,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="hero-note">Cadastro grátis · Sem mensalidade obrigatória · Cancele quando quiser</p>
 </section>
 
+<!-- BANNER FREELANCERS (trocar freelas-time.png pelo recorte enviado pelo Renan) -->
+<div class="freelas-band">
+  <img src="freelas-time.png" alt="Profissionais de food service do Freelas Now"
+       onerror="this.onerror=null;this.src='design-hero.jpg';">
+</div>
+
+<!-- FAIXINHA de profissões (marquee, igual à home) -->
+<div class="chips-strip" aria-hidden="true">
+  <div class="chips-track" id="chipsTrack"></div>
+</div>
+
 <!-- NÚMEROS -->
 <div class="numbers">
   <div class="numbers-inner">
@@ -240,6 +281,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section" id="como-funciona">
   <div class="section-label">Como funciona</div>
   <h2>Da publicação ao serviço<br>em poucos passos</h2>
+
+  <!-- Slideshow do app (dashboard) -->
+  <div class="shots">
+    <div class="shots-viewport">
+      <button class="shots-nav prev" onclick="shotMove(-1)" aria-label="Anterior">‹</button>
+      <button class="shots-nav next" onclick="shotMove(1)" aria-label="Próximo">›</button>
+      <div class="shots-track" id="shotsTrack">
+        <div class="shot"><img src="prints/app-mapa.png" alt="Mapa de freelancers próximos"><div class="cap">Veja os profissionais disponíveis perto de você e publique a vaga</div></div>
+        <div class="shot"><img src="prints/app-contratacao.png" alt="Detalhe da contratação"><div class="cap">Acompanhe a contratação em tempo real, com valor e taxa transparentes</div></div>
+        <div class="shot"><img src="prints/app-carteira.png" alt="Carteira digital"><div class="cap">Carteira digital: adicione saldo via Pix e pague com segurança</div></div>
+      </div>
+    </div>
+    <div class="shots-dots" id="shotsDots"></div>
+  </div>
+
   <div class="steps">
     <div class="step-row">
       <div class="step-num">1</div>
@@ -380,6 +436,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="https://wa.me/5511984830580?text=Oi!%20Quero%20contratar%20profissionais%20pelo%20FreelasNow" target="_blank" rel="noopener" id="wa-float" aria-label="Falar no WhatsApp" style="position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:9999;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="32" height="32" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
 
 <script>
+  // ── Faixinha de profissões (marquee, igual à home) ──────────────────────
+  (function(){
+    var profs = [
+      ['Garçom','user'],['Bartender','glass'],['Barista','glass'],['Cozinheiro','chef'],
+      ['Auxiliar de Cozinha','chef'],['Chapeiro','chef'],['Hostess','user'],['Recepcionista','user'],
+      ['Sommelier','glass'],['Padeiro','chef'],['Confeiteiro','chef'],['Pizzaiolo','chef'],
+      ['Sushiman','chef'],['Churrasqueiro','chef'],['Manobrista','user']
+    ];
+    var icons = {
+      user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',
+      chef: '<svg viewBox="0 0 24 24"><path d="M7 14h10v5a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/><path d="M6 14a4 4 0 0 1-1-7.9A4 4 0 0 1 12 4a4 4 0 0 1 7 2.1A4 4 0 0 1 18 14z"/></svg>',
+      glass: '<svg viewBox="0 0 24 24"><path d="M6 3h12l-1 8a5 5 0 0 1-10 0z"/><path d="M12 16v4"/><path d="M8 21h8"/></svg>'
+    };
+    var chip = function(p){ return '<span class="chip">'+icons[p[1]]+p[0]+'</span>'; };
+    // duplica a lista pra loop contínuo (translateX -50%)
+    var html = profs.map(chip).join('') + profs.map(chip).join('');
+    var t = document.getElementById('chipsTrack');
+    if (t) t.innerHTML = html;
+  })();
+
+  // ── Slideshow do dashboard ──────────────────────────────────────────────
+  var shotIdx = 0;
+  function shotRender(){
+    var track = document.getElementById('shotsTrack');
+    var n = track ? track.children.length : 0;
+    if (!n) return;
+    shotIdx = (shotIdx + n) % n;
+    track.style.transform = 'translateX(-' + (shotIdx*100) + '%)';
+    var dots = document.getElementById('shotsDots');
+    if (dots) Array.prototype.forEach.call(dots.children, function(b,i){ b.className = i===shotIdx ? 'on' : ''; });
+  }
+  function shotMove(d){ shotIdx += d; shotRender(); shotAuto(); }
+  var shotTimer;
+  function shotAuto(){ clearInterval(shotTimer); shotTimer = setInterval(function(){ shotIdx++; shotRender(); }, 4500); }
+  (function(){
+    var track = document.getElementById('shotsTrack');
+    var dots = document.getElementById('shotsDots');
+    if (track && dots) {
+      for (var i=0;i<track.children.length;i++){
+        var b = document.createElement('button');
+        b.className = i===0 ? 'on' : '';
+        (function(idx){ b.addEventListener('click', function(){ shotIdx = idx; shotRender(); shotAuto(); }); })(i);
+        dots.appendChild(b);
+      }
+      shotRender(); shotAuto();
+    }
+  })();
+
   // Cargo dinâmico pra casar com a busca do Google Ads (?cargo=garcom)
   (function(){
     var map = {
