@@ -284,6 +284,7 @@
     <div class="view-tabs">
       <button class="vtab active" id="vt-usuarios" onclick="mostrarView('usuarios')">👥 Usuários</button>
       <button class="vtab" id="vt-panorama" onclick="mostrarView('panorama')">📊 Panorama ao vivo</button>
+      <button class="vtab" id="vt-isabela" onclick="mostrarView('isabela')">🤖 Isabela</button>
     </div>
 
     <!-- VIEW: PANORAMA -->
@@ -380,6 +381,46 @@
       <div class="table-wrap"><table class="pan-table"><thead><tr><th>Empresa</th><th>Freela</th><th>Função</th><th>Valor</th><th>Check-in</th></tr></thead><tbody id="panRolando"></tbody></table></div>
       <h3 class="pan-sec">📋 Vagas abertas</h3>
       <div class="table-wrap"><table class="pan-table"><thead><tr><th>Empresa</th><th>Função</th><th>Valor</th><th>Tipo</th><th>Candidatos</th><th>Turno</th><th>Expira</th></tr></thead><tbody id="panVagas"></tbody></table></div>
+    </div>
+
+    <!-- VIEW: ISABELA -->
+    <style>
+      .isa-wrap{max-width:1100px;margin:0 auto;padding:8px 4px 40px}
+      .isa-sec{font-size:16px;font-weight:700;color:#334;margin:22px 0 12px;display:flex;align-items:center;gap:10px}
+      .isa-sec .cnt{background:#eef2f7;color:#556;font-size:13px;font-weight:600;border-radius:20px;padding:2px 10px}
+      .isa-card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);padding:16px;margin-bottom:12px;border-left:4px solid #fb8c00}
+      .isa-card .q{font-size:15px;color:#1a2233;font-weight:600;margin-bottom:6px}
+      .isa-card .a{font-size:13px;color:#667;background:#f7f8fa;border-radius:8px;padding:8px 10px;margin-bottom:10px;white-space:pre-wrap}
+      .isa-card .meta{font-size:12px;color:#99a;margin-bottom:10px}
+      .isa-card textarea{width:100%;min-height:70px;border:1px solid #dde;border-radius:8px;padding:8px;font:inherit;font-size:13px;resize:vertical}
+      .isa-card input.tit{width:100%;border:1px solid #dde;border-radius:8px;padding:8px;font:inherit;font-size:13px;margin-bottom:6px}
+      .isa-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+      .isa-btn{border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer}
+      .isa-btn.save{background:#2e7d32;color:#fff}.isa-btn.ign{background:#eef2f7;color:#667}.isa-btn.del{background:#fde8e8;color:#c62828}.isa-btn.tgl{background:#e3f2fd;color:#1565c0}
+      .kb-card{border-left-color:#2e7d32}
+      .kb-card.off{opacity:.55;border-left-color:#bbb}
+      .kb-card .kbtit{font-weight:700;font-size:14px;color:#1a2233}
+      .kb-card .kbgat{font-size:12px;color:#99a;margin:2px 0 6px}
+      .isa-empty{text-align:center;color:#99a;padding:24px;font-size:14px}
+    </style>
+    <div id="view-isabela" style="display:none">
+      <div class="isa-wrap">
+        <div class="isa-sec">📥 Dúvidas pra ensinar <span class="cnt" id="isaPendCnt">—</span>
+          <button class="export-btn" style="margin-left:auto" onclick="carregarIsabela()">↻</button>
+        </div>
+        <div style="font-size:13px;color:#778;margin:-6px 0 14px">Perguntas que a Isabela não resolveu (escalou pro humano). Escreva a resposta certa e clique "Ensinar" — ela passa a usar essa resposta.</div>
+        <div id="isaPendencias"></div>
+
+        <div class="isa-sec" style="margin-top:34px">🧠 Base de conhecimento <span class="cnt" id="isaKbCnt">—</span></div>
+        <div style="font-size:13px;color:#778;margin:-6px 0 14px">Respostas aprovadas que a Isabela usa com prioridade. Adicione, edite ou desligue.</div>
+        <div class="isa-card kb-card">
+          <input class="tit" id="kbNovoTitulo" placeholder="Título / tópico (ex: Trabalhar em mais de uma função)">
+          <input class="tit" id="kbNovoGatilho" placeholder="Gatilho — palavras que disparam (opcional, ex: mudar função, outra profissão)">
+          <textarea id="kbNovoResposta" placeholder="Resposta que a Isabela deve dar..."></textarea>
+          <div class="isa-btns"><button class="isa-btn save" onclick="isaCriarConhecimento()">+ Adicionar à base</button></div>
+        </div>
+        <div id="isaConhecimento"></div>
+      </div>
     </div>
 
     <!-- VIEW: USUÁRIOS -->
@@ -1060,13 +1101,101 @@ Equipe Freelas Now`;
   const panFmt = v => 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   function mostrarView(v) {
-    const pan = v === 'panorama';
-    document.getElementById('view-panorama').style.display = pan ? 'block' : 'none';
-    document.getElementById('view-usuarios').style.display = pan ? 'none' : 'block';
-    document.getElementById('vt-panorama').classList.toggle('active', pan);
-    document.getElementById('vt-usuarios').classList.toggle('active', !pan);
-    if (pan) { carregarPanorama(); if (!panTimer) panTimer = setInterval(carregarPanorama, 20000); }
+    document.getElementById('view-panorama').style.display = v === 'panorama' ? 'block' : 'none';
+    document.getElementById('view-usuarios').style.display = v === 'usuarios' ? 'block' : 'none';
+    document.getElementById('view-isabela').style.display = v === 'isabela' ? 'block' : 'none';
+    document.getElementById('vt-panorama').classList.toggle('active', v === 'panorama');
+    document.getElementById('vt-usuarios').classList.toggle('active', v === 'usuarios');
+    document.getElementById('vt-isabela').classList.toggle('active', v === 'isabela');
+    if (v === 'panorama') { carregarPanorama(); if (!panTimer) panTimer = setInterval(carregarPanorama, 20000); }
     else if (panTimer) { clearInterval(panTimer); panTimer = null; }
+    if (v === 'isabela') carregarIsabela();
+  }
+
+  // ── Isabela: aprendizado supervisionado ───────────────────────────────────
+  function isaKey() { return adminKey || localStorage.getItem('freelas_admin_key'); }
+  function isaEsc(s) { return (s == null ? '' : String(s)).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])); }
+
+  async function carregarIsabela() {
+    const key = isaKey(); if (!key) return;
+    const H = { 'x-admin-key': key };
+    try {
+      const [pr, cr] = await Promise.all([
+        fetch(`${API}/admin/isabela/pendencias?status=pendente`, { headers: H }).then(r => r.json()),
+        fetch(`${API}/admin/isabela/conhecimento`, { headers: H }).then(r => r.json()),
+      ]);
+      // Pendências
+      const pend = (pr && pr.itens) || [];
+      document.getElementById('isaPendCnt').textContent = pend.length + ' pendente' + (pend.length === 1 ? '' : 's');
+      document.getElementById('isaPendencias').innerHTML = pend.length ? pend.map(p => `
+        <div class="isa-card" id="pend-${p.id}">
+          <div class="q">👤 ${isaEsc(p.perguntaUsuario)}</div>
+          <div class="a">🤖 ${isaEsc(p.respostaIsabela)}</div>
+          <div class="meta">${isaEsc((p.phoneE164||'').slice(-4) ? '…'+p.phoneE164.slice(-4) : '')} · ${p.motivo === 'erro_tecnico' ? 'erro técnico' : 'escalou pro humano'} · ${new Date(p.createdAt).toLocaleString('pt-BR')}</div>
+          <input class="tit" id="pt-${p.id}" placeholder="Título do aprendizado (ex: ${isaEsc(p.perguntaUsuario).slice(0,40)})">
+          <textarea id="pr-${p.id}" placeholder="Escreva a resposta certa que a Isabela deve dar da próxima vez..."></textarea>
+          <div class="isa-btns">
+            <button class="isa-btn save" onclick="isaEnsinar('${p.id}')">✓ Ensinar</button>
+            <button class="isa-btn ign" onclick="isaIgnorar('${p.id}')">Ignorar</button>
+          </div>
+        </div>`).join('') : '<div class="isa-empty">Nenhuma dúvida pendente 🎉</div>';
+      // Base de conhecimento
+      const kb = (cr && cr.itens) || [];
+      document.getElementById('isaKbCnt').textContent = kb.length + ' resposta' + (kb.length === 1 ? '' : 's');
+      document.getElementById('isaConhecimento').innerHTML = kb.map(k => `
+        <div class="isa-card kb-card ${k.ativo ? '' : 'off'}" id="kb-${k.id}">
+          <div class="kbtit">${isaEsc(k.titulo)} ${k.ativo ? '' : '<span style="color:#c62828;font-size:12px">(desligada)</span>'}</div>
+          ${k.gatilho ? `<div class="kbgat">gatilho: ${isaEsc(k.gatilho)}</div>` : ''}
+          <div class="a">${isaEsc(k.resposta)}</div>
+          <div class="isa-btns">
+            <button class="isa-btn tgl" onclick="isaToggle('${k.id}', ${k.ativo ? 'false' : 'true'})">${k.ativo ? 'Desligar' : 'Ligar'}</button>
+            <button class="isa-btn del" onclick="isaDeletar('${k.id}')">Excluir</button>
+          </div>
+        </div>`).join('');
+    } catch (e) { console.error('Isabela load', e); }
+  }
+
+  async function isaEnsinar(pendId) {
+    const titulo = document.getElementById('pt-' + pendId).value.trim();
+    const resposta = document.getElementById('pr-' + pendId).value.trim();
+    if (!titulo || !resposta) { alert('Preencha o título e a resposta.'); return; }
+    const r = await fetch(`${API}/admin/isabela/conhecimento`, {
+      method: 'POST', headers: { 'x-admin-key': isaKey(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ titulo, resposta, pendenciaId: pendId }),
+    }).then(r => r.json());
+    if (r.ok) carregarIsabela(); else alert('Erro: ' + (r.error || '?'));
+  }
+
+  async function isaIgnorar(pendId) {
+    await fetch(`${API}/admin/isabela/pendencias/${pendId}/ignorar`, { method: 'POST', headers: { 'x-admin-key': isaKey() } });
+    carregarIsabela();
+  }
+
+  async function isaCriarConhecimento() {
+    const titulo = document.getElementById('kbNovoTitulo').value.trim();
+    const gatilho = document.getElementById('kbNovoGatilho').value.trim();
+    const resposta = document.getElementById('kbNovoResposta').value.trim();
+    if (!titulo || !resposta) { alert('Preencha o título e a resposta.'); return; }
+    const r = await fetch(`${API}/admin/isabela/conhecimento`, {
+      method: 'POST', headers: { 'x-admin-key': isaKey(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ titulo, gatilho, resposta }),
+    }).then(r => r.json());
+    if (r.ok) { document.getElementById('kbNovoTitulo').value = ''; document.getElementById('kbNovoGatilho').value = ''; document.getElementById('kbNovoResposta').value = ''; carregarIsabela(); }
+    else alert('Erro: ' + (r.error || '?'));
+  }
+
+  async function isaToggle(id, ativo) {
+    await fetch(`${API}/admin/isabela/conhecimento/${id}`, {
+      method: 'PATCH', headers: { 'x-admin-key': isaKey(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ativo }),
+    });
+    carregarIsabela();
+  }
+
+  async function isaDeletar(id) {
+    if (!confirm('Excluir esta resposta da base?')) return;
+    await fetch(`${API}/admin/isabela/conhecimento/${id}`, { method: 'DELETE', headers: { 'x-admin-key': isaKey() } });
+    carregarIsabela();
   }
 
   function setPeriodo(btn) {
