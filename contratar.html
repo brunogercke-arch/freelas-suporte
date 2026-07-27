@@ -393,7 +393,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'cumim':'cumim','copeiro':'copeiro','sushiman':'sushiman'
     };
     try {
-      var p = new URLSearchParams(location.search).get('cargo');
+      var qs = new URLSearchParams(location.search);
+      var p = qs.get('cargo');
       if (p) {
         var key = p.toLowerCase().trim();
         var label = map[key];
@@ -403,6 +404,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           document.title = 'Contratar ' + label + ' na hora | Freelas Now';
         }
       }
+    } catch(e){}
+  })();
+
+  // ── Rastreio de campanha (Google Ads / UTM) ─────────────────────────────
+  // Captura de onde a pessoa veio, propaga pras lojas (referrer do Play atribui
+  // a instalação) e dispara evento de conversão no clique. Sobrevive à navegação
+  // via localStorage — o app pode ler depois se integrar o referrer.
+  (function(){
+    try {
+      var qs = new URLSearchParams(location.search);
+      var chaves = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gad_source','cargo'];
+      var dados = {};
+      chaves.forEach(function(k){ var v = qs.get(k); if (v) dados[k] = v; });
+
+      // Fallback de origem quando não veio UTM mas há gclid ou referrer externo
+      if (!dados.utm_source && dados.gclid) dados.utm_source = 'google';
+      if (!dados.utm_source && document.referrer) {
+        var ref = document.referrer.toLowerCase();
+        if (ref.indexOf('google.') > -1) dados.utm_source = 'google_organico';
+        else if (ref.indexOf('instagram.') > -1) dados.utm_source = 'instagram';
+        else if (ref.indexOf('facebook.') > -1 || ref.indexOf('fb.') > -1) dados.utm_source = 'facebook';
+        else if (ref.indexOf('bing.') > -1) dados.utm_source = 'bing';
+      }
+
+      // Persiste (só sobrescreve se veio origem nova nesta visita)
+      if (Object.keys(dados).length) {
+        localStorage.setItem('freelas_utm', JSON.stringify(Object.assign(
+          { primeiro_acesso: new Date().toISOString() }, dados)));
+      }
+      var salvo = {};
+      try { salvo = JSON.parse(localStorage.getItem('freelas_utm') || '{}'); } catch(e){}
+
+      // Monta a string de referrer pro Google Play (atribuição de instalação)
+      var refParts = [];
+      ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid'].forEach(function(k){
+        if (salvo[k]) refParts.push(k + '=' + encodeURIComponent(salvo[k]));
+      });
+      if (salvo.cargo) refParts.push('cargo=' + encodeURIComponent(salvo.cargo));
+      var referrer = refParts.join('&');
+
+      // Decora os links do Google Play com &referrer= (App Store não suporta via URL)
+      if (referrer) {
+        document.querySelectorAll('a[href*="play.google.com"]').forEach(function(a){
+          a.href += (a.href.indexOf('?') > -1 ? '&' : '?') + 'referrer=' + encodeURIComponent(referrer);
+        });
+      }
+
+      // Dispara conversão do Google Ads no clique de qualquer CTA de baixar/contratar
+      var alvos = document.querySelectorAll('a[href*="play.google.com"], a[href*="apps.apple.com"], #ctaTop, .nav-cta');
+      alvos.forEach(function(a){
+        a.addEventListener('click', function(){
+          var loja = a.href && a.href.indexOf('apple.com') > -1 ? 'ios'
+                   : a.href && a.href.indexOf('play.google') > -1 ? 'android' : 'cta';
+          if (typeof gtag === 'function') {
+            // TODO Google Ads: trocar 'AW-18180243977' por 'AW-18180243977/LABEL' quando
+            // o marketing criar a ação de conversão e passar o send_to.
+            gtag('event', 'conversion', { 'send_to': 'AW-18180243977', 'loja': loja, 'cargo': salvo.cargo || '' });
+            gtag('event', 'clique_baixar', { 'loja': loja, 'utm_source': salvo.utm_source || '', 'utm_campaign': salvo.utm_campaign || '', 'cargo': salvo.cargo || '' });
+          }
+          try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'clique_baixar', loja: loja, utm_source: salvo.utm_source || '', utm_campaign: salvo.utm_campaign || '', cargo: salvo.cargo || '' }); } catch(e){}
+        });
+      });
     } catch(e){}
   })();
 </script>
