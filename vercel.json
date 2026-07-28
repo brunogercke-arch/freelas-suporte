@@ -1,6 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/contratar-:cargo", "destination": "/contratar.html" }
+    { "source": "/contratar-(.*)", "destination": "/contratar.html" }
   ]
 }
