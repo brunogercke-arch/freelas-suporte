@@ -1,6 +1,0 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/contratar-(.*)", "destination": "/contratar.html" }
-  ]
-}
