@@ -512,7 +512,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     };
     try {
       var qs = new URLSearchParams(location.search);
+      // Aceita tanto ?cargo=garcom quanto a URL limpa /contratar-garcom
       var p = qs.get('cargo');
+      if (!p) {
+        var m = location.pathname.match(/\/contratar-([^\/?#]+)/i);
+        if (m) p = decodeURIComponent(m[1]);
+      }
       if (p) {
         var key = p.toLowerCase().trim();
         var label = map[key];
@@ -535,6 +540,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var chaves = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gad_source','cargo'];
       var dados = {};
       chaves.forEach(function(k){ var v = qs.get(k); if (v) dados[k] = v; });
+      // Cargo também vem da URL limpa /contratar-garcom
+      if (!dados.cargo) {
+        var mc = location.pathname.match(/\/contratar-([^\/?#]+)/i);
+        if (mc) dados.cargo = decodeURIComponent(mc[1]);
+      }
 
       // Fallback de origem quando não veio UTM mas há gclid ou referrer externo
       if (!dados.utm_source && dados.gclid) dados.utm_source = 'google';
