@@ -398,6 +398,7 @@
       .isa-btn{border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer}
       .isa-btn.save{background:#2e7d32;color:#fff}.isa-btn.ign{background:#eef2f7;color:#667}.isa-btn.del{background:#fde8e8;color:#c62828}.isa-btn.tgl{background:#e3f2fd;color:#1565c0}
       .kb-card{border-left-color:#2e7d32}
+      .emp-card{border-left-color:#1565c0}
       .kb-card.off{opacity:.55;border-left-color:#bbb}
       .kb-card .kbtit{font-weight:700;font-size:14px;color:#1a2233}
       .kb-card .kbgat{font-size:12px;color:#99a;margin:2px 0 6px}
@@ -405,9 +406,13 @@
     </style>
     <div id="view-isabela" style="display:none">
       <div class="isa-wrap">
-        <div class="isa-sec">📥 Dúvidas pra ensinar <span class="cnt" id="isaPendCnt">—</span>
+        <div class="isa-sec">🏢 Empresas que falaram com a Isabela <span class="cnt" id="isaEmpCnt">—</span>
           <button class="export-btn" style="margin-left:auto" onclick="carregarIsabela()">↻</button>
         </div>
+        <div style="font-size:13px;color:#778;margin:-6px 0 14px">Restaurantes cadastrados que mandaram mensagem. Empresa é cliente que paga, faça follow-up de quem teve dúvida e não fechou.</div>
+        <div id="isaEmpresas"></div>
+
+        <div class="isa-sec" style="margin-top:34px">📥 Dúvidas pra ensinar <span class="cnt" id="isaPendCnt">—</span></div>
         <div style="font-size:13px;color:#778;margin:-6px 0 14px">Perguntas que a Isabela não resolveu (escalou pro humano). Escreva a resposta certa e clique "Ensinar" — ela passa a usar essa resposta.</div>
         <div id="isaPendencias"></div>
 
@@ -1122,10 +1127,31 @@ Equipe Freelas Now`;
     const key = isaKey(); if (!key) return;
     const H = { 'x-admin-key': key };
     try {
-      const [pr, cr] = await Promise.all([
+      const [pr, cr, er] = await Promise.all([
         fetch(`${API}/admin/isabela/pendencias?status=pendente`, { headers: H }).then(r => r.json()),
         fetch(`${API}/admin/isabela/conhecimento`, { headers: H }).then(r => r.json()),
+        fetch(`${API}/admin/isabela/empresas`, { headers: H }).then(r => r.json()),
       ]);
+      // Empresas que falaram
+      const emps = (er && er.itens) || [];
+      document.getElementById('isaEmpCnt').textContent = emps.length + ' empresa' + (emps.length === 1 ? '' : 's');
+      document.getElementById('isaEmpresas').innerHTML = emps.length ? emps.map(e => {
+        const contr = Number(e.contratacoes || 0);
+        const status = contr > 0 ? `<span style="color:#2e7d32;font-weight:600">✓ ${contr} contratação${contr>1?'ões':''}</span>` : '<span style="color:#c62828;font-weight:600">ainda não contratou — follow-up!</span>';
+        const wa = (e.telefone||'').replace(/\D/g,'');
+        return `<div class="isa-card emp-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+            <div class="kbtit">🏢 ${isaEsc(e.nome)} ${e.premium ? '<span style="color:#fb8c00">⭐Premium</span>' : ''}</div>
+            <div style="font-size:12px;color:#99a">${e.perguntas} msg · ${e.ultima ? new Date(e.ultima).toLocaleDateString('pt-BR') : ''}</div>
+          </div>
+          <div style="font-size:12px;color:#778;margin:2px 0 6px">${isaEsc(e.email||'')} · ${isaEsc(e.localizacao||'sem localização')}</div>
+          <div class="a">Última: "${isaEsc((e.ultima_pergunta||'').slice(0,140))}"</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;flex-wrap:wrap;gap:8px">
+            <div style="font-size:13px">${status}</div>
+            ${wa ? `<a class="isa-btn tgl" style="text-decoration:none" href="https://wa.me/${wa.startsWith('55')?wa:'55'+wa}" target="_blank">💬 Chamar no WhatsApp</a>` : ''}
+          </div>
+        </div>`;
+      }).join('') : '<div class="isa-empty">Nenhuma empresa cadastrada falou com a Isabela ainda</div>';
       // Pendências
       const pend = (pr && pr.itens) || [];
       document.getElementById('isaPendCnt').textContent = pend.length + ' pendente' + (pend.length === 1 ? '' : 's');
