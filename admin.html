@@ -929,36 +929,32 @@ Qualquer dúvida chama aqui 🙌
 Equipe Freelas Now`,
 
       'empresa': (() => {
-        const isFundadora = !!u.empresaProfile?.isPremium;
-        const blocoPremium = isFundadora ? `🎁 *Presente de fundador: 1 ANO de Premium grátis*
-Como você entrou cedo, sua conta já tá com o Premium liberado por *12 meses*, por nossa conta. Ativa automático quando ${cidade} abrir.
+        // Fundadora (CNPJ, Premium promo ativo) x pessoa física (CPF, comissão padrão,
+        // pode assinar Premium). Texto atualizado 02/out: app no ar, 2.600+ freelas.
+        const ep = u.empresaProfile || {};
+        const ehPF = !ep.cnpj;
+        const isFundadora = !ehPF && !!ep.isPremium;
+        const blocoPremium = isFundadora ? `🎁 Como uma das primeiras empresas, sua conta já está com *1 ano de Premium ativo*, por nossa conta: prioridade nas notificações pros freelas, filtros por nota e comissão menor.
 
-` : '';
-        const linhaPremium = isFundadora ? `✅ *1 ano de Premium grátis* (presente de fundador)
-` : '';
-        const linhaPrioridade = isFundadora
-          ? `✅ Prioridade no atendimento pra sempre (fundador é fundador)`
-          : `✅ Atendimento humano por aqui enquanto a operação não abre`;
+` : (ehPF ? `💡 A taxa do app é de 12% por cima da diária, cobrada só quando o turno acontece. Se for contratar com frequência, dá pra assinar o Premium no app e ela cai pra 10%.
+
+` : '');
         return `Olá ${nome}, tudo bem? 👋
 
-Aqui é da equipe do *Freelas Now*. Vi que seu negócio está em ${cidade} e queria te dar um retorno pessoal sobre o cadastro — obrigado por entrar tão cedo. 🙏
+Aqui é o Bruno, do *Freelas Now*. Vi seu cadastro e queria te dar um retorno pessoal, obrigado por entrar.
 
-Vou ser direto: o app *acabou de lançar* e estamos em fase final de captação dos freelancers da sua região (garçom, cozinha, bartender, hostess, pizzaiolo). A gente prefere te avisar quando tiver gente suficiente pra atender de verdade — em vez de você publicar uma vaga e ninguém aparecer.
+O app está no ar e funcionando: são mais de *2.600 freelancers* na Grande São Paulo, entre garçons, cozinheiros, auxiliares, bartenders e limpeza. Você já pode publicar sua primeira vaga hoje, pra agora ou agendada.
 
-${blocoPremium}*Por que vale a pena ficar:*
-✅ Você é um dos *primeiros cadastros* em ${cidade} — entra na frente quando liberar
-${linhaPremium}✅ Acompanhamento da nossa equipe no seu *primeiro turno*
-✅ Pagamento protegido em custódia — só sai quando o serviço acontece
-✅ Aviso direto aqui no WhatsApp assim que a malha estiver pronta
-${linhaPrioridade}
+${blocoPremium}*Como funciona:*
+✅ Publica a vaga com função, valor e horário
+✅ Em minutos os freelas perto de você se candidatam
+✅ Você compara foto, experiência e avaliações, e escolhe
+✅ Pagamento fica em custódia e só sai depois do turno
+✅ No dia, acompanha o freela chegando pelo app
 
-Pra acelerar do seu lado, me conta 2 coisas:
-1️⃣ Qual função você mais sofre pra encontrar?
-2️⃣ Qual bairro/região exata você opera?
+No seu primeiro turno a gente acompanha de perto. Qualquer dúvida, é só me chamar aqui neste número.
 
-Com isso a gente prioriza a captação dos freelas certos pra você.
-
-Equipe Freelas Now`;
+Bruno, Freelas Now`;
       })()
     };
   }
