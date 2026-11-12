@@ -869,8 +869,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri', maxZoom: 16
       }).addTo(map);
-      var maleta = '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>';
-      var icon = L.divIcon({ className: '', html: '<div class="fn-pin">' + maleta + '</div>', iconSize: [40,40], iconAnchor: [20,20], popupAnchor: [0,-22] });
+      // Garfo e faca (talheres): combina mais com restaurante do que maleta.
+      var talheres = '<svg viewBox="0 0 24 24"><path d="M7 3v7a2.5 2.5 0 0 0 5 0V3"/><path d="M9.5 3v18"/><path d="M17 3c-1.7 1.2-2.5 3.5-2.5 6.5V12H17"/><path d="M17 3v18"/></svg>';
+      var icon = L.divIcon({ className: '', html: '<div class="fn-pin">' + talheres + '</div>', iconSize: [40,40], iconAnchor: [20,20], popupAnchor: [0,-22] });
       var grupo = [];
       EMPRESAS.forEach(function(e){
         var m = L.marker([e[2], e[3]], { icon: icon, title: e[0] }).addTo(map);
