@@ -689,10 +689,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       document.getElementById('fn-dl-overlay').classList.remove('show');
     };
 
-    // 1.5s delay pra não atrapalhar o LCP da home
-    setTimeout(() => {
-      document.getElementById('fn-dl-overlay').classList.add('show');
-    }, 1500);
+    // Mostra no máximo 1x por dia por usuário (pedido da agência): fechou,
+    // não volta até o dia seguinte. localStorage pode falhar (modo privado):
+    // nesse caso mostra normalmente.
+    var CHAVE = 'fn_dl_popup_at';
+    var podeMostrar = true;
+    try {
+      var ultimo = Number(localStorage.getItem(CHAVE) || 0);
+      if (ultimo && Date.now() - ultimo < 24 * 60 * 60 * 1000) podeMostrar = false;
+    } catch (e) {}
+    if (podeMostrar) {
+      // 1.5s delay pra não atrapalhar o LCP da home
+      setTimeout(() => {
+        document.getElementById('fn-dl-overlay').classList.add('show');
+        try { localStorage.setItem(CHAVE, String(Date.now())); } catch (e) {}
+      }, 1500);
+    }
 
     // ESC fecha
     document.addEventListener('keydown', (e) => {
